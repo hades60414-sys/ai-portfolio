@@ -21,4 +21,5 @@
 
 - 靜態作品集、13 個專案資料、GRILL 互動、響應式版面與零外部資源政策已完成。
 - 主要網路暴露已改為 loopback + authenticated tunnel 模式，現行 listener 已實測無非 loopback 綁定。
-- 下一個安全工作是 GitHub 備份分批提交；先公開作品集，再逐一處理公開候選與 private repository。
+- 已為作品集、Task Gacha、Research Radar、marketvault、TCRI 與 Lab LLM Chat 建立本機 checkpoint commit；尚未設定新 remote 或 push。
+- 下一個安全工作是 GitHub 備份分批推送；先公開作品集，再逐一處理公開候選與 private repository。ChatStock、投資組合儀表板、選擇權助手、wild_alpha、auto-quant-btc、daily-flow 與 Edge Validator 仍有使用者／執行中變更，不可直接 `git add -A`。

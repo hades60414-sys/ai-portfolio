@@ -26,3 +26,14 @@
 4. 對變更很多的 repository 先做本機 checkpoint commit；不要把執行狀態與原始資料一起 `git add -A`。
 
 本輪只完成本機整理、驗證與提交準備；未自動 push、建公開 repository 或部署。
+
+## 已建立的本機 checkpoint
+
+- `ai-portfolio`：`25070f4`
+- `task-gacha`：`c814852`
+- `research-radar`：`8dce654`
+- `marketvault`：`0fef47c`
+- `TCRI_CMONEY`：`5f8c01b`
+- `lab-llm-chat`：`408aba7`
+
+其餘既有 repository 有不同程度的使用者／執行中變更，沒有為了「看起來乾淨」而混入同一個自動 commit。
