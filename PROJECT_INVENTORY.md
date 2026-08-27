@@ -1,0 +1,28 @@
+# 專案盤點與 GitHub 備份分級
+
+盤點原則：只收錄自有作品與核心系統；第三方 clone、評估用 staging、下載範例、依賴套件與無關舊作不算作品。網站目前整理 13 個系統。
+
+| 專案 | 作品集定位 | GitHub 建議 | 發佈前注意 |
+|---|---|---|---|
+| Edge Validator | 量化驗證產品 | 公開候選；已有 remote | 推送前再跑靜態檢查與互動測試 |
+| ChatStock | 對話式 AI 選股 | 既有公開 remote；先整理本機變更 | 不提交市場 DB、`.env`、日誌；使用者策略執行仍需強 sandbox |
+| wild_alpha | 抗過擬合研究系統 | 私有備份優先 | 研究輸出、原始資料與論文素材要分流 |
+| marketvault | 市場資料底座 | 私有 repository | 排除 DB、Parquet、備份、憑證與 `.env` |
+| 投資組合儀表板 | 個人資產作業台 | 私有 repository | 個人持倉、截圖與模型金鑰不得入 Git |
+| 選擇權助手 | 衍生品風控 | 私有 repository | `secrets.toml`、使用者資料、真實交易資訊不得入 Git |
+| auto-quant-btc | 自主量化研究農場 | 私有 repository | ledger、positions、exchange state、快取與真錢設定不可公開 |
+| 族群雷達 | 市場注意力系統 | 私有 repository | 先確認推播設定、資料授權與歷史輸出 |
+| TCRI Risk Workbench | 舊系統風險現代化 | 私有／受管制 | 不上傳授權資料、公司內部 schema、帳密或排程設定 |
+| Lab LLM Chat | 實驗室本地模型入口 | 私有 repository | `.env`、使用者 SQLite、JWT secret 與 provider keys 排除 |
+| Research Radar | 研究工作流 | 公開候選 | 確認抓取快取與本機路徑不入 Git |
+| daily-flow | local-first PWA | 程式碼可公開；資料私有 | 排除個人任務、備份與瀏覽器資料 |
+| Task Gacha | 離線任務 PWA | 公開候選 | 發佈前保留 loopback dev 預設並驗證 PWA |
+
+## 備份順序
+
+1. 先推這個純靜態作品集。
+2. 公開候選各自整理乾淨 commit，再個別公開；不要把 13 個專案混成一個 monorepo。
+3. 研究、個資、金融狀態與受授權資料專案只建 private repository。
+4. 對變更很多的 repository 先做本機 checkpoint commit；不要把執行狀態與原始資料一起 `git add -A`。
+
+本輪只完成本機整理、驗證與提交準備；未自動 push、建公開 repository 或部署。

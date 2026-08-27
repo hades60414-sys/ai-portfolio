@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hades 的 AI、量化研究與資料系統作品集：把直覺變成可驗證、可重現、可安全運行的產品。"
+    />
+    <meta name="theme-color" content="#0b0c0e" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <meta property="og:title" content="HADES — AI × Quant Systems" />
+    <meta
+      property="og:description"
+      content="不是 demo 墓園。每一個系統都有問題、證據、限制與安全邊界。"
+    />
+    <title>HADES — AI × Quant Systems</title>
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#work">跳到作品</a>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="回到首頁">
+        <span class="brand-mark" aria-hidden="true">H/</span>
+        <span>HADES.SYSTEMS</span>
+      </a>
+      <nav aria-label="主要導覽">
+        <a href="#work">作品</a>
+        <a href="#method">方法</a>
+        <a href="#security">安全</a>
+      </nav>
+      <a class="header-cta" href="#contact">合作 / 聯絡</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="status-dot"></span> AI × QUANT SYSTEM BUILDER · TAIWAN</p>
+          <h1 id="hero-title">
+            把模糊直覺，<br />
+            做成<span>可驗證</span>的系統。
+          </h1>
+          <p class="hero-lede">
+            我做會對話的投資工具、會抓過度擬合的研究引擎，也做讓它們能長期運作的資料基礎設施。
+            LLM 負責理解與探索；數字、風險與最後裁決留給可重現的程式。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">看 13 個系統 <span aria-hidden="true">↘</span></a>
+            <button class="button button-ghost" type="button" data-grill-open>
+              GRILL MY STACK <span aria-hidden="true">⌁</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="hero-console reveal" aria-label="作品集摘要">
+          <div class="console-topline">
+            <span>PORTFOLIO://OVERVIEW</span>
+            <span class="console-live">LIVE</span>
+          </div>
+          <div class="console-grid">
+            <div>
+              <strong>13</strong>
+              <span>核心系統</span>
+            </div>
+            <div>
+              <strong>04</strong>
+              <span>能力主線</span>
+            </div>
+            <div>
+              <strong>LOCAL</strong>
+              <span>資料優先</span>
+            </div>
+            <div>
+              <strong>FAIL</strong>
+              <span>安全預設</span>
+            </div>
+          </div>
+          <div class="signal" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p class="console-note">
+            <span>01</span> 問題先於模型<br />
+            <span>02</span> 證據先於宣稱<br />
+            <span>03</span> 邊界先於上線
+          </p>
+        </aside>
+      </section>
+
+      <section class="ticker" aria-label="能力領域">
+        <div>
+          <span>CONVERSATIONAL AI</span><i>✦</i><span>FORENSIC BACKTESTING</span><i>✦</i>
+          <span>MARKET DATA</span><i>✦</i><span>LOCAL-FIRST SYSTEMS</span><i>✦</i>
+          <span>RISK ENGINEERING</span><i>✦</i><span>HUMAN-IN-THE-LOOP</span>
+        </div>
+      </section>
+
+      <section class="work-section" id="work" aria-labelledby="work-title">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">SELECTED SYSTEMS / 2026</p>
+            <h2 id="work-title">不是 demo 墓園。<br />每個專案都有裁決標準。</h2>
+          </div>
+          <p>
+            專案依「AI 產品、量化研究、資料底座、工作流」整理。卡片會說明它解決什麼、如何驗證，
+            也標出目前仍是本機版或研究版的邊界。
+          </p>
+        </div>
+
+        <div class="filter-bar reveal" role="group" aria-label="篩選作品">
+          <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>13</span></button>
+          <button class="filter" type="button" data-filter="ai" aria-pressed="false">AI 產品</button>
+          <button class="filter" type="button" data-filter="quant" aria-pressed="false">量化 / 風控</button>
+          <button class="filter" type="button" data-filter="infra" aria-pressed="false">資料底座</button>
+          <button class="filter" type="button" data-filter="workflow" aria-pressed="false">工作流</button>
+        </div>
+
+        <div class="featured-grid" data-featured-grid aria-live="polite"></div>
+        <div class="project-grid" data-project-grid aria-live="polite"></div>
+        <p class="empty-state" data-empty hidden>這個分類目前沒有公開案例。</p>
+      </section>
+
+      <section class="method-section" id="method" aria-labelledby="method-title">
+        <div class="method-intro reveal">
+          <p class="eyebrow">WORKING PRINCIPLES</p>
+          <h2 id="method-title">模型可以有創意，<br />系統不能靠運氣。</h2>
+        </div>
+        <div class="principles">
+          <article class="principle reveal">
+            <span>01</span>
+            <h3>LLM 不碰最後一哩數字</h3>
+            <p>模型負責解析、提案與解釋；估值、排序、風控和交易條件由確定性程式計算。</p>
+          </article>
+          <article class="principle reveal">
+            <span>02</span>
+            <h3>先嘗試證偽，再談 edge</h3>
+            <p>時間切割、樣本外、成本壓力與多重檢定不是附錄，而是研究引擎的主流程。</p>
+          </article>
+          <article class="principle reveal">
+            <span>03</span>
+            <h3>資料留在該留的地方</h3>
+            <p>能在瀏覽器、本機或唯讀資料層完成的工作，就不多送一份資料到外部服務。</p>
+          </article>
+          <article class="principle reveal">
+            <span>04</span>
+            <h3>失敗要大聲，而且可恢復</h3>
+            <p>關鍵流程採 fail-closed、具名 checkpoint 與可重現測試；缺證據就不算完成。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="security-section" id="security" aria-labelledby="security-title">
+        <div class="security-card reveal">
+          <div class="security-copy">
+            <p class="eyebrow">SECURE BY DEFAULT</p>
+            <h2 id="security-title">公開作品，<br />不等於公開你的機器。</h2>
+            <p>
+              作品集本身零追蹤、零外部字型、零遠端腳本。需要遠端使用的專案，服務預設只綁 loopback，
+              再透過有身分驗證的 HTTPS tunnel 或私有網路對外；位址與憑證只從環境設定注入。
+            </p>
+          </div>
+          <ul class="security-list">
+            <li><span aria-hidden="true">✓</span><div><strong>Loopback first</strong><small>本機服務不直接裸露公網介面</small></div></li>
+            <li><span aria-hidden="true">✓</span><div><strong>Config, not literals</strong><small>主機名稱、port、secret 不硬編碼</small></div></li>
+            <li><span aria-hidden="true">✓</span><div><strong>Authenticated ingress</strong><small>Cloudflare Access / Tailscale / 反向代理</small></div></li>
+            <li><span aria-hidden="true">✓</span><div><strong>Repository hygiene</strong><small>推送前掃描 .env、金鑰、資料庫與日誌</small></div></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact" aria-labelledby="contact-title">
+        <p class="eyebrow reveal">NEXT QUESTION</p>
+        <h2 id="contact-title" class="reveal">你有一個難以驗證的直覺嗎？</h2>
+        <p class="reveal">我喜歡把「感覺應該有用」一路逼問到可測、可重現、可安全交付。</p>
+        <div class="contact-actions reveal">
+          <a class="button button-primary" href="https://github.com/hades60414-sys" rel="me noreferrer">GitHub ↗</a>
+          <button class="button button-ghost" type="button" data-grill-open>先來一輪 GRILL</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">H/</span><span>HADES.SYSTEMS</span></a>
+      <p>Built locally. Verified deliberately. No trackers.</p>
+      <p>© <span data-year></span></p>
+    </footer>
+
+    <dialog class="project-dialog" data-project-dialog>
+      <button class="dialog-close" type="button" data-dialog-close aria-label="關閉">×</button>
+      <div data-dialog-content></div>
+    </dialog>
+
+    <dialog class="grill-dialog" data-grill-dialog>
+      <button class="dialog-close" type="button" data-grill-close aria-label="關閉">×</button>
+      <p class="eyebrow">HONEST MODE / NO MERCY LITE</p>
+      <h2>GRILL MY STACK</h2>
+      <blockquote data-grill-line></blockquote>
+      <p class="grill-fix" data-grill-fix></p>
+      <button class="button button-primary" type="button" data-grill-next>再狠一點</button>
+    </dialog>
+  </body>
+</html>

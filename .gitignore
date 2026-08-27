@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+*.sqlite
+*.sqlite3
+*.db
+coverage/
+playwright-report/
+.playwright-cli/
+test-results/
+output/
