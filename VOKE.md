@@ -8,7 +8,7 @@
 
 ## 自動續跑
 
-已建立同一 task 的心跳自動化「AI 作品集夜班續跑」，每 5 分鐘檢查一次；目標完成後應停用。電腦必須保持開機且 Codex app 持續執行，才能處理本機檔案。
+已建立同一 task 的心跳自動化「AI 作品集夜班續跑」，每 5 分鐘檢查一次。本輪目標完成後會暫停；若要再次自主續跑，可用上面的喚醒語恢復。處理本機檔案時，電腦必須保持開機且 Codex app 持續執行。
 
 ## 每輪先做
 
@@ -21,5 +21,6 @@
 
 - 靜態作品集、13 個專案資料、GRILL 互動、響應式版面與零外部資源政策已完成。
 - 主要網路暴露已改為 loopback + authenticated tunnel 模式，現行 listener 已實測無非 loopback 綁定。
-- 已為作品集、Task Gacha、Research Radar、marketvault、TCRI 與 Lab LLM Chat 建立本機 checkpoint commit；尚未設定新 remote 或 push。
-- 下一個安全工作是 GitHub 備份分批推送；先公開作品集，再逐一處理公開候選與 private repository。ChatStock、投資組合儀表板、選擇權助手、wild_alpha、auto-quant-btc、daily-flow 與 Edge Validator 仍有使用者／執行中變更，不可直接 `git add -A`。
+- 已為作品集、ChatStock、投資組合儀表板、選擇權助手、Task Gacha、Research Radar、marketvault、TCRI 與 Lab LLM Chat 建立經測試的本機 checkpoint commit；尚未設定新 remote 或 push。
+- `wild_alpha` 與 `auto-quant-btc` 只 checkpoint 安全的忽略規則，原有研究／執行狀態仍留在工作樹；`daily-flow` 與 Edge Validator 的既有變更也未自動提交。
+- 下一個需要人工授權的工作是分批建立 GitHub repository 與 push：先公開作品集，再逐一處理公開候選與 private repository。

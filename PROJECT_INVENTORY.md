@@ -25,15 +25,20 @@
 3. 研究、個資、金融狀態與受授權資料專案只建 private repository。
 4. 對變更很多的 repository 先做本機 checkpoint commit；不要把執行狀態與原始資料一起 `git add -A`。
 
-本輪只完成本機整理、驗證與提交準備；未自動 push、建公開 repository 或部署。
+本輪完成本機整理、驗證與安全 checkpoint；未自動 push、建公開 repository 或部署。
 
 ## 已建立的本機 checkpoint
 
-- `ai-portfolio`：`25070f4`
+- `ai-portfolio`：`c928718`
+- `Chat-Stock-AI`：`798495b`
+- `投資組合儀表板`：`143fd20`（另有忽略規則 checkpoint `ca4fb4b`）
+- `選擇權助手`：`210a080`
 - `task-gacha`：`c814852`
 - `research-radar`：`8dce654`
 - `marketvault`：`0fef47c`
 - `TCRI_CMONEY`：`5f8c01b`
 - `lab-llm-chat`：`408aba7`
+- `wild_alpha`：`1505a49`（只提交忽略規則；研究工作樹仍保留未提交）
+- `auto-quant-btc`：`252f9f4`（只提交忽略規則；研究與執行狀態仍保留未提交）
 
-其餘既有 repository 有不同程度的使用者／執行中變更，沒有為了「看起來乾淨」而混入同一個自動 commit。
+`daily-flow` 與 Edge Validator 仍有使用者工作樹變更；`wild_alpha`、`auto-quant-btc` 也保留大量研究或執行中變更。這些內容沒有為了「看起來乾淨」而混入自動 commit。族群雷達原本就是乾淨 repository。
