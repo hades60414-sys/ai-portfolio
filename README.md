@@ -40,6 +40,10 @@ npm run dev
 
 納入 13 個自有或核心系統。第三方 clone、評估用 staging repo、下載範例與無關舊專案不列入作品。
 
+## 個人作品集整合
+
+網站的 `HUMAN LAYER` 取材自 2026 年 8 月更新的直版作品集，整理成公開網頁適合閱讀的個人定位、經歷時間線、社群影響力與競賽證據。原始 PDF 不納入 repository；手機、私人信箱與含其他活動參與者臉孔的照片也不公開。網站只保留本人頭像，並由 `npm run check` 阻擋常見台灣手機格式與個人 Gmail 位址。
+
 - [專案盤點與 GitHub 備份分級](PROJECT_INVENTORY.md)
 - [本機連線安全稽核](SECURITY_AUDIT.md)
 - [VOKE 續跑與交接](VOKE.md)

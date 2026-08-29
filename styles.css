@@ -29,6 +29,10 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 82px;
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -413,6 +417,260 @@ h1 span {
 
 .ticker i {
   font-style: normal;
+}
+
+.profile-section {
+  max-width: var(--max);
+  padding: 120px 24px 0;
+  margin-inline: auto;
+}
+
+.profile-shell {
+  overflow: hidden;
+  color: #222b39;
+  background: #ece8df;
+  border: 1px solid rgba(236, 232, 223, 0.26);
+  border-radius: 26px;
+  box-shadow: 0 45px 120px rgba(0, 0, 0, 0.28);
+}
+
+.profile-intro {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+  border-bottom: 1px solid rgba(34, 43, 57, 0.16);
+}
+
+.profile-portrait {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 610px;
+  padding: clamp(34px, 5vw, 62px);
+  margin: 0;
+  color: #f4f0e8;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(92, 140, 255, 0.2), transparent 18rem),
+    #303b4d;
+}
+
+.profile-portrait img {
+  flex: 0 0 auto;
+  width: min(100%, 360px);
+  max-width: 360px;
+  height: auto;
+  aspect-ratio: 1;
+  align-self: center;
+  margin: auto;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 24px 65px rgba(13, 18, 27, 0.38);
+}
+
+.profile-portrait figcaption {
+  display: grid;
+  gap: 7px;
+  padding-top: 36px;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+}
+
+.profile-portrait figcaption span {
+  color: #aeb9cb;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.profile-portrait figcaption strong {
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.profile-copy {
+  padding: clamp(44px, 7vw, 86px);
+}
+
+.profile-label {
+  margin-bottom: 18px;
+  color: #667084;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.profile-copy h2 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(40px, 5.4vw, 74px);
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+
+.profile-lede {
+  max-width: 690px;
+  margin: 30px 0 42px;
+  color: #505a69;
+  font-size: 16px;
+  line-height: 1.95;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(34, 43, 57, 0.16);
+  border-left: 1px solid rgba(34, 43, 57, 0.16);
+}
+
+.impact-grid div {
+  display: grid;
+  gap: 8px;
+  min-height: 116px;
+  padding: 22px;
+  border-right: 1px solid rgba(34, 43, 57, 0.16);
+  border-bottom: 1px solid rgba(34, 43, 57, 0.16);
+}
+
+.impact-grid strong {
+  color: #172131;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: clamp(26px, 3vw, 38px);
+  letter-spacing: -0.06em;
+}
+
+.impact-grid span {
+  color: #667084;
+  font-size: 12px;
+}
+
+.credential-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px 0 0;
+  margin: 0;
+  list-style: none;
+}
+
+.credential-list li {
+  padding: 7px 10px;
+  color: #556174;
+  border: 1px solid rgba(34, 43, 57, 0.18);
+  border-radius: 999px;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 9px;
+  letter-spacing: 0.02em;
+}
+
+.experience-block {
+  padding: 74px clamp(34px, 7vw, 86px) 68px;
+}
+
+.experience-heading {
+  display: grid;
+  grid-template-columns: 0.65fr 1fr;
+  gap: 44px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(34, 43, 57, 0.18);
+}
+
+.experience-heading p:last-child {
+  max-width: 570px;
+  margin: 0;
+  color: #667084;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.experience-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.experience-list li {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.4fr) 1.6fr;
+  gap: 36px;
+  padding: 30px 0;
+  border-bottom: 1px solid rgba(34, 43, 57, 0.14);
+}
+
+.experience-list li:last-child {
+  border-bottom: 0;
+}
+
+.experience-list time {
+  padding-top: 4px;
+  color: #667084;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.experience-list div {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.8fr) minmax(170px, 0.65fr) 1.35fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.experience-list strong {
+  font-size: 15px;
+}
+
+.experience-list span {
+  color: #465163;
+  font-size: 13px;
+}
+
+.experience-list p {
+  margin: 0;
+  color: #667084;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: 1.2fr repeat(4, 1fr);
+  color: #f4f0e8;
+  background: #303b4d;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.proof-strip > * {
+  min-height: 96px;
+  padding: 26px 22px;
+  margin: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.proof-strip > *:last-child {
+  border-right: 0;
+}
+
+.proof-strip > span {
+  display: flex;
+  align-items: center;
+  color: #aeb9cb;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.proof-strip p {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  color: #c8d0dd;
+  font-size: 11px;
+}
+
+.proof-strip strong {
+  color: var(--acid);
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 18px;
 }
 
 .work-section,
@@ -1048,9 +1306,35 @@ dialog::backdrop {
   }
 
   .section-heading,
-  .security-card {
+  .security-card,
+  .profile-intro {
     grid-template-columns: 1fr;
+    gap: 0;
     gap: 34px;
+  }
+
+  .profile-portrait {
+    min-height: 540px;
+  }
+
+  .experience-list div {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .experience-list p {
+    grid-column: 1 / -1;
+  }
+
+  .proof-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .proof-strip > span {
+    grid-column: 1 / -1;
+  }
+
+  .proof-strip > *:nth-child(odd):not(:first-child) {
+    border-right: 0;
   }
 
   .principles {
@@ -1121,8 +1405,63 @@ dialog::backdrop {
   .work-section,
   .method-section,
   .security-section,
-  .contact-section {
+  .contact-section,
+  .profile-section {
     padding-inline: 18px;
+  }
+
+  .profile-section {
+    padding-top: 88px;
+  }
+
+  .profile-shell {
+    border-radius: 18px;
+  }
+
+  .profile-portrait {
+    min-height: auto;
+    padding: 30px 24px;
+  }
+
+  .profile-portrait img {
+    max-width: 290px;
+  }
+
+  .profile-copy {
+    padding: 42px 24px;
+  }
+
+  .profile-lede {
+    font-size: 14px;
+  }
+
+  .impact-grid div {
+    min-height: 104px;
+    padding: 18px;
+  }
+
+  .experience-block {
+    padding: 50px 24px 40px;
+  }
+
+  .experience-heading,
+  .experience-list li,
+  .experience-list div {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .experience-list p {
+    grid-column: auto;
+  }
+
+  .proof-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .proof-strip > * {
+    min-height: 88px;
+    padding: 20px 16px;
   }
 
   .work-section {

@@ -4,7 +4,7 @@ import { projects } from "../data/projects.js";
 
 const root = resolve(import.meta.dirname, "..");
 const textExtensions = new Set([".html", ".css", ".js", ".mjs", ".json", ".md", ".svg", ".yml"]);
-const ignored = new Set([".git", "node_modules"]);
+const ignored = new Set([".git", ".playwright-cli", "node_modules", "output", "tmp"]);
 const failures = [];
 
 async function walk(directory) {
@@ -26,6 +26,10 @@ for (const file of files) {
 
   if (/\b(?:sk-ant-|AIza|ghp_|github_pat_|nvapi-|gsk_)[A-Za-z0-9_-]{8,}/.test(content)) {
     failures.push(`${display}: looks like a committed secret`);
+  }
+
+  if (/\b(?:09\d{2}[- ]?\d{3}[- ]?\d{3}|[A-Za-z0-9._%+-]+@gmail\.com)\b/i.test(content)) {
+    failures.push(`${display}: public portfolio contains a private phone number or personal Gmail address`);
   }
 
   const ips = content.match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g) ?? [];
