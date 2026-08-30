@@ -1,6 +1,6 @@
 # 本機連線安全稽核
 
-日期：2026-08-28（Asia/Taipei）
+初次稽核：2026-08-28；最近複驗：2026-08-30（Asia/Taipei）
 
 ## 結果
 
@@ -8,6 +8,9 @@
 - 掃描未留下「監聽所有介面」的 wildcard 位址或非 loopback 的硬編碼 HTTP IP。
 - 現行專案 listener 實測均為 `127.0.0.1`：ChatStock 3000、FastAPI 8000、PostgreSQL 5433、投資組合儀表板 8502、選擇權助手 8530、Ollama 11434。
 - 沒有建立或發現名為 `Local project interface *` 的 Windows 入站防火牆規則。
+- 作品集以 390×844 與 1440×900 真實瀏覽器複驗：沒有橫向溢位，dialog 會鎖住背景捲動，Esc 關閉後焦點回到原觸發按鈕。
+- 完整頁面只請求 10 個 `127.0.0.1:4173` 同源靜態資源，全部回應 200；瀏覽器主控台為 0 error、0 warning。
+- `npm test` 7/7 通過；`npm run check` 確認 13 個專案、24 個 repository files，未發現明顯秘密或不安全 IP literal。
 
 ## 已完成改造
 
@@ -28,5 +31,6 @@
 2. 輪替 marketvault 目前的本機 PostgreSQL 密碼，並同步更新忽略的 `.env`。本輪沒有自動改 DB role，以免讓四個下游服務同時斷線。
 3. 建立 Cloudflare named tunnel 前先配置 Access policy；禁止使用無驗證 quick tunnel，禁止公開 3000、8000、8502、8530、5433 或 11434。
 4. GitHub push 前逐 repository 檢查 staged diff；已有大量執行狀態的專案不可直接 `git add -A`。
+5. `auto-quant-btc` 目前仍追蹤 `exec_state/ledger.sqlite`、`positions.json`、`dry_exchange.json` 與部分快取；index／歷史完成收斂前禁止 push 或一般 GitHub 備份。資料庫路徑保持原位，真錢三鎖保持關閉。
 
 本報告不記錄任何實際密碼、token、私人 IP 或完整本機資料路徑。

@@ -27,6 +27,11 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+html.has-open-dialog {
+  overflow: hidden;
 }
 
 section[id] {
@@ -217,6 +222,11 @@ h1 {
 
 h1 span {
   color: var(--acid);
+}
+
+h1 .hero-tail {
+  color: inherit;
+  white-space: nowrap;
 }
 
 .hero-lede {

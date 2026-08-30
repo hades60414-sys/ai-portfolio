@@ -8,9 +8,19 @@ const dialogContent = document.querySelector("[data-dialog-content]");
 const grillDialog = document.querySelector("[data-grill-dialog]");
 const grillLine = document.querySelector("[data-grill-line]");
 const grillFix = document.querySelector("[data-grill-fix]");
+const dialogs = [projectDialog, grillDialog];
 
 let activeFilter = "all";
 let grillIndex = 0;
+
+function syncDialogState() {
+  document.documentElement.classList.toggle("has-open-dialog", dialogs.some((dialog) => dialog.open));
+}
+
+function openDialog(dialog) {
+  if (!dialog.open) dialog.showModal();
+  syncDialogState();
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -97,14 +107,14 @@ function showProject(id) {
     <ul class="tag-list">${tagList(project.tags)}</ul>
     <div class="dialog-action">${link}</div>`;
 
-  projectDialog.showModal();
+  openDialog(projectDialog);
 }
 
 function showGrill() {
   const item = grillLines[grillIndex % grillLines.length];
   grillLine.textContent = `「${item.line}」`;
   grillFix.textContent = item.fix;
-  if (!grillDialog.open) grillDialog.showModal();
+  openDialog(grillDialog);
 }
 
 document.addEventListener("click", (event) => {
@@ -131,10 +141,11 @@ document.addEventListener("click", (event) => {
   }
 });
 
-[projectDialog, grillDialog].forEach((dialog) => {
+dialogs.forEach((dialog) => {
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) dialog.close();
   });
+  dialog.addEventListener("close", syncDialogState);
 });
 
 const header = document.querySelector("[data-header]");

@@ -30,6 +30,16 @@ test("page has essential accessibility and security hooks", async () => {
   assert.match(html, /prefers-reduced-motion|styles\.css/);
 });
 
+test("modal dialogs lock background scrolling and release it on close", async () => {
+  const [app, styles] = await Promise.all([
+    readFile(resolve(root, "app.js"), "utf8"),
+    readFile(resolve(root, "styles.css"), "utf8"),
+  ]);
+  assert.match(app, /classList\.toggle\("has-open-dialog"/);
+  assert.match(app, /addEventListener\("close", syncDialogState\)/);
+  assert.match(styles, /html\.has-open-dialog\s*\{[^}]*overflow:\s*hidden/s);
+});
+
 test("source portfolio is integrated as a privacy-safe profile", async () => {
   const html = await readFile(resolve(root, "index.html"), "utf8");
   assert.match(html, /id="about"/);
