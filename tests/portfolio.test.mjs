@@ -18,6 +18,12 @@ test("every filter category has work", () => {
   }
 });
 
+test("private projects do not expose inaccessible repository links", () => {
+  const chatStock = projects.find(({ id }) => id === "chat-stock-ai");
+  assert.ok(chatStock);
+  assert.equal(chatStock.link, undefined);
+});
+
 test("local media referenced by projects exists", async () => {
   await Promise.all(projects.filter(({ image }) => image).map(({ image }) => access(resolve(root, image))));
 });

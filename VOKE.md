@@ -21,6 +21,6 @@
 
 - 靜態作品集、13 個專案資料、GRILL 互動、響應式版面與零外部資源政策已完成。
 - 主要網路暴露已改為 loopback + authenticated tunnel 模式，現行 listener 已實測無非 loopback 綁定。
-- 已為作品集、ChatStock、投資組合儀表板、選擇權助手、Task Gacha、Research Radar、marketvault、TCRI 與 Lab LLM Chat 建立經測試的本機 checkpoint commit；ChatStock 已與既有公開 upstream 同步，其餘專案尚未設定新 remote 或 push。
+- 作品集已推送到公開 `hades60414-sys/ai-portfolio`，GitHub Actions 驗證成功。ChatStock 已與既有 private upstream 同步，作品集不提供該私人 repository 的外鏈；其餘專案仍依公開／私有分級逐一 preflight。
 - `wild_alpha` 與 `auto-quant-btc` 只 checkpoint 安全的忽略規則，原有研究／執行狀態仍留在工作樹；`daily-flow` 與 Edge Validator 的既有變更也未自動提交。`auto-quant-btc` 的 ledger、positions、exchange state 與部分快取仍受 Git 追蹤，完成 index／歷史收斂前不可 push 或做一般 GitHub 備份；不可移動資料庫路徑，也不可解除真錢三鎖。
-- 下一個需要人工授權的工作是分批建立 GitHub repository 與 push：先公開作品集，再逐一處理公開候選與 private repository。
+- 下一步是只推通過現況與歷史掃描的公開候選；含舊憑證歷史、tracked DB、runtime state 或 dirty tree 的專案維持阻擋，私有備份優先採去歷史的安全 snapshot。

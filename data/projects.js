@@ -30,7 +30,6 @@ export const projects = [
     tags: ["Conversational AI", "FastAPI", "Next.js"],
     image: "assets/chat-stock.png",
     imageAlt: "選股對話介面，左側顯示逐輪對話，右側顯示收斂後股票清單",
-    link: "https://github.com/hades60414-sys/Chat-Stock-AI",
     accent: "blue"
   },
   {

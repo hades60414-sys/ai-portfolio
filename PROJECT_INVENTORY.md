@@ -5,7 +5,7 @@
 | 專案 | 作品集定位 | GitHub 建議 | 發佈前注意 |
 |---|---|---|---|
 | Edge Validator | 量化驗證產品 | 公開候選；已有 remote | 推送前再跑靜態檢查與互動測試 |
-| ChatStock | 對話式 AI 選股 | 既有公開 remote；工作樹乾淨且與 upstream 同步 | 不提交市場 DB、`.env`、日誌；使用者策略執行仍需強 sandbox |
+| ChatStock | 對話式 AI 選股 | 既有 private remote；工作樹乾淨且與 upstream 同步 | 不提交市場 DB、`.env`、日誌；使用者策略執行仍需強 sandbox，作品集不提供私人 repo 外鏈 |
 | wild_alpha | 抗過擬合研究系統 | 私有備份優先 | 研究輸出、原始資料與論文素材要分流 |
 | marketvault | 市場資料底座 | 私有 repository | 排除 DB、Parquet、備份、憑證與 `.env` |
 | 投資組合儀表板 | 個人資產作業台 | 私有 repository | 個人持倉、截圖與模型金鑰不得入 Git |

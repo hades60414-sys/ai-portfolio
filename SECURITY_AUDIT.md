@@ -10,7 +10,8 @@
 - 沒有建立或發現名為 `Local project interface *` 的 Windows 入站防火牆規則。
 - 作品集以 390×844 與 1440×900 真實瀏覽器複驗：沒有橫向溢位，dialog 會鎖住背景捲動，Esc 關閉後焦點回到原觸發按鈕。
 - 完整頁面只請求 10 個 `127.0.0.1:4173` 同源靜態資源，全部回應 200；瀏覽器主控台為 0 error、0 warning。
-- `npm test` 7/7 通過；`npm run check` 確認 13 個專案、24 個 repository files，未發現明顯秘密或不安全 IP literal。
+- `npm test` 8/8 通過；`npm run check` 確認 13 個專案、24 個 repository files，未發現明顯秘密或不安全 IP literal。
+- 對外專案連結只指向已由 GitHub API 確認為 public 的 repository；ChatStock 實際為 private，因此作品集僅展示案例、不輸出會讓訪客撞 404 的私人外鏈。
 
 ## 已完成改造
 
