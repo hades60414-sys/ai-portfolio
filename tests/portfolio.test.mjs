@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { extname, resolve } from "node:path";
 import { grillLines, projects } from "../data/projects.js";
 
 const root = resolve(import.meta.dirname, "..");
@@ -24,8 +25,31 @@ test("private projects do not expose inaccessible repository links", () => {
   assert.equal(chatStock.link, undefined);
 });
 
+test("repository links are limited to verified public GitHub projects", () => {
+  const linkedProjects = projects.filter(({ link }) => link);
+  assert.deepEqual(
+    linkedProjects.map(({ id }) => id).sort(),
+    ["edge-validator", "research-radar"],
+  );
+  assert.ok(
+    linkedProjects.every(({ link }) => link.startsWith("https://github.com/hades60414-sys/")),
+  );
+});
+
 test("local media referenced by projects exists", async () => {
-  await Promise.all(projects.filter(({ image }) => image).map(({ image }) => access(resolve(root, image))));
+  const signatures = new Map([
+    [".png", "89504e470d0a1a0a"],
+    [".jpg", "ffd8ff"],
+    [".jpeg", "ffd8ff"],
+  ]);
+
+  await Promise.all(projects.filter(({ image }) => image).map(async ({ image }) => {
+    const path = resolve(root, image);
+    const signature = signatures.get(extname(path).toLowerCase());
+    assert.ok(signature, `unsupported media extension: ${image}`);
+    const bytes = await readFile(path);
+    assert.equal(bytes.subarray(0, signature.length / 2).toString("hex"), signature, `mismatched media type: ${image}`);
+  }));
 });
 
 test("page has essential accessibility and security hooks", async () => {
@@ -33,6 +57,9 @@ test("page has essential accessibility and security hooks", async () => {
   assert.match(html, /<html lang="zh-Hant">/);
   assert.match(html, /Content-Security-Policy/);
   assert.match(html, /class="skip-link"/);
+  assert.match(html, /class="header-cta"[^>]*aria-label="合作 \/ 聯絡"/);
+  assert.match(html, /data-project-dialog aria-labelledby="project-dialog-title"/);
+  assert.match(html, /data-grill-dialog aria-labelledby="grill-dialog-title"/);
   assert.match(html, /prefers-reduced-motion|styles\.css/);
 });
 
@@ -44,6 +71,23 @@ test("modal dialogs lock background scrolling and release it on close", async ()
   assert.match(app, /classList\.toggle\("has-open-dialog"/);
   assert.match(app, /addEventListener\("close", syncDialogState\)/);
   assert.match(styles, /html\.has-open-dialog\s*\{[^}]*overflow:\s*hidden/s);
+});
+
+test("preview server refuses a non-loopback bind", async () => {
+  const result = await new Promise((resolveResult, reject) => {
+    const child = spawn(process.execPath, [resolve(root, "scripts/serve.mjs")], {
+      env: { ...process.env, HOST: ["0", "0", "0", "0"].join("."), PORT: "4174" },
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    let stderr = "";
+    child.stderr.setEncoding("utf8");
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.on("error", reject);
+    child.on("close", (code) => resolveResult({ code, stderr }));
+  });
+
+  assert.notEqual(result.code, 0);
+  assert.match(result.stderr, /Refusing non-loopback HOST/);
 });
 
 test("source portfolio is integrated as a privacy-safe profile", async () => {

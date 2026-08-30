@@ -92,13 +92,13 @@ function showProject(id) {
   if (!project) return;
 
   const link = project.link
-    ? `<a class="button button-primary" href="${escapeHtml(project.link)}" target="_blank" rel="noreferrer">查看 GitHub ↗</a>`
+    ? `<a class="button button-primary" href="${escapeHtml(project.link)}" target="_blank" rel="noopener noreferrer">查看 GitHub ↗</a>`
     : `<span class="local-label">LOCAL / PRIVATE REPOSITORY</span>`;
 
   dialogContent.innerHTML = `
     <div class="dialog-media accent-${escapeHtml(project.accent)}">${mediaMarkup(project, true)}</div>
     <div class="dialog-meta"><span>${escapeHtml(project.kicker)}</span><span>${escapeHtml(project.status)} · ${escapeHtml(project.year)}</span></div>
-    <h2>${escapeHtml(project.title)}</h2>
+    <h2 id="project-dialog-title">${escapeHtml(project.title)}</h2>
     <p class="dialog-summary">${escapeHtml(project.summary)}</p>
     <div class="dialog-columns">
       <div><small>THE PROBLEM</small><p>${escapeHtml(project.problem)}</p></div>

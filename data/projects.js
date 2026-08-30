@@ -127,7 +127,7 @@ export const projects = [
     problem: "風險規則卡在舊 notebook 與相容性受限環境，難以排程、追溯與給既有網站安全消費。",
     proof: "冪等部署、季度覆蓋率防呆、歷史回填、唯讀 view；帳密與主機設定從環境注入。",
     tags: ["MSSQL", "Legacy integration", "Risk"],
-    image: "assets/tcri-workbench.png",
+    image: "assets/tcri-workbench.jpg",
     imageAlt: "TCRI 門檻等級查詢工作台，顯示季度摘要與公司列表",
     accent: "red"
   },
@@ -155,6 +155,7 @@ export const projects = [
     problem: "追論文容易變成收藏；全自動套用論文又容易把未驗證想法直接灌進生產環境。",
     proof: "無金鑰抓取、去重、主題路由、backlog；智慧篩選與實作之間保留人工裁決。",
     tags: ["Research ops", "arXiv", "Approval gate"],
+    link: "https://github.com/hades60414-sys/research-radar",
     accent: "violet"
   },
   {

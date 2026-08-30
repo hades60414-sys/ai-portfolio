@@ -1,6 +1,6 @@
 # 本機連線安全稽核
 
-初次稽核：2026-08-28；最近複驗：2026-08-30（Asia/Taipei）
+初次稽核：2026-08-28；最近複驗：2026-08-31（Asia/Taipei）
 
 ## 結果
 
@@ -10,8 +10,16 @@
 - 沒有建立或發現名為 `Local project interface *` 的 Windows 入站防火牆規則。
 - 作品集以 390×844 與 1440×900 真實瀏覽器複驗：沒有橫向溢位，dialog 會鎖住背景捲動，Esc 關閉後焦點回到原觸發按鈕。
 - 完整頁面只請求 10 個 `127.0.0.1:4173` 同源靜態資源，全部回應 200；瀏覽器主控台為 0 error、0 warning。
-- `npm test` 8/8 通過；`npm run check` 確認 13 個專案、24 個 repository files，未發現明顯秘密或不安全 IP literal。
+- `npm test` 10/10 通過（含非 loopback 綁定拒絕與媒體簽章檢查）；`npm run check` 確認 13 個專案、24 個 repository files，未發現明顯秘密或不安全 IP literal。
 - 對外專案連結只指向已由 GitHub API 確認為 public 的 repository；ChatStock 實際為 private，因此作品集僅展示案例、不輸出會讓訪客撞 404 的私人外鏈。
+- 瀏覽器複驗確認 TCRI 素材以正確 `image/jpeg` + `nosniff` 回應；首頁與 404 都帶 CSP `frame-ancestors 'none'`、`X-Frame-Options: DENY`、Permissions-Policy、COOP/CORP 與 Referrer-Policy。
+
+## GitHub 備份邊界複驗
+
+- 公開遠端：`ai-portfolio`（`main` 與遠端同步，最新 `validate` 成功）、Edge Validator `7e68e79`、Research Radar `9070e31`。
+- 私人遠端：ChatStock `feature/strategy-stack` `650a5eb`、marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`。
+- GitHub API 已重新確認 ChatStock 與上述四個新備份皆為 private；沒有把 private 改 public。備份只涵蓋通過 preflight 的 Git 追蹤快照，不涵蓋忽略的 DB、`.env`、秘密、日誌或 runtime state。
+- Edge Validator 遠端仍停在 `7e68e79`，本機 3 筆既有變更沒有推送；Task Gacha、族群雷達、TCRI、`auto-quant-btc`、`wild_alpha`、`daily-flow` 均維持阻擋或暫停，詳見 `PROJECT_INVENTORY.md`。
 
 ## 已完成改造
 
