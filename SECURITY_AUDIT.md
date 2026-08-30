@@ -16,10 +16,16 @@
 
 ## GitHub 備份邊界複驗
 
-- 公開遠端：`ai-portfolio`（`main` 與遠端同步，最新 `validate` 成功）、Edge Validator `7e68e79`、Research Radar `9070e31`。
-- 私人遠端：ChatStock `feature/strategy-stack` `650a5eb`、marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`。
+- 公開遠端：`ai-portfolio`（`main` 與遠端同步，最新 `validate` 成功）、Edge Validator `bba2c29`、Research Radar `9070e31`。
+- 私人遠端：ChatStock `feature/strategy-stack` `650a5eb`、marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`、Task Gacha `103324d`。
 - GitHub API 已重新確認 ChatStock 與上述四個新備份皆為 private；沒有把 private 改 public。備份只涵蓋通過 preflight 的 Git 追蹤快照，不涵蓋忽略的 DB、`.env`、秘密、日誌或 runtime state。
-- Edge Validator 遠端仍停在 `7e68e79`，本機 3 筆既有變更沒有推送；Task Gacha、族群雷達、TCRI、`auto-quant-btc`、`wild_alpha`、`daily-flow` 均維持阻擋或暫停，詳見 `PROJECT_INVENTORY.md`。
+- Edge Validator 的 R23 缺值壓力收斂通過 142 tests 與 engine CI；Task Gacha 通過 lint、111 tests、build 與桌面抽卡 smoke，並只建立 private 備份。族群雷達、TCRI、`auto-quant-btc`、`wild_alpha`、`daily-flow` 維持阻擋或暫停，詳見 `PROJECT_INVENTORY.md`。
+
+### Edge Validator 既有 Pages 邊界
+
+- 該 repository 原先已有 legacy Pages，來源為 `master`／root；因此一般 Git push 也會自動觸發公開部署。
+- `bba2c29` 推送後立刻取消 Pages workflow，但 build 在取消前已完成並更新線上內容。新內容是通過 142 tests、0/0 preflight 的安全程式碼，沒有上傳秘密；取消後也沒有殘留中的 run。
+- 未自行停用或回滾既有網站，避免在沒有使用者選擇時讓既有公開 URL 失效。後續對 Edge Validator 的 push 必須視為部署動作並先取得明確授權。
 
 ## 已完成改造
 

@@ -21,8 +21,9 @@
 
 - 靜態作品集、13 個專案資料、GRILL 互動、響應式版面與零外部資源政策已完成。
 - 主要網路暴露已改為 loopback + authenticated tunnel 模式，現行 listener 已實測無非 loopback 綁定。
-- 公開備份已核對：`ai-portfolio` 的 `main` 與遠端同步且最新 GitHub Actions 成功、Edge Validator `7e68e79`、Research Radar `9070e31`。ChatStock 實際為 private；其 `feature/strategy-stack` 本機與遠端同為 `650a5eb`，作品集不輸出私人 repo 外鏈。
-- 私人備份已核對：marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`。這些只上傳 Git 追蹤內容；忽略的 DB、`.env`、憑證、日誌、原始資料與 runtime state 未納入。
-- Edge Validator 本機仍有 3 筆既有變更、`daily-flow` 13 筆、`wild_alpha` 36 筆、`auto-quant-btc` 150 筆；均未自動提交或推送。`auto-quant-btc` 的 ledger、positions、exchange state 與部分快取仍受 Git 追蹤，完成 index／歷史收斂前不可 push 或做一般 GitHub 備份；不可移動資料庫路徑，也不可解除真錢三鎖。
-- Task Gacha 暫停公開：lint 仍有 17 errors／2 warnings，package scripts 沒有 test；族群雷達受 seed 資料來源、metadata／本機路徑與 1 項 live test 失敗阻擋；TCRI 在取得教授／公司書面授權前不建立任何 GitHub 遠端。
+- 公開備份已核對：`ai-portfolio` 的 `main` 與遠端同步且最新 GitHub Actions 成功、Edge Validator `bba2c29`（142 tests、engine CI 成功）、Research Radar `9070e31`。ChatStock 實際為 private；其 `feature/strategy-stack` 本機與遠端同為 `650a5eb`，作品集不輸出私人 repo 外鏈。
+- 私人備份已核對：marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`、Task Gacha `103324d`。這些只上傳 Git 追蹤內容；忽略的 DB、`.env`、憑證、日誌、原始資料與 runtime state 未納入。
+- Edge Validator 既有 legacy Pages 綁定 `master`；推送 `bba2c29` 時在取消前已自動更新線上站。變更本身無秘密且全測通過，但未取得部署授權前不得再 push `master`；不要自行停用或回滾既有 Pages，等待使用者決定。
+- `daily-flow` 13 筆、`wild_alpha` 36 筆、`auto-quant-btc` 150 筆變更均未自動提交或推送。`auto-quant-btc` 的 ledger、positions、exchange state 與部分快取仍受 Git 追蹤，完成 index／歷史收斂前不可 push 或做一般 GitHub 備份；不可移動資料庫路徑，也不可解除真錢三鎖。
+- Task Gacha 已解除 lint 阻擋並通過 111 tests、build 與桌面抽卡 smoke，但仍保持 private；Google Forms／Google Fonts 外連與未完成的行動版、Shop、主題切換 QA 都要在公開前收斂。族群雷達受 seed 資料來源、metadata／本機路徑與 1 項 live test 失敗阻擋；TCRI 在取得教授／公司書面授權前不建立任何 GitHub 遠端。
 - 本機封存已原子刷新並完成 `PACKAGES.csv`／`SHA256SUMS.txt`、normal + deep verify 與 restore test；每次作品集新 commit 後仍須確認封裝 HEAD 與來源 HEAD 完全一致。之後再處理 Edge dirty 變更與其餘阻擋項目；若事實未變，不製造無意義 commit。
