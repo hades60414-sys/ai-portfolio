@@ -3,7 +3,7 @@ import { sites } from "@openai/sites-vite-plugin";
 import { copyFile, mkdir, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const projectImageNames = ["auto-quant.png", "chat-stock.png", "edge-validator.png", "task-gacha.png", "wild-alpha.png"];
+const projectImageNames = ["chat-stock.png", "edge-validator.png", "task-gacha.png", "wild-alpha.png"];
 
 function staticWorker() {
   return {
