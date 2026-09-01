@@ -3,6 +3,8 @@ import { sites } from "@openai/sites-vite-plugin";
 import { copyFile, mkdir, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
+const projectImageNames = ["auto-quant.png", "chat-stock.png", "edge-validator.png", "task-gacha.png", "wild-alpha.png"];
+
 function staticWorker() {
   return {
     name: "mike-portfolio-static-worker",
@@ -20,7 +22,7 @@ function staticWorker() {
         `const indexHtml = ${JSON.stringify(indexHtml)};`,
         "",
         "const securityHeaders = {",
-        "  \"Content-Security-Policy\": \"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'\",",
+        "  \"Content-Security-Policy\": \"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'\",",
         "  \"Cross-Origin-Opener-Policy\": \"same-origin\",",
         "  \"Cross-Origin-Resource-Policy\": \"same-origin\",",
         "  \"Permissions-Policy\": \"camera=(), geolocation=(), microphone=()\",",
@@ -57,6 +59,9 @@ function staticWorker() {
       await mkdir(server, { recursive: true });
       await unlink(htmlPath);
       await Promise.all([
+        ...projectImageNames.map((name) =>
+          copyFile(resolve(import.meta.dirname, "assets", name), resolve(client, "assets", name))
+        ),
         copyFile(resolve(import.meta.dirname, "assets", "og.png"), resolve(client, "assets", "og.png")),
         copyFile(resolve(import.meta.dirname, "robots.txt"), resolve(client, "robots.txt")),
         copyFile(resolve(import.meta.dirname, "sitemap.xml"), resolve(client, "sitemap.xml")),

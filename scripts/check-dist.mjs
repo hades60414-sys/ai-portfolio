@@ -7,7 +7,12 @@ const required = [
   "dist/.openai/hosting.json",
   "dist/client/robots.txt",
   "dist/client/sitemap.xml",
+  "dist/client/assets/auto-quant.png",
+  "dist/client/assets/chat-stock.png",
+  "dist/client/assets/edge-validator.png",
   "dist/client/assets/og.png",
+  "dist/client/assets/task-gacha.png",
+  "dist/client/assets/wild-alpha.png",
   "dist/server/index.js",
   "dist/server/wrangler.json"
 ];
