@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import { sites } from "@openai/sites-vite-plugin";
-import { copyFile, mkdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 function staticWorker() {
@@ -11,7 +11,14 @@ function staticWorker() {
       await rm(resolve(import.meta.dirname, "dist"), { recursive: true, force: true });
     },
     async closeBundle() {
+      const dist = resolve(import.meta.dirname, "dist");
+      const client = resolve(dist, "client");
+      const server = resolve(dist, "server");
+      const htmlPath = resolve(client, "index.html");
+      const indexHtml = await readFile(htmlPath, "utf8");
       const source = [
+        `const indexHtml = ${JSON.stringify(indexHtml)};`,
+        "",
         "const securityHeaders = {",
         "  \"Content-Security-Policy\": \"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'\",",
         "  \"Cross-Origin-Opener-Policy\": \"same-origin\",",
@@ -24,6 +31,16 @@ function staticWorker() {
         "",
         "export default {",
         "  async fetch(request, env) {",
+        "    const url = new URL(request.url);",
+        "    if (url.pathname === \"/\" || url.pathname === \"/index.html\") {",
+        "      if (request.method !== \"GET\" && request.method !== \"HEAD\") {",
+        "        return new Response(null, { status: 405, headers: { ...securityHeaders, Allow: \"GET, HEAD\" } });",
+        "      }",
+        "      return new Response(request.method === \"HEAD\" ? null : indexHtml, {",
+        "        status: 200,",
+        "        headers: { ...securityHeaders, \"Cache-Control\": \"public, max-age=0, must-revalidate\", \"Content-Type\": \"text/html; charset=UTF-8\" }",
+        "      });",
+        "    }",
         "    if (!env.ASSETS || typeof env.ASSETS.fetch !== \"function\") {",
         "      return new Response(\"Static assets unavailable\", { status: 503, headers: securityHeaders });",
         "    }",
@@ -36,11 +53,9 @@ function staticWorker() {
         ""
       ].join("\n");
 
-      const dist = resolve(import.meta.dirname, "dist");
-      const client = resolve(dist, "client");
-      const server = resolve(dist, "server");
       await mkdir(resolve(client, "assets"), { recursive: true });
       await mkdir(server, { recursive: true });
+      await unlink(htmlPath);
       await Promise.all([
         copyFile(resolve(import.meta.dirname, "assets", "og.png"), resolve(client, "assets", "og.png")),
         copyFile(resolve(import.meta.dirname, "robots.txt"), resolve(client, "robots.txt")),
@@ -60,8 +75,8 @@ function staticWorker() {
               binding: "ASSETS",
               directory: "../client",
               html_handling: "auto-trailing-slash",
-              not_found_handling: "single-page-application",
-              run_worker_first: true
+              not_found_handling: "none",
+              run_worker_first: false
             },
             observability: { enabled: true }
           }),
