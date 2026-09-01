@@ -22,7 +22,7 @@ function staticWorker() {
         `const indexHtml = ${JSON.stringify(indexHtml)};`,
         "",
         "const securityHeaders = {",
-        "  \"Content-Security-Policy\": \"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'\",",
+        "  \"Content-Security-Policy\": \"default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'\",",
         "  \"Cross-Origin-Opener-Policy\": \"same-origin\",",
         "  \"Cross-Origin-Resource-Policy\": \"same-origin\",",
         "  \"Permissions-Policy\": \"camera=(), geolocation=(), microphone=()\",",

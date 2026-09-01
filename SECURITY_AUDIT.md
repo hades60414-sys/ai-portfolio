@@ -12,7 +12,7 @@
 - 手機版導覽、GRILL ME 換題／關閉、案例索引與深連結已實測；瀏覽器主控台為 0 error、0 warning。
 - `npm test` 11/11 通過（含非 loopback 綁定拒絕、履歷隱私、公開連結邊界與媒體簽章）；`npm run check` 確認 13 個專案、31 個 source files，未發現明顯秘密或不安全 IP literal。
 - 對外專案連結只指向已由 GitHub API 確認為 public 的 repository；ChatStock 實際為 private，因此作品集僅展示案例、不輸出會讓訪客撞 404 的私人外鏈。
-- 正式首頁文件由 Sites worker 回應並加入 CSP（含 `frame-ancestors 'none'`）、`X-Frame-Options: DENY`、Permissions-Policy、COOP/CORP、Referrer-Policy 與 `nosniff`；client asset tree 刻意不保留可繞過 worker 的 `index.html`。`script-src` 仍只允許同源，另保留 `unsafe-inline` 讓託管層注入的 Cloudflare challenge bootstrap 能執行；頁面本身不載入第三方追蹤器、遠端字型或遠端 JavaScript。
+- 正式首頁文件由 Sites worker 回應並加入 CSP（含 `frame-ancestors 'none'`）、`X-Frame-Options: DENY`、Permissions-Policy、COOP/CORP、Referrer-Policy 與 `nosniff`；client asset tree 刻意不保留可繞過 worker 的 `index.html`。script 與 connect 只允許同源，另保留 `unsafe-inline` 讓託管層注入的 Cloudflare challenge bootstrap 能執行；頁面本身不載入第三方追蹤器、遠端字型或遠端 JavaScript。
 
 ## GitHub 備份邊界複驗
 
