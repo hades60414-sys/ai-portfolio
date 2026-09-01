@@ -1620,3 +1620,115 @@ dialog::backdrop {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* 2026 portfolio information architecture */
+.internship-section .section-heading {
+  background: var(--navy);
+  color: var(--paper);
+}
+
+.internship-section .section-heading > div:last-child > p {
+  color: #cbd2d8;
+}
+
+.internship-section .section-index span {
+  color: #87a8ff;
+}
+
+.index-group + .index-group {
+  margin-top: 76px;
+}
+
+.index-group > h3 {
+  margin-bottom: 18px;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.project-row {
+  grid-template-columns: 56px minmax(0, 1fr) 140px 72px;
+}
+
+.credentials-section {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  gap: 28px;
+  padding-block: 120px;
+  border-top: 1px solid var(--ink);
+}
+
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px;
+}
+
+.credentials-grid h2,
+.credentials-grid h3 {
+  margin-top: 0;
+}
+
+.competition-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+  list-style: none;
+}
+
+.competition-list li {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+
+@media (max-width: 1000px) {
+  .credentials-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .internship-section .section-heading {
+    margin-inline: calc((100% - 100vw) / 2);
+    padding-inline: 20px;
+  }
+
+  .project-row {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+  }
+
+  .project-title {
+    grid-column: 2 / 4;
+  }
+
+  .project-status {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .project-open {
+    grid-column: 3;
+    grid-row: 1 / 3;
+  }
+
+  .credentials-section {
+    display: block;
+    padding-block: 96px;
+  }
+
+  .credentials-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 56px;
+  }
+}
+
+/* Avoid orphan characters in wrapped CJK headings */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+

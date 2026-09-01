@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>TCRI 信用風險預警｜合成演示</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="demo-banner" role="status">本頁為合成演示資料，非台新內部資料</div>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <div>
+        <a class="back-link" href="../../">← 返回作品集</a>
+        <p class="eyebrow">CREDIT RISK / SYNTHETIC DEMO</p>
+        <h1>TCRI 信用風險預警</h1>
+      </div>
+      <p class="masthead-note">以合成財務訊號呈現分級、趨勢與比較的研究工作台。</p>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="overview" aria-label="演示說明">
+      <div><span class="section-label">WORKBENCH</span><h2>公司信用訊號總覽</h2></div>
+      <p>分級數字越小代表風險相對較低；預警點表示模型訊號觸發，供優先複核使用。</p>
+    </section>
+
+    <section class="filter-panel" aria-label="公司篩選">
+      <label>搜尋公司或代號<input id="search" type="search" placeholder="例如：示範公司甲、0001"></label>
+      <label>風險分級<select id="grade-filter"><option value="all">全部分級</option></select></label>
+      <label>變動狀態<select id="movement-filter"><option value="all">全部狀態</option><option value="deteriorated">惡化</option><option value="improved">改善</option><option value="stable">持平</option></select></label>
+      <label>排序方式<select id="sort"><option value="risk">風險分級（高→低）</option><option value="score">風險分數（高→低）</option><option value="name">公司名稱</option><option value="change">近期變動</option></select></label>
+      <button class="text-button" id="clear-filters" type="button">清除條件</button>
+    </section>
+
+    <section class="summary-grid" id="summary" aria-label="分級摘要"></section>
+
+    <div class="workspace">
+      <section class="table-panel" aria-labelledby="company-list-title">
+        <div class="panel-head">
+          <div><span class="section-label">LIST</span><h2 id="company-list-title">公司評等明細</h2></div>
+          <p id="result-count" class="muted" aria-live="polite"></p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">比較</th><th scope="col">公司</th><th scope="col">產業</th><th scope="col">分級</th><th scope="col">評分</th><th scope="col">變動</th><th scope="col">預警訊號</th><th scope="col">操作</th></tr></thead>
+            <tbody id="company-rows"></tbody>
+          </table>
+        </div>
+        <nav class="pagination" aria-label="公司清單頁次"><button id="prev-page" type="button">上一頁</button><span id="page-label"></span><button id="next-page" type="button">下一頁</button></nav>
+      </section>
+
+      <aside class="side-column">
+        <section class="compare-panel" aria-labelledby="compare-title">
+          <div class="panel-head"><div><span class="section-label">COMPARE</span><h2 id="compare-title">走勢比較</h2></div><button class="text-button" id="clear-compare" type="button">清除</button></div>
+          <p class="muted">最多選擇 3 家公司，以合成風險分數比較近 12 季變化。</p>
+          <div id="selected-chips" class="selected-chips" aria-live="polite"></div>
+          <canvas id="compare-chart" role="img" aria-label="多家公司合成風險分數比較圖"></canvas>
+          <div id="compare-legend" class="legend"></div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="detail-panel" id="detail-panel" hidden aria-live="polite">
+      <div class="panel-head"><div><span class="section-label">TREND</span><h2 id="detail-title">公司趨勢</h2></div><button class="text-button" id="close-detail" type="button">關閉</button></div>
+      <div class="detail-body">
+        <div class="detail-stats" id="detail-stats"></div>
+        <div class="chart-wrap"><canvas id="trend-chart" role="img" aria-label="單一公司信用風險趨勢圖"></canvas></div>
+        <div class="signal-key"><span><i class="dot warning-dot"></i>預警訊號</span><span><i class="line-sample"></i>風險分數</span></div>
+        <p id="detail-copy" class="detail-copy"></p>
+      </div>
+    </section>
+  </main>
+  <footer>訊號平均領先 34 天／OOS 年化 +7.38%／最大回撤 -5.65%＋模擬回測、非實盤績效</footer>
+  <script src="data/companies.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
