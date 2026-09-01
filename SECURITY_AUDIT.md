@@ -1,6 +1,6 @@
 # 本機連線安全稽核
 
-初次稽核：2026-08-28；最近複驗：2026-08-31（Asia/Taipei）
+初次稽核：2026-08-28；最近複驗：2026-09-01（Asia/Taipei）
 
 ## 結果
 
@@ -8,15 +8,15 @@
 - 掃描未留下「監聽所有介面」的 wildcard 位址或非 loopback 的硬編碼 HTTP IP。
 - 現行專案 listener 實測均為 `127.0.0.1`：ChatStock 3000、FastAPI 8000、PostgreSQL 5433、投資組合儀表板 8502、選擇權助手 8530、Ollama 11434。
 - 沒有建立或發現名為 `Local project interface *` 的 Windows 入站防火牆規則。
-- 作品集以 390×844 與 1440×900 真實瀏覽器複驗：沒有橫向溢位，dialog 會鎖住背景捲動，Esc 關閉後焦點回到原觸發按鈕。
-- 完整頁面只請求 10 個 `127.0.0.1:4173` 同源靜態資源，全部回應 200；瀏覽器主控台為 0 error、0 warning。
-- `npm test` 10/10 通過（含非 loopback 綁定拒絕與媒體簽章檢查）；`npm run check` 確認 13 個專案、24 個 repository files，未發現明顯秘密或不安全 IP literal。
+- 新版作品集以 390×844 與 1440×900 真實瀏覽器複驗：沒有橫向溢位；`#case-edge-validator` 深連結會落在案例起點；dialog 關閉後焦點回到原觸發按鈕。
+- 手機版導覽、GRILL ME 換題／關閉、案例索引與深連結已實測；瀏覽器主控台為 0 error、0 warning。
+- `npm test` 11/11 通過（含非 loopback 綁定拒絕、履歷隱私、公開連結邊界與媒體簽章）；`npm run check` 確認 13 個專案、37 個 repository files，未發現明顯秘密或不安全 IP literal。
 - 對外專案連結只指向已由 GitHub API 確認為 public 的 repository；ChatStock 實際為 private，因此作品集僅展示案例、不輸出會讓訪客撞 404 的私人外鏈。
-- 瀏覽器複驗確認 TCRI 素材以正確 `image/jpeg` + `nosniff` 回應；首頁與 404 都帶 CSP `frame-ancestors 'none'`、`X-Frame-Options: DENY`、Permissions-Policy、COOP/CORP 與 Referrer-Policy。
+- 正式 Sites worker 對靜態回應加入 CSP（含 `frame-ancestors 'none'`）、`X-Frame-Options: DENY`、Permissions-Policy、COOP/CORP、Referrer-Policy 與 `nosniff`；頁面本身不載入追蹤器、遠端字型或遠端 JavaScript。
 
 ## GitHub 備份邊界複驗
 
-- 公開遠端：`ai-portfolio`（`main` 與遠端同步，最新 `validate` 成功）、Edge Validator `bba2c29`、Research Radar `9070e31`。
+- 公開遠端：`ai-portfolio`（正式網址 `https://mike-zhang-portfolio.hades60414.chatgpt.site/`；GitHub 與 Sites source 以精確 commit 對齊）、Edge Validator `bba2c29`、Research Radar `9070e31`。
 - 私人遠端：ChatStock `feature/strategy-stack` `650a5eb`、marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`、Task Gacha `103324d`。
 - GitHub API 已重新確認 ChatStock 與上述四個新備份皆為 private；沒有把 private 改 public。備份只涵蓋通過 preflight 的 Git 追蹤快照，不涵蓋忽略的 DB、`.env`、秘密、日誌或 runtime state。
 - Edge Validator 的 R23 缺值壓力收斂通過 142 tests 與 engine CI；Task Gacha 通過 lint、111 tests、build 與桌面抽卡 smoke，並只建立 private 備份。族群雷達、TCRI、`auto-quant-btc`、`wild_alpha`、`daily-flow` 維持阻擋或暫停，詳見 `PROJECT_INVENTORY.md`。

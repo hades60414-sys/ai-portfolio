@@ -1,6 +1,6 @@
 # 專案盤點與 GitHub 備份分級
 
-盤點原則：只收錄自有作品與核心系統；第三方 clone、評估用 staging、下載範例、依賴套件與無關舊作不算作品。網站目前整理 13 個系統。以下遠端狀態於 2026-08-31（Asia/Taipei）以 GitHub API 唯讀複驗。
+盤點原則：只收錄自有作品與核心系統；第三方 clone、評估用 staging、下載範例、依賴套件與無關舊作不算作品。網站目前整理 13 個系統。以下遠端狀態於 2026-09-01（Asia/Taipei）複驗。
 
 | 專案 | 作品集定位 | GitHub／checkpoint 現況 | 邊界與下一步 |
 |---|---|---|---|
@@ -20,9 +20,9 @@
 
 ## 已驗證的 GitHub 備份
 
-- **公開**：`ai-portfolio`（`main` 與遠端同步，最新精確值以 Git／GitHub Actions 為準）、Edge Validator `bba2c29`、Research Radar `9070e31`。
+- **公開**：`ai-portfolio`（正式網址 `https://mike-zhang-portfolio.hades60414.chatgpt.site/`；source commit 與 Sites saved version 必須精確對應）、Edge Validator `bba2c29`、Research Radar `9070e31`。
 - **私人**：ChatStock `feature/strategy-stack` `650a5eb`、marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`、Task Gacha `103324d`。
-- `ai-portfolio` 本機 `main` 與 `origin/main` 同步；最新 `validate` 必須成功才算完成 checkpoint。
+- `ai-portfolio` 的 GitHub `origin/main` 與 Sites source remote 都必須指向同一個通過 `validate` 的精確 commit，才算完成 checkpoint。
 - 上述「私人」只代表遠端可恢復 checkpoint，不代表可公開，也不代表忽略的 DB、`.env`、憑證、日誌、原始資料或 runtime state 已上傳。
 
 ## 本機封存與未完成邊界

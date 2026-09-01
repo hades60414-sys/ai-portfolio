@@ -6,6 +6,7 @@ const root = resolve(import.meta.dirname, "..");
 const textExtensions = new Set([".html", ".css", ".js", ".mjs", ".json", ".md", ".svg", ".yml"]);
 const ignored = new Set([".git", ".playwright-cli", "node_modules", "output", "tmp"]);
 const failures = [];
+const productionUrl = "https://mike-zhang-portfolio.hades60414.chatgpt.site/";
 
 async function walk(directory) {
   const files = [];
@@ -36,6 +37,21 @@ for (const file of files) {
   const unsafeIps = ips.filter((ip) => !ip.startsWith("127.") && ip !== "255.255.255.255");
   if (unsafeIps.length) failures.push(`${display}: non-loopback IP literal (${[...new Set(unsafeIps)].join(", ")})`);
 }
+
+const indexHtml = await readFile(join(root, "index.html"), "utf8");
+for (const requiredMetadata of [
+  `<link rel="canonical" href="${productionUrl}" />`,
+  `<meta property="og:url" content="${productionUrl}" />`,
+  `${productionUrl}assets/og.png`
+]) {
+  if (!indexHtml.includes(requiredMetadata)) failures.push(`index.html: missing production metadata ${requiredMetadata}`);
+}
+
+const robots = await readFile(join(root, "robots.txt"), "utf8");
+if (!robots.includes(`Sitemap: ${productionUrl}sitemap.xml`)) failures.push("robots.txt: production sitemap URL is missing");
+
+const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
+if (!sitemap.includes(`<loc>${productionUrl}</loc>`)) failures.push("sitemap.xml: production home URL is missing");
 
 const ids = projects.map((project) => project.id);
 if (new Set(ids).size !== ids.length) failures.push("Project IDs must be unique");

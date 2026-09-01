@@ -81,7 +81,8 @@ test("page has the Mike identity, essential metadata and accessibility hooks", a
 
   assert.match(html, /<html lang="zh-Hant">/);
   assert.match(html, /<title>Mike 張大恒/);
-  assert.match(html, /property="og:image" content="assets\/og\.png"/);
+  assert.match(html, /property="og:image" content="https:\/\/mike-zhang-portfolio\.hades60414\.chatgpt\.site\/assets\/og\.png"/);
+  assert.match(html, /rel="canonical" href="https:\/\/mike-zhang-portfolio\.hades60414\.chatgpt\.site\/"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.match(html, /Content-Security-Policy/);
   assert.match(html, /class="skip-link" href="#main"/);

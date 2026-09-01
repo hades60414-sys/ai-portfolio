@@ -2,6 +2,8 @@
 
 Mike 張大恒的一站式作品集。網站把金融實務、研究方法與產品工程整理成四個代表案例與 13 個系統索引；每案固定交代問題、本人角色、關鍵決策、證據與公開邊界。
 
+正式網址：<https://mike-zhang-portfolio.hades60414.chatgpt.site/>
+
 ## Local preview
 
 需求：Node.js 22.13 以上。
@@ -23,6 +25,7 @@ validate 會依序執行內容／秘密掃描、11 項測試與正式 Sites buil
 - styles.css：暖象牙、海軍藍與單一鈷藍重點色的 editorial system。
 - assets/og.png：社交分享圖。
 - .openai/hosting.json：Sites 專案綁定，不含秘密。
+- robots.txt／sitemap.xml：正式網址的搜尋引擎入口。
 
 ## Public boundary
 

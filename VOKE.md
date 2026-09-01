@@ -19,7 +19,8 @@
 
 ## 目前 checkpoint
 
-- 靜態作品集、13 個專案資料、GRILL 互動、響應式版面與零外部資源政策已完成。
+- Mike 張大恒的一站式作品集、履歷／自我介紹、4 個代表案例、13 個專案索引、GRILL 互動、響應式版面與零外部資源政策已完成；正式網址為 `https://mike-zhang-portfolio.hades60414.chatgpt.site/`。
+- 作品集已綁定單一 Sites 專案 `appgprj_6a962523d50081918ca8afe6c8ebb544`；不得重建第二個 Site。之後若有內容更新，仍須 validate、推送精確 source commit、封裝並儲存新 version，再依當下權限使用正確部署流程。
 - 主要網路暴露已改為 loopback + authenticated tunnel 模式，現行 listener 已實測無非 loopback 綁定。
 - 公開備份已核對：`ai-portfolio` 的 `main` 與遠端同步且最新 GitHub Actions 成功、Edge Validator `bba2c29`（142 tests、engine CI 成功）、Research Radar `9070e31`。ChatStock 實際為 private；其 `feature/strategy-stack` 本機與遠端同為 `650a5eb`，作品集不輸出私人 repo 外鏈。
 - 私人備份已核對：marketvault `0fef47c`、投資組合儀表板 `143fd20`、選擇權助手 `210a080`、Lab LLM Chat `408aba7`、Task Gacha `103324d`。這些只上傳 Git 追蹤內容；忽略的 DB、`.env`、憑證、日誌、原始資料與 runtime state 未納入。
