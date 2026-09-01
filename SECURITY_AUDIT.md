@@ -10,7 +10,7 @@
 - 沒有建立或發現名為 `Local project interface *` 的 Windows 入站防火牆規則。
 - 新版作品集以 390×844 與 1440×900 真實瀏覽器複驗：沒有橫向溢位；`#case-edge-validator` 深連結會落在案例起點；dialog 關閉後焦點回到原觸發按鈕。
 - 手機版導覽、GRILL ME 換題／關閉、案例索引與深連結已實測；瀏覽器主控台為 0 error、0 warning。
-- `npm test` 11/11 通過（含非 loopback 綁定拒絕、履歷隱私、公開連結邊界與媒體簽章）；`npm run check` 確認 13 個專案、37 個 repository files，未發現明顯秘密或不安全 IP literal。
+- `npm test` 11/11 通過（含非 loopback 綁定拒絕、履歷隱私、公開連結邊界與媒體簽章）；`npm run check` 確認 13 個專案、38 個 repository files，未發現明顯秘密或不安全 IP literal。
 - 對外專案連結只指向已由 GitHub API 確認為 public 的 repository；ChatStock 實際為 private，因此作品集僅展示案例、不輸出會讓訪客撞 404 的私人外鏈。
 - 正式 Sites worker 對靜態回應加入 CSP（含 `frame-ancestors 'none'`）、`X-Frame-Options: DENY`、Permissions-Policy、COOP/CORP、Referrer-Policy 與 `nosniff`；頁面本身不載入追蹤器、遠端字型或遠端 JavaScript。
 
