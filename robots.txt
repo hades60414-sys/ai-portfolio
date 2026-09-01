@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mike-zhang-portfolio.hades60414.chatgpt.site/sitemap.xml
+Sitemap: https://hades60414-sys.github.io/ai-portfolio/sitemap.xml

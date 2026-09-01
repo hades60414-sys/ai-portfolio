@@ -6,7 +6,7 @@ const root = resolve(import.meta.dirname, "..");
 const textExtensions = new Set([".html", ".css", ".js", ".mjs", ".json", ".md", ".svg", ".yml"]);
 const ignored = new Set([".git", ".playwright-cli", "dist", "node_modules", "output", "tmp"]);
 const failures = [];
-const productionUrl = "https://mike-zhang-portfolio.hades60414.chatgpt.site/";
+const productionUrl = "https://hades60414-sys.github.io/ai-portfolio/";
 
 async function walk(directory) {
   const files = [];
