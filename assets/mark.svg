@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hades Systems mark">
-  <rect width="64" height="64" rx="32" fill="#c9ff45"/>
-  <path d="M18 17h7v12h14V17h7v30h-7V35H25v12h-7V17Z" fill="#0b0c0e"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mike 張大恒 mark">
+  <rect width="64" height="64" fill="#12263f"/>
+  <path d="M14 48V16h8l10 17 10-17h8v32h-7V27L32 44 21 27v21z" fill="#f5f0e6"/>
+  <rect x="49" y="49" width="11" height="11" fill="#c9472e"/>
 </svg>

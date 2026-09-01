@@ -3,298 +3,239 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="張大恒 Hades 的 AI、量化研究與資料系統作品集：從金融現場到可驗證、可重現、可安全運行的產品。"
-    />
-    <meta name="theme-color" content="#0b0c0e" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
-    />
-    <meta property="og:title" content="張大恒 HADES — AI × Quant Systems" />
-    <meta
-      property="og:description"
-      content="不是 demo 墓園。每一個系統都有問題、證據、限制與安全邊界。"
-    />
-    <title>張大恒 HADES — AI × Quant Systems</title>
+    <meta name="description" content="Mike 張大恒的作品集：把金融與研究現場的模糊問題，做成可驗證、可重現、可安全交付的 AI 產品與資料系統。" />
+    <meta name="theme-color" content="#f5f0e6" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta property="og:title" content="Mike 張大恒 — AI × Finance × Product" />
+    <meta property="og:description" content="金融實務、研究方法與產品工程之間，我把想法一路做成可被驗證的系統。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:image" content="assets/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mike 張大恒 — AI × Finance × Product" />
+    <meta name="twitter:description" content="金融實務、研究方法與產品工程之間，我把想法一路做成可被驗證的系統。" />
+    <meta name="twitter:image" content="assets/og.png" />
+    <title>Mike 張大恒 — AI × Finance × Product</title>
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="app.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#work">跳到作品</a>
+    <a class="skip-link" href="#main">跳到主要內容</a>
 
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="回到首頁">
-        <span class="brand-mark" aria-hidden="true">H/</span>
-        <span>HADES.SYSTEMS</span>
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>MIKE 張大恒</span>
       </a>
-      <nav aria-label="主要導覽">
-        <a href="#about">關於</a>
-        <a href="#work">作品</a>
-        <a href="#method">方法</a>
-        <a href="#security">安全</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>MENU</button>
+      <nav id="primary-nav" class="primary-nav" aria-label="主要導覽" data-nav>
+        <a href="#about">ABOUT</a>
+        <a href="#work">WORK</a>
+        <a href="#experience">EXPERIENCE</a>
+        <a href="https://github.com/hades60414-sys" target="_blank" rel="me noopener noreferrer">GITHUB ↗</a>
       </nav>
-      <a class="header-cta" href="#contact" aria-label="合作 / 聯絡">合作 / 聯絡</a>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
-        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
-        <div class="hero-copy reveal">
-          <p class="eyebrow"><span class="status-dot"></span> ZHANG DA-HENG / HADES · TAIWAN</p>
+    <main id="main">
+      <section class="hero page-shell" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="section-code">PORTFOLIO / 2026</p>
           <h1 id="hero-title">
-            把模糊直覺，<br />
-            做成<span>可驗證</span><span class="hero-tail">的系統。</span>
+            <span class="serif">Mike</span> <span class="name-zh">張大恒</span>
+            <small>AI × FINANCE × PRODUCT</small>
           </h1>
+          <p class="hero-statement">把金融現場的模糊問題，<br />做成可驗證的產品。</p>
           <p class="hero-lede">
-            我做會對話的投資工具、會抓過度擬合的研究引擎，也做讓它們能長期運作的資料基礎設施。
-            LLM 負責理解與探索；數字、風險與最後裁決留給可重現的程式。
+            我從聯貸徵信、投資研究與學生社群出發，現在親手做 AI 產品、量化驗證與資料系統。
+            模型負責理解與探索；數字、風險與最後裁決，交給可重現的程式與人。
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">看 13 個系統 <span aria-hidden="true">↘</span></a>
-            <button class="button button-ghost" type="button" data-grill-open>
-              GRILL MY STACK <span aria-hidden="true">⌁</span>
-            </button>
+            <a class="button button-solid" href="#work">看代表作品</a>
+            <button class="text-action" type="button" data-grill-open>GRILL ME ↗</button>
           </div>
         </div>
 
-        <aside class="hero-console reveal" aria-label="作品集摘要">
-          <div class="console-topline">
-            <span>PORTFOLIO://OVERVIEW</span>
-            <span class="console-live">LIVE</span>
+        <figure class="hero-portrait">
+          <div class="portrait-frame">
+            <img src="assets/portrait-zhang-da-heng.png" alt="Mike 張大恒的個人頭像" width="545" height="545" />
           </div>
-          <div class="console-grid">
-            <div>
-              <strong>13</strong>
-              <span>核心系統</span>
-            </div>
-            <div>
-              <strong>04</strong>
-              <span>能力主線</span>
-            </div>
-            <div>
-              <strong>LOCAL</strong>
-              <span>資料優先</span>
-            </div>
-            <div>
-              <strong>FAIL</strong>
-              <span>安全預設</span>
-            </div>
-          </div>
-          <div class="signal" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <p class="console-note">
-            <span>01</span> 問題先於模型<br />
-            <span>02</span> 證據先於宣稱<br />
-            <span>03</span> 邊界先於上線
-          </p>
-        </aside>
+          <figcaption>
+            <span>BASED IN TAIWAN</span>
+            <span>FINANCE → RESEARCH → BUILD</span>
+          </figcaption>
+        </figure>
       </section>
 
-      <section class="ticker" aria-label="能力領域">
-        <div>
-          <span>CONVERSATIONAL AI</span><i>✦</i><span>FORENSIC BACKTESTING</span><i>✦</i>
-          <span>MARKET DATA</span><i>✦</i><span>LOCAL-FIRST SYSTEMS</span><i>✦</i>
-          <span>RISK ENGINEERING</span><i>✦</i><span>HUMAN-IN-THE-LOOP</span>
+      <div class="running-line" aria-hidden="true">
+        <span>APPLIED AI</span>
+        <span>QUANTITATIVE RESEARCH</span>
+        <span>DATA SYSTEMS</span>
+        <span>LOCAL-FIRST PRODUCTS</span>
+      </div>
+
+      <section class="about-section page-shell" id="about" aria-labelledby="about-title">
+        <div class="section-index">
+          <span>01</span>
+          <p>ABOUT MIKE</p>
         </div>
-      </section>
-
-      <section class="profile-section" id="about" aria-labelledby="profile-title">
-        <div class="profile-shell reveal">
-          <div class="profile-intro">
-            <figure class="profile-portrait">
-              <img
-                src="assets/portrait-zhang-da-heng.png"
-                alt="張大恒的個人頭像"
-                width="545"
-                height="545"
-              />
-              <figcaption>
-                <span>FINANCE × RESEARCH × BUILD</span>
-                <strong>張大恒 / HADES</strong>
-              </figcaption>
-            </figure>
-
-            <div class="profile-copy">
-              <p class="profile-label">HUMAN LAYER / THE PERSON BEHIND THE SYSTEMS</p>
-              <h2 id="profile-title">金融實務訓練，<br />研究型腦袋，產品型輸出。</h2>
-              <p class="profile-lede">
-                國立中山大學金融創新產碩專班。做過國際聯貸徵信、投資與產業研究，也從零創辦兩個學生社群。
-                我把金融問題拆成資料、驗證與交付流程，再親手把工具做出來。
-              </p>
-              <div class="impact-grid" aria-label="經歷成果摘要">
-                <div><strong>122</strong><span>投研社首屆社員</span></div>
-                <div><strong>NT$80K+</strong><span>企業贊助</span></div>
-                <div><strong>12+</strong><span>國際公司補充徵信</span></div>
-                <div><strong>7×</strong><span>社群人數成長</span></div>
-              </div>
-              <ul class="credential-list" aria-label="專業能力與工具">
-                <li>證券商高級業務員</li>
-                <li>TOEIC 785</li>
-                <li>Bloomberg / TEJ</li>
-                <li>Python / C</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="experience-block">
-            <div class="experience-heading">
-              <p class="profile-label">FIELD NOTES / EXPERIENCE</p>
-              <p>不是把經歷排成履歷，而是標出這些系統從哪種真實問題長出來。</p>
-            </div>
-            <ol class="experience-list">
-              <li>
-                <time>2025.06 — NOW</time>
-                <div>
-                  <strong>中山大學投資交易研究社</strong>
-                  <span>創辦人 / 社長 / 講師</span>
-                  <p>主導組織、課程與產品；把投資教育做成研究工作流、專案管理網站與快閃投資競賽。</p>
-                </div>
-              </li>
-              <li>
-                <time>2025.02 — 2025.06</time>
-                <div>
-                  <strong>高雄銀行 OBU</strong>
-                  <span>國際聯貸實習生</span>
-                  <p>處理跨國徵信、償債能力評估、財報核對、PCAF 資料與核貸後續流程。</p>
-                </div>
-              </li>
-              <li>
-                <time>2023.11 — 2025.02</time>
-                <div>
-                  <strong>中山大學管理學院</strong>
-                  <span>研究助理</span>
-                  <p>完成長期投資哲學與量子電腦產業研究，訓練從證據到結論的完整研究鏈。</p>
-                </div>
-              </li>
-              <li>
-                <time>2022.02 — 2024.07</time>
-                <div>
-                  <strong>管理顧問及產業研究社</strong>
-                  <span>創辦人 / 社長 / 講師</span>
-                  <p>設計產業研究課程與年度活動；社員突破 50 人，較初期成長 7 倍。</p>
-                </div>
-              </li>
-            </ol>
-          </div>
-
-          <div class="proof-strip" aria-label="競賽與培訓成果">
-            <span>COMPETITION SIGNAL</span>
-            <p><strong>#13</strong> 凱基證券校園股神</p>
-            <p><strong>#10</strong> 統一證券團體組</p>
-            <p><strong>TOP 1</strong> 富邦四校競賽</p>
-            <p><strong>HONOR</strong> TBSA 創新企劃</p>
+        <div class="about-main">
+          <p class="about-kicker">不是從模型開始，而是從問題開始。</p>
+          <h2 id="about-title">金融實務訓練，<br />研究型腦袋，產品型輸出。</h2>
+          <div class="about-copy">
+            <p>
+              我是 Mike 張大恒，國立中山大學金融創新產碩專班碩一。做過國際聯貸徵信與產業研究，
+              也從零創辦兩個學生社群。這些經驗讓我習慣先問：證據在哪裡、口徑能不能重跑、失敗時會不會被看見。
+            </p>
+            <p>
+              寫程式之後，我把這套習慣帶進產品：讓 LLM 處理含糊語意，讓確定性引擎負責計算，
+              再把人工裁決與安全邊界留在系統裡。我的作品不只展示功能，也交代限制、驗證方式與下一步。
+            </p>
           </div>
         </div>
+
+        <dl class="impact-grid" aria-label="經歷成果摘要">
+          <div><dt>122</dt><dd>投資交易研究社首屆社員</dd></div>
+          <div><dt>NT$80K+</dt><dd>企業贊助</dd></div>
+          <div><dt>12+</dt><dd>國際公司補充徵信</dd></div>
+          <div><dt>7×</dt><dd>學生社群人數成長</dd></div>
+        </dl>
+
+        <blockquote class="personal-note">
+          <p>「我最有興趣的，不是讓 AI 看起來很聰明；是讓一個原本說不清楚的問題，最後有可檢查的答案。」</p>
+          <cite>— Mike 張大恒</cite>
+        </blockquote>
       </section>
 
       <section class="work-section" id="work" aria-labelledby="work-title">
-        <div class="section-heading reveal">
-          <div>
-            <p class="eyebrow">SELECTED SYSTEMS / 2026</p>
-            <h2 id="work-title">不是 demo 墓園。<br />每個專案都有裁決標準。</h2>
+        <div class="page-shell section-heading">
+          <div class="section-index">
+            <span>02</span>
+            <p>SELECTED WORK</p>
           </div>
+          <div>
+            <h2 id="work-title">四個代表作，<br />四種真實問題。</h2>
+            <p>面試官可以先看這四案。每案只回答問題、做法、證據與邊界；完整 13 個系統收在後面的專案索引。</p>
+          </div>
+        </div>
+
+        <div class="selected-work" data-selected-work>
+          <noscript>
+            <div class="noscript-work page-shell">
+              <article><span>01</span><h3>Edge Validator</h3><p>在相信回測之前，先找出過度擬合。</p></article>
+              <article><span>02</span><h3>選股對話</h3><p>把模糊投資想法收斂成可重現條件。</p></article>
+              <article><span>03</span><h3>marketvault</h3><p>四個金融應用共用的可追溯資料底座。</p></article>
+              <article><span>04</span><h3>選擇權助手</h3><p>模型解釋，程式定價，人做最後裁決。</p></article>
+            </div>
+          </noscript>
+        </div>
+
+        <div class="project-index page-shell" aria-labelledby="project-index-title">
+          <div class="index-heading">
+            <div>
+              <p class="section-code">COMPLETE INDEX</p>
+              <h3 id="project-index-title">13 個系統，一頁查完。</h3>
+            </div>
+            <p>公開、私人與受限制案例都清楚標示；沒有可公開連結的專案，不製造假的按鈕。</p>
+          </div>
+          <div class="project-list" data-project-list></div>
+        </div>
+      </section>
+
+      <section class="experience-section page-shell" id="experience" aria-labelledby="experience-title">
+        <div class="section-index">
+          <span>03</span>
+          <p>EXPERIENCE</p>
+        </div>
+        <div class="experience-intro">
+          <h2 id="experience-title">這些系統，<br />從現場長出來。</h2>
           <p>
-            專案依「AI 產品、量化研究、資料底座、工作流」整理。卡片會說明它解決什麼、如何驗證，
-            也標出目前仍是本機版或研究版的邊界。
+            研究、銀行與社群不是履歷上的平行線。它們共同訓練我把資訊變成判斷，
+            再把判斷變成能被別人使用的流程。
           </p>
+          <ul class="credential-list" aria-label="證照與工具">
+            <li>證券商高級業務員</li>
+            <li>TOEIC 785</li>
+            <li>Bloomberg / TEJ</li>
+            <li>Python / C</li>
+          </ul>
         </div>
 
-        <div class="filter-bar reveal" role="group" aria-label="篩選作品">
-          <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>13</span></button>
-          <button class="filter" type="button" data-filter="ai" aria-pressed="false">AI 產品</button>
-          <button class="filter" type="button" data-filter="quant" aria-pressed="false">量化 / 風控</button>
-          <button class="filter" type="button" data-filter="infra" aria-pressed="false">資料底座</button>
-          <button class="filter" type="button" data-filter="workflow" aria-pressed="false">工作流</button>
-        </div>
+        <ol class="timeline">
+          <li>
+            <time datetime="2025-06">2025.06 — NOW</time>
+            <div><p>中山大學投資交易研究社</p><strong>創辦人 / 社長 / 講師</strong><span>主導組織、課程與產品；把投資教育做成研究流程、專案網站與快閃投資競賽。</span></div>
+          </li>
+          <li>
+            <time datetime="2025-02">2025.02 — 2025.06</time>
+            <div><p>高雄銀行 OBU</p><strong>國際聯貸實習生</strong><span>負責跨國徵信、償債能力評估、財報核對、PCAF 資料與核貸後續流程。</span></div>
+          </li>
+          <li>
+            <time datetime="2023-11">2023.11 — 2025.02</time>
+            <div><p>中山大學管理學院</p><strong>研究助理</strong><span>完成長期投資哲學與量子電腦產業研究，建立從資料、比較到結論的研究鏈。</span></div>
+          </li>
+          <li>
+            <time datetime="2022-02">2022.02 — 2024.07</time>
+            <div><p>管理顧問及產業研究社</p><strong>創辦人 / 社長 / 講師</strong><span>設計產業研究課程與年度活動；社員突破 50 人，較初期成長 7 倍。</span></div>
+          </li>
+        </ol>
 
-        <div class="featured-grid" data-featured-grid aria-live="polite"></div>
-        <div class="project-grid" data-project-grid aria-live="polite"></div>
-        <p class="empty-state" data-empty hidden>這個分類目前沒有公開案例。</p>
+        <div class="evidence-strip" aria-label="競賽與培訓成果">
+          <span>SELECTED SIGNALS</span>
+          <p><strong>#13</strong> 凱基證券校園股神</p>
+          <p><strong>#10</strong> 統一證券團體組</p>
+          <p><strong>TOP 1</strong> 富邦四校競賽</p>
+          <p><strong>HONOR</strong> TBSA 創新企劃</p>
+        </div>
       </section>
 
       <section class="method-section" id="method" aria-labelledby="method-title">
-        <div class="method-intro reveal">
-          <p class="eyebrow">WORKING PRINCIPLES</p>
-          <h2 id="method-title">模型可以有創意，<br />系統不能靠運氣。</h2>
-        </div>
-        <div class="principles">
-          <article class="principle reveal">
-            <span>01</span>
-            <h3>LLM 不碰最後一哩數字</h3>
-            <p>模型負責解析、提案與解釋；估值、排序、風控和交易條件由確定性程式計算。</p>
-          </article>
-          <article class="principle reveal">
-            <span>02</span>
-            <h3>先嘗試證偽，再談 edge</h3>
-            <p>時間切割、樣本外、成本壓力與多重檢定不是附錄，而是研究引擎的主流程。</p>
-          </article>
-          <article class="principle reveal">
-            <span>03</span>
-            <h3>資料留在該留的地方</h3>
-            <p>能在瀏覽器、本機或唯讀資料層完成的工作，就不多送一份資料到外部服務。</p>
-          </article>
-          <article class="principle reveal">
-            <span>04</span>
-            <h3>失敗要大聲，而且可恢復</h3>
-            <p>關鍵流程採 fail-closed、具名 checkpoint 與可重現測試；缺證據就不算完成。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="security-section" id="security" aria-labelledby="security-title">
-        <div class="security-card reveal">
-          <div class="security-copy">
-            <p class="eyebrow">SECURE BY DEFAULT</p>
-            <h2 id="security-title">公開作品，<br />不等於公開你的機器。</h2>
+        <div class="page-shell">
+          <div class="section-index section-index-light"><span>04</span><p>HOW I BUILD</p></div>
+          <div class="method-heading">
+            <h2 id="method-title">模型可以有創意。<br />系統不能靠運氣。</h2>
             <p>
-              作品集本身零追蹤、零外部字型、零遠端腳本。需要遠端使用的專案，服務預設只綁 loopback，
-              再透過有身分驗證的 HTTPS tunnel 或私有網路對外；位址與憑證只從環境設定注入。
+              我的共同架構很簡單：模型理解語意，程式負責可重現的計算，人做最後裁決；
+              對外連線則從最小暴露開始。
             </p>
           </div>
-          <ul class="security-list">
-            <li><span aria-hidden="true">✓</span><div><strong>Loopback first</strong><small>本機服務不直接裸露公網介面</small></div></li>
-            <li><span aria-hidden="true">✓</span><div><strong>Config, not literals</strong><small>主機名稱、port、secret 不硬編碼</small></div></li>
-            <li><span aria-hidden="true">✓</span><div><strong>Authenticated ingress</strong><small>Cloudflare Access / Tailscale / 反向代理</small></div></li>
-            <li><span aria-hidden="true">✓</span><div><strong>Repository hygiene</strong><small>推送前掃描 .env、金鑰、資料庫與日誌</small></div></li>
-          </ul>
+          <div class="principle-grid">
+            <article><span>01</span><h3>問題先於模型</h3><p>先定義決策、失敗條件與可驗證證據，再決定 AI 要出現在哪一層。</p></article>
+            <article><span>02</span><h3>證偽先於績效</h3><p>樣本外、成本壓力、多重檢定與負結果都進主流程，不放在附錄。</p></article>
+            <article><span>03</span><h3>安全是產品邊界</h3><p>服務預設只綁 loopback；需要遠端使用時，經過有身分驗證的 HTTPS ingress。</p></article>
+          </div>
         </div>
       </section>
 
-      <section class="contact-section" id="contact" aria-labelledby="contact-title">
-        <p class="eyebrow reveal">NEXT QUESTION</p>
-        <h2 id="contact-title" class="reveal">你有一個難以驗證的直覺嗎？</h2>
-        <p class="reveal">我喜歡把「感覺應該有用」一路逼問到可測、可重現、可安全交付。</p>
-        <div class="contact-actions reveal">
-          <a class="button button-primary" href="https://github.com/hades60414-sys" rel="me noreferrer">GitHub ↗</a>
-          <button class="button button-ghost" type="button" data-grill-open>先來一輪 GRILL</button>
+      <section class="contact-section page-shell" id="contact" aria-labelledby="contact-title">
+        <p class="section-code">NEXT CONVERSATION</p>
+        <h2 id="contact-title">想看我怎麼把一個模糊問題，<br />逼到可以被驗證？</h2>
+        <p>先從代表作品或 GitHub 開始。公開頁不放私人電話與信箱；正式履歷內有完整聯絡方式。</p>
+        <div class="contact-actions">
+          <a class="button button-solid" href="https://github.com/hades60414-sys" target="_blank" rel="me noopener noreferrer">OPEN GITHUB ↗</a>
+          <button class="text-action" type="button" data-grill-open>GRILL MY STACK ↗</button>
         </div>
       </section>
     </main>
 
-    <footer>
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">H/</span><span>HADES.SYSTEMS</span></a>
-      <p>Built locally. Verified deliberately. No trackers.</p>
-      <p>© <span data-year></span></p>
+    <footer class="site-footer">
+      <p>MIKE 張大恒</p>
+      <p>AI × FINANCE × PRODUCT</p>
+      <p>© <span data-year></span> / NO TRACKERS</p>
     </footer>
 
     <dialog class="project-dialog" data-project-dialog aria-labelledby="project-dialog-title">
-      <button class="dialog-close" type="button" data-dialog-close aria-label="關閉">×</button>
+      <button class="dialog-close" type="button" data-dialog-close aria-label="關閉專案內容">CLOSE ×</button>
       <div data-dialog-content></div>
     </dialog>
 
     <dialog class="grill-dialog" data-grill-dialog aria-labelledby="grill-dialog-title">
-      <button class="dialog-close" type="button" data-grill-close aria-label="關閉">×</button>
-      <p class="eyebrow">HONEST MODE / NO MERCY LITE</p>
-      <h2 id="grill-dialog-title">GRILL MY STACK</h2>
+      <button class="dialog-close" type="button" data-grill-close aria-label="關閉 GRILL ME">CLOSE ×</button>
+      <p class="section-code">HONEST MODE / CONSTRUCTIVE ONLY</p>
+      <h2 id="grill-dialog-title">GRILL ME</h2>
       <blockquote data-grill-line></blockquote>
       <p class="grill-fix" data-grill-fix></p>
-      <button class="button button-primary" type="button" data-grill-next>再狠一點</button>
+      <button class="button button-solid" type="button" data-grill-next>下一題 ↗</button>
     </dialog>
   </body>
 </html>

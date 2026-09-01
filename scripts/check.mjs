@@ -42,7 +42,21 @@ if (new Set(ids).size !== ids.length) failures.push("Project IDs must be unique"
 if (projects.length !== 13) failures.push(`Expected 13 curated projects, found ${projects.length}`);
 
 for (const project of projects) {
-  for (const field of ["id", "title", "kicker", "category", "summary", "problem", "proof"]) {
+  for (const field of [
+    "id",
+    "title",
+    "kicker",
+    "category",
+    "status",
+    "visibility",
+    "summary",
+    "problem",
+    "role",
+    "decision",
+    "proof",
+    "boundary",
+    "tags"
+  ]) {
     if (!project[field]) failures.push(`${project.id || "unknown"}: missing ${field}`);
   }
   if (project.image) {
@@ -53,6 +67,15 @@ for (const project of projects) {
       failures.push(`${project.id}: missing image ${project.image}`);
     }
   }
+}
+
+const publicLinks = projects.filter((project) => project.link || project.demo);
+if (publicLinks.some((project) => project.visibility !== "public")) {
+  failures.push("Only public projects may expose repository or demo links");
+}
+
+if (projects.filter((project) => project.featured).length !== 4) {
+  failures.push("Expected exactly four featured projects");
 }
 
 if (failures.length) {

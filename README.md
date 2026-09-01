@@ -1,48 +1,39 @@
-# HADES — AI × Quant Systems Portfolio
+# Mike 張大恒 — AI × Finance × Product
 
-這是從本機專案盤點整理出的靜態作品集。重點不是列出所有資料夾，而是把自有系統整理成清楚的四條能力主線：AI 產品、量化／風控、資料基礎設施、工作流產品。
+Mike 張大恒的一站式作品集。網站把金融實務、研究方法與產品工程整理成四個代表案例與 13 個系統索引；每案固定交代問題、本人角色、關鍵決策、證據與公開邊界。
 
-## 本機預覽
+## Local preview
 
-需求：Node.js 20 以上，不需要安裝任何套件。
+需求：Node.js 22.13 以上。
 
-```powershell
-npm run check
-npm test
-npm run dev
-```
+    npm install
+    npm run dev
 
-瀏覽器開啟 `http://127.0.0.1:4173`。
+預覽只監聽 http://127.0.0.1:4173。完整驗證：
 
-## GitHub Pages
+    npm run validate
 
-網站沒有建置步驟，可以直接從 repository root 發佈：
+validate 會依序執行內容／秘密掃描、11 項測試與正式 Sites build。
 
-1. 建立新的 GitHub repository。
-2. 推送前先執行 `npm run check` 與 `npm test`。
-3. 在 GitHub 的 **Settings → Pages** 選擇 **Deploy from a branch**，branch 選 `main`，資料夾選 `/ (root)`。
+## Structure
 
-尚未經本人確認公開的專案只顯示 `LOCAL / PRIVATE REPOSITORY`，不會產生本機路徑連結。
+- index.html：人物定位、履歷摘要、作品、經歷與方法。
+- data/projects.js：13 個案例的唯一內容來源。
+- app.js：案例索引、詳情 dialog、行動導覽與 GRILL ME。
+- styles.css：暖象牙、海軍藍與單一鈷藍重點色的 editorial system。
+- assets/og.png：社交分享圖。
+- .openai/hosting.json：Sites 專案綁定，不含秘密。
 
-## 安全邊界
+## Public boundary
 
-- 零遠端 JavaScript、零外部字型、零分析追蹤。
-- Content Security Policy 禁止網頁對外連線。
-- `npm run check` 會檢查常見金鑰前綴、非 loopback IP literal、素材缺檔與專案資料完整性。
-- 素材只使用已檢視、不含個人持倉或帳密的產品畫面。
-- `.env`、資料庫、日誌、測試報告與本機設定預設不納入 Git。
+- 公開頁不放私人電話、私人信箱、持倉、帳戶、資料庫、憑證或 runtime state。
+- 只有已確認公開的 Edge Validator 與 Research Radar 提供 repository 連結。
+- 只有 Edge Validator 提供直接 Live Demo。
+- private、local research 與 restricted case 只展示去識別的方法摘要。
+- 網站不載入遠端字型、遠端 JavaScript、追蹤器或分析服務。
+- 正式 worker 與本機 preview 都加上 CSP、nosniff、frame deny、referrer 與 permissions policy。
 
-## 更新作品
-
-專案資料集中在 `data/projects.js`。新增作品時請補齊 `problem` 與 `proof`，不要只寫功能清單；若加入圖片，先確認畫面沒有帳號、部位、內網位址或其他敏感資料。
-
-## 盤點範圍
-
-納入 13 個自有或核心系統。第三方 clone、評估用 staging repo、下載範例與無關舊專案不列入作品。
-
-## 個人作品集整合
-
-網站的 `HUMAN LAYER` 取材自 2026 年 8 月更新的直版作品集，整理成公開網頁適合閱讀的個人定位、經歷時間線、社群影響力與競賽證據。原始 PDF 不納入 repository；手機、私人信箱與含其他活動參與者臉孔的照片也不公開。網站只保留本人頭像，並由 `npm run check` 阻擋常見台灣手機格式與個人 Gmail 位址。
+## Project notes
 
 - [專案盤點與 GitHub 備份分級](PROJECT_INVENTORY.md)
 - [本機連線安全稽核](SECURITY_AUDIT.md)
