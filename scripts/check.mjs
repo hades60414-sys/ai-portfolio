@@ -29,7 +29,8 @@ for (const file of files) {
     failures.push(`${display}: looks like a committed secret`);
   }
 
-  if (/\b(?:09\d{2}[- ]?\d{3}[- ]?\d{3}|[A-Za-z0-9._%+-]+@gmail\.com)\b/i.test(content)) {
+  // Hades60414@gmail.com 是 Mike 核准公開的聯絡信箱，其餘 Gmail 一律視為洩漏
+  if (/\b(?:09\d{2}[- ]?\d{3}[- ]?\d{3}|[A-Za-z0-9._%+-]+@gmail\.com)\b/i.test(content.replaceAll("Hades60414@gmail.com", ""))) {
     failures.push(`${display}: public portfolio contains a private phone number or personal Gmail address`);
   }
 

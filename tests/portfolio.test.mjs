@@ -77,12 +77,12 @@ test("dialogs lock scrolling and restore focus on close", async () => {
   assert.match(styles, /html\.has-open-dialog\s*\{[^}]*overflow:\s*hidden/s);
 });
 
-test("public page removes GRILL and keeps Email as a non-displayed placeholder", async () => {
+test("public page removes GRILL and only exposes the approved contact email", async () => {
   const [html, app, data] = await Promise.all(["index.html", "app.js", "data/projects.js"].map((file) => readFile(resolve(root, file), "utf8")));
   assert.doesNotMatch(html + app + data, /GRILL/i);
-  assert.match(html, /<!-- TODO: Mike 提供公開 Email 後填入 -->/);
+  assert.match(html, /mailto:Hades60414@gmail\.com/);
   assert.doesNotMatch(html, /09\d{2}[- ]?\d{3}[- ]?\d{3}/);
-  assert.doesNotMatch(html, /[A-Za-z0-9._%+-]+@gmail\.com/i);
+  assert.doesNotMatch(html.replaceAll("Hades60414@gmail.com", ""), /[A-Za-z0-9._%+-]+@gmail\.com/i);
   await access(resolve(root, "assets/portrait-zhang-da-heng.png"));
 });
 
