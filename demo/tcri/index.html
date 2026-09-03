@@ -4,76 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>TCRI 信用風險預警｜合成演示</title>
+  <title>TCRI 信用風險預警平台｜合成演示</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="demo-banner" role="status">本頁為合成演示資料，非台新內部資料</div>
-  <header class="masthead">
-    <div class="shell masthead-inner">
-      <div>
-        <a class="back-link" href="../../">← 返回作品集</a>
-        <p class="eyebrow">CREDIT RISK / SYNTHETIC DEMO</p>
-        <h1>TCRI 信用風險預警</h1>
-      </div>
-      <p class="masthead-note">以合成財務訊號呈現分級、趨勢與比較的研究工作台。</p>
-    </div>
-  </header>
-
-  <main class="shell">
-    <section class="overview" aria-label="演示說明">
-      <div><span class="section-label">WORKBENCH</span><h2>公司信用訊號總覽</h2></div>
-      <p>分級數字越小代表風險相對較低；預警點表示模型訊號觸發，供優先複核使用。</p>
-    </section>
-
-    <section class="filter-panel" aria-label="公司篩選">
-      <label>搜尋公司或代號<input id="search" type="search" placeholder="例如：示範公司甲、0001"></label>
-      <label>風險分級<select id="grade-filter"><option value="all">全部分級</option></select></label>
-      <label>變動狀態<select id="movement-filter"><option value="all">全部狀態</option><option value="deteriorated">惡化</option><option value="improved">改善</option><option value="stable">持平</option></select></label>
-      <label>排序方式<select id="sort"><option value="risk">風險分級（高→低）</option><option value="score">風險分數（高→低）</option><option value="name">公司名稱</option><option value="change">近期變動</option></select></label>
-      <button class="text-button" id="clear-filters" type="button">清除條件</button>
-    </section>
-
-    <section class="summary-grid" id="summary" aria-label="分級摘要"></section>
-
-    <div class="workspace">
-      <section class="table-panel" aria-labelledby="company-list-title">
-        <div class="panel-head">
-          <div><span class="section-label">LIST</span><h2 id="company-list-title">公司評等明細</h2></div>
-          <p id="result-count" class="muted" aria-live="polite"></p>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th scope="col">比較</th><th scope="col">公司</th><th scope="col">產業</th><th scope="col">分級</th><th scope="col">評分</th><th scope="col">變動</th><th scope="col">預警訊號</th><th scope="col">操作</th></tr></thead>
-            <tbody id="company-rows"></tbody>
-          </table>
-        </div>
-        <nav class="pagination" aria-label="公司清單頁次"><button id="prev-page" type="button">上一頁</button><span id="page-label"></span><button id="next-page" type="button">下一頁</button></nav>
-      </section>
-
-      <aside class="side-column">
-        <section class="compare-panel" aria-labelledby="compare-title">
-          <div class="panel-head"><div><span class="section-label">COMPARE</span><h2 id="compare-title">走勢比較</h2></div><button class="text-button" id="clear-compare" type="button">清除</button></div>
-          <p class="muted">最多選擇 3 家公司，以合成風險分數比較近 12 季變化。</p>
-          <div id="selected-chips" class="selected-chips" aria-live="polite"></div>
-          <canvas id="compare-chart" role="img" aria-label="多家公司合成風險分數比較圖"></canvas>
-          <div id="compare-legend" class="legend"></div>
-        </section>
-      </aside>
-    </div>
-
-    <section class="detail-panel" id="detail-panel" hidden aria-live="polite">
-      <div class="panel-head"><div><span class="section-label">TREND</span><h2 id="detail-title">公司趨勢</h2></div><button class="text-button" id="close-detail" type="button">關閉</button></div>
-      <div class="detail-body">
-        <div class="detail-stats" id="detail-stats"></div>
-        <div class="chart-wrap"><canvas id="trend-chart" role="img" aria-label="單一公司信用風險趨勢圖"></canvas></div>
-        <div class="signal-key"><span><i class="dot warning-dot"></i>預警訊號</span><span><i class="line-sample"></i>風險分數</span></div>
-        <p id="detail-copy" class="detail-copy"></p>
-      </div>
-    </section>
+  <header class="topbar"><div class="topbar-inner"><div><a class="back-link" href="../../">← 返回作品集</a><p class="brand-kicker">TCRI · CREDIT RISK WORKBENCH</p><h1>TCRI 信用風險預警平台 <span class="build-id">SYNTHETIC DEMO</span></h1></div><div class="topbar-right"><button type="button" id="mailbox-toggle" class="mailbox-button" aria-label="開啟合成資料更新匣" aria-expanded="false">更新<span id="mailbox-badge" class="mailbox-badge">3</span></button><p class="topbar-note">合成訊號預覽｜虛線標示模擬來源｜前期評等與升降追蹤｜最多五家公司走勢比較</p></div><div id="mailbox-panel" class="mailbox-panel" hidden><div class="mailbox-head">合成資料更新<span class="mailbox-hint">點公司可直接篩選</span></div><ul id="mailbox-list" class="mailbox-list"></ul></div></div></header>
+  <main>
+    <div class="demo-banner" role="status"><span><strong>合成資料演示</strong>　本頁為合成演示資料，非台新內部資料。</span></div>
+    <section class="panel filter-panel" aria-label="資料篩選"><form id="filters" class="filters"><div class="field"><label for="period">顯示季度</label><select id="period"></select></div><div class="field"><label for="search">公司／代號／產業</label><input id="search" maxlength="40" placeholder="例如：示範公司、0001"></div><div class="field"><label for="status">資料狀態</label><select id="status"><option value="all">全部</option><option value="complete">資料完整</option><option value="warning">有警示</option><option value="improved">本季改善</option><option value="deteriorated">本季惡化</option><option value="stable">評等持平</option></select></div><div class="field"><label for="page-size">每頁筆數</label><select id="page-size"><option value="8">8 筆</option><option value="16">16 筆</option></select></div><button class="primary-button" type="submit">套用</button><button class="clear-link" id="clear-filters" type="button">清除</button></form></section>
+    <section class="panel summary" id="summary" aria-label="季度摘要"></section>
+    <div class="workspace"><section class="panel main-panel"><div class="panel-head"><div><h2>公司評等明細</h2><span class="panel-meta" id="result-count"></span></div><div class="head-actions"><span class="panel-meta">點欄名切換升／降冪；點公司展開</span><button class="secondary-button" id="density-toggle" type="button" aria-pressed="false">緊湊檢視</button><button class="secondary-button" id="export-page" type="button">匯出本頁 CSV</button></div></div><div class="table-wrap"><table><thead><tr><th class="sticky-check"><span class="plain-head">比較</span></th><th class="sticky-company"><button class="sort-link" data-sort="name">公司</button></th><th><button class="sort-link" data-sort="industry">產業</button></th><th><button class="sort-link" data-sort="revenue">營收(億)</button></th><th><button class="sort-link" data-sort="score">總分</button></th><th><span class="plain-head">基本</span></th><th><button class="sort-link" data-sort="grade">門檻等級</button></th><th><span class="plain-head">前期等級</span></th><th><button class="sort-link" data-sort="movement">本季變化</button></th><th><button class="sort-link" data-sort="roe">ROE</button></th><th><button class="sort-link" data-sort="roa">ROA</button></th><th><button class="sort-link" data-sort="margin">營益率</button></th><th><button class="sort-link" data-sort="updated">財報更新</button></th><th><span class="plain-head">狀態</span></th><th><span class="plain-head">原因*</span></th></tr></thead><tbody id="company-rows"></tbody></table></div><div class="pagination"><span class="panel-meta" id="page-label"></span><div class="pagination-links"><button class="page-link" id="prev-page" type="button">上一頁</button><button class="page-link" id="next-page" type="button">下一頁</button></div></div></section>
+      <aside class="side-column"><section class="panel"><div class="panel-head"><div><h3>門檻等級分布</h3><span class="panel-meta">點一下直接篩選</span></div><button class="clear-link" id="clear-grade" type="button" hidden>全部</button></div><div class="grade-grid" id="grade-grid"></div></section><section class="panel"><div class="panel-head"><div><h3>本季評等變化</h3><span class="panel-meta">數字越小，信用評等越佳</span></div></div><div class="movement-grid" id="movement-grid"></div></section><section class="panel" id="compare-panel"><div class="panel-head"><div><h3>走勢比較</h3><span class="panel-meta"><span id="compare-count">0</span> / 5 家</span></div><button class="clear-link" id="clear-compare" type="button">清除</button></div><div class="compare-body"><p class="compare-help">勾選表格左側公司後自動更新。選擇只留存在這台裝置。</p><div class="selected-list" id="selected-list"><span class="compare-empty">尚未選擇公司</span></div><div class="metric-switch" aria-label="走勢指標"><button type="button" class="is-active" data-metric="grade">門檻等級</button><button type="button" data-metric="score">評等總分</button></div><canvas class="compare-canvas" id="compare-chart" aria-label="公司走勢比較圖"></canvas><div class="chart-status" id="chart-status" aria-live="polite">請從表格勾選公司</div><div class="legend" id="chart-legend"></div></div></section></aside></div>
   </main>
-  <footer>訊號平均領先 34 天／OOS 年化 +7.38%／最大回撤 -5.65%＋模擬回測、非實盤績效</footer>
-  <script src="data/companies.js"></script>
-  <script src="app.js"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div><footer>訊號平均領先 TCRI 調評 34 天｜樣本外回測年化 +7.38%｜最大回撤 -5.65%（模擬回測、非實盤績效）</footer>
+  <script src="data/companies.js"></script><script src="app.js"></script>
 </body>
 </html>
