@@ -32,6 +32,41 @@ test("Taishin project claims and synthetic demo boundary are present", () => {
   assert.match(marketvault.role, /交易室市場資料需求/);
 });
 
+test("every project leads with an outcome headline and a three-sentence story", () => {
+  const titles = projects.map(({ title }) => title);
+  assert.equal(new Set(titles).size, titles.length, "outcome headlines must be unique");
+  for (const project of projects) {
+    assert.notEqual(project.title, project.kicker, project.id + ": headline must not repeat the project name");
+    assert.ok(project.title.length <= 24, project.id + ": headline too long for a display heading");
+    for (const [field, min] of [["problem", 16], ["role", 20], ["proof", 16]]) {
+      assert.ok(project[field].length >= min, project.id + ": " + field + " is too thin to carry a story beat");
+      assert.ok(project[field].endsWith("。"), project.id + ": " + field + " must read as a finished sentence");
+    }
+  }
+});
+
+test("homepage-visible copy stays free of engineering jargon", async () => {
+  const jargon = /DSR|PBO|CSCV|StepM|Pyodide|StrategyIR|Black-76|Greeks|IndexedDB|JWT|FastAPI|Next\.js|Streamlit|PostgreSQL|DuckDB|point-in-time|persistence|anchor-first|lineage|冪等/i;
+  const html = await readFile(resolve(root, "index.html"), "utf8");
+  const body = html.slice(html.indexOf("<body"));
+  assert.doesNotMatch(body, jargon, "index.html body copy must stay in plain language");
+  for (const project of projects) {
+    for (const field of ["title", "kicker", "summary", "problem", "role", "proof", "boundary"]) {
+      assert.doesNotMatch(project[field], jargon, project.id + ": jargon belongs in decision/tags, not " + field);
+    }
+  }
+});
+
+test("cards and dialog render the story in problem to role to proof order", async () => {
+  const app = await readFile(resolve(root, "app.js"), "utf8");
+  const story = app.slice(app.indexOf("function story("), app.indexOf("function actionArea("));
+  assert.ok(story.indexOf("project.problem") < story.indexOf("project.role"), "problem must come before role");
+  assert.ok(story.indexOf("project.role") < story.indexOf("project.proof"), "role must come before proof");
+  assert.match(app, /copy\.append\(meta, element\("h3", "", project\.title\), story\(project, "case-story"\)/);
+  assert.match(app, /story\(project, "dialog-story"\)/);
+  assert.match(app, /title\.append\(element\("h4", "", project\.kicker\)/);
+});
+
 test("only verified repositories and demos are exposed", () => {
   const linked = projects.filter(({ link }) => link);
   assert.deepEqual(linked.map(({ id }) => id).sort(), ["edge-validator", "research-radar"]);

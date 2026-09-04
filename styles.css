@@ -341,16 +341,6 @@ section[id] {
   object-fit: cover;
 }
 
-.hero-portrait figcaption {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: 14px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-}
-
 .running-line {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -600,22 +590,45 @@ section[id] {
 
 .case-copy h3 {
   margin-top: 32px;
-  font-size: clamp(42px, 4.2vw, 62px);
+  font-size: clamp(30px, 3vw, 44px);
   font-weight: 600;
-  letter-spacing: -0.05em;
-  line-height: 1;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
-.case-summary {
-  margin-top: 24px;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+.case-story,
+.dialog-story {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+  max-width: 54ch;
 }
 
-.case-facts {
-  margin-top: 36px;
+.case-story p,
+.dialog-story p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.case-story .story-problem,
+.dialog-story .story-problem {
+  color: var(--muted);
+}
+
+.case-story .story-proof,
+.dialog-story .story-proof {
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-weight: 600;
+}
+
+.case-boundary {
+  margin-top: 22px;
+  max-width: 54ch;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .case-fact {
@@ -1105,15 +1118,10 @@ dialog::backdrop {
 .project-dialog h2,
 .grill-dialog h2 {
   margin-top: 34px;
-  font-size: clamp(42px, 6vw, 72px);
-  letter-spacing: -0.055em;
-  line-height: 1;
-}
-
-.dialog-summary {
-  margin-top: 26px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: clamp(28px, 3.6vw, 44px);
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .dialog-facts {
@@ -1314,12 +1322,7 @@ dialog::backdrop {
     justify-self: end;
   }
 
-  .hero-portrait figcaption {
-    display: grid;
-    gap: 2px;
-  }
-
-  .running-line {
+    .running-line {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1419,7 +1422,7 @@ dialog::backdrop {
   }
 
   .case-copy h3 {
-    font-size: 46px;
+    font-size: 34px;
   }
 
   .case-fact {

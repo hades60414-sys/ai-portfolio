@@ -56,7 +56,7 @@ function projectImage(project, className) {
 function systemDiagram(project) {
   const visual = element("div", "system-diagram");
   visual.setAttribute("role", "img");
-  visual.setAttribute("aria-label", project.title + "的工作流程示意");
+  visual.setAttribute("aria-label", project.kicker + "的工作流程示意");
   const stages = project.id === "tcri-workbench"
     ? ["歷史資料", "風險分級", "預警訊號"]
     : project.id === "anc-alerts"
@@ -86,6 +86,17 @@ function fact(label, copy) {
   return item;
 }
 
+// 三句故事：當時的困境 → 我做了什麼 → 現在的結果
+function story(project, className) {
+  const block = element("div", className);
+  block.append(
+    element("p", "story-problem", project.problem),
+    element("p", "story-role", project.role),
+    element("p", "story-proof", project.proof)
+  );
+  return block;
+}
+
 function actionArea(project) {
   const actions = element("div", "case-actions");
   if (project.demo) actions.append(projectLink(project.id === "tcri-workbench" ? "開啟互動 Demo" : "開啟 Demo", project.demo, "button button-solid"));
@@ -104,11 +115,7 @@ function selectedCase(project, index) {
   const copy = element("div", "case-copy");
   const meta = element("div", "case-meta");
   meta.append(element("span", "", project.kicker), element("span", "", project.status));
-  const facts = element("dl", "case-facts");
-  facts.append(fact("問題", project.problem), fact("我做了什麼", project.role), fact("結果", project.proof), fact("限制", project.boundary));
-  const tags = element("ul", "tag-list");
-  project.tags.slice(0, 2).forEach((tag) => tags.append(element("li", "", tag)));
-  copy.append(meta, element("h3", "", project.title), element("p", "case-summary", project.summary), facts, tags, actionArea(project));
+  copy.append(meta, element("h3", "", project.title), story(project, "case-story"), element("p", "case-boundary", project.boundary), actionArea(project));
   article.append(visualFor(project), copy);
   return article;
 }
@@ -118,9 +125,9 @@ function indexRow(project, index) {
   const open = element("button", "project-open", "查看");
   open.type = "button";
   open.dataset.projectId = project.id;
-  open.setAttribute("aria-label", "查看 " + project.title + " 案例摘要");
+  open.setAttribute("aria-label", "查看 " + project.kicker + " 案例摘要");
   const title = element("div", "project-title");
-  title.append(element("h4", "", project.title), element("p", "", project.summary));
+  title.append(element("h4", "", project.kicker), element("p", "", project.summary));
   row.append(element("span", "project-number", String(index + 1).padStart(2, "0")), title, element("span", "project-status", project.status), open);
   return row;
 }
@@ -150,12 +157,14 @@ function showProject(id, trigger) {
   const title = element("h2", "", project.title);
   title.id = "project-dialog-title";
   const details = element("dl", "dialog-facts");
-  details.append(fact("問題", project.problem), fact("我做了什麼", project.role), fact("關鍵做法", project.decision), fact("結果", project.proof), fact("限制", project.boundary));
+  details.append(fact("關鍵做法", project.decision), fact("公開邊界", project.boundary));
+  const tags = element("ul", "tag-list");
+  project.tags.forEach((tag) => tags.append(element("li", "", tag)));
   const actions = element("div", "dialog-actions");
   if (project.demo) actions.append(projectLink(project.id === "tcri-workbench" ? "開啟互動 Demo" : "開啟 Demo", project.demo, "button button-solid"));
   if (project.link) actions.append(projectLink("GitHub ↗", project.link, "text-action link-action"));
   if (!project.demo && !project.link) actions.append(element("span", "private-label", "無公開程式庫或資料入口"));
-  fragment.append(meta, title, element("p", "dialog-summary", project.summary), details, actions);
+  fragment.append(meta, title, story(project, "dialog-story"), details, tags, actions);
   dialogContent.replaceChildren(fragment);
   openDialog(trigger);
 }
