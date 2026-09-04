@@ -87,7 +87,7 @@
   const renderMailbox = () => { $('mailbox-list').innerHTML = data.companies.slice(0, 3).map((company, index) => `<li><button class="stock-button" data-mail="${company.id}">${company.id} ${company.name}</button><span>${index + 1} 日前</span></li>`).join(''); };
   const render = () => { renderSummary(); renderRows(); renderGrades(); renderMovement(); renderCompare(); };
   const select = id => { if (state.selected.includes(id)) state.selected = state.selected.filter(value => value !== id); else if (state.selected.length >= 5) { toast('最多同時比較 5 家公司；請先移除一家公司。'); return false; } else state.selected.push(id); safeStorage.set(state.selected); return true; };
-  $('period').innerHTML = data.quarters.slice().reverse().map((period, reverseIndex) => `<option value="${data.quarters.length - 1 - reverseIndex}">${period} · 16 家</option>`).join('');
+  $('period').innerHTML = data.quarters.slice().reverse().map((period, reverseIndex) => `<option value="${data.quarters.length - 1 - reverseIndex}">${period} · ${data.companies.length} 家</option>`).join('');
   $('period').value = state.periodIndex;
   $('filters').addEventListener('submit', event => { event.preventDefault(); state.page = 1; render(); });
   ['search', 'status', 'page-size', 'period'].forEach(id => $(id).addEventListener(id === 'search' ? 'input' : 'change', () => { if (id === 'page-size') state.perPage = Number($('page-size').value); if (id === 'period') state.periodIndex = Number($('period').value); state.page = 1; render(); }));
@@ -111,5 +111,7 @@
   $('mailbox-toggle').addEventListener('click', () => { const panel = $('mailbox-panel'), open = panel.hidden; panel.hidden = !open; $('mailbox-toggle').setAttribute('aria-expanded', open); });
   document.addEventListener('keydown', event => { if (event.key !== 'Escape') return; $('mailbox-panel').hidden = true; $('mailbox-toggle').setAttribute('aria-expanded', 'false'); if (state.expanded) { state.expanded = null; renderRows(); } });
   window.addEventListener('resize', () => { clearTimeout(window.__tcriResize); window.__tcriResize = setTimeout(() => { renderCompare(); if (state.expanded) drawSingle(state.expanded); }, 120); });
+  const deepLinkQuery = new URLSearchParams(window.location.search).get('q');
+  if (deepLinkQuery) $('search').value = deepLinkQuery.slice(0, 40);
   renderMailbox(); render();
 })();
