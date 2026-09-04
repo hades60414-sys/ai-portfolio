@@ -1,56 +1,93 @@
 import { writeFileSync } from 'node:fs';
 
-let seed = 20260901;
-const rand = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+let seed = 20260904;
+const random = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
 const round = (value, places = 1) => Number(value.toFixed(places));
-const quarters = ['2023 Q1', '2023 Q2', '2023 Q3', '2023 Q4', '2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1', '2025 Q2', '2025 Q3', '2025 Q4'];
-const labels = ['示範製造', '示範材料', '示範服務', '示範科技', '示範物流', '示範能源', '示範零售', '示範醫材', '示範建設', '示範軟體', '示範化工', '示範運輸'];
-const industries = ['工業', '材料', '服務', '資訊', '運輸', '能源', '消費', '醫療'];
-const worsening = new Set([2, 7, 8]);
-const reasonPool = ['流動性與槓桿訊號變化', '營運資金週轉調整', '獲利能力與償債指標', '現金流覆蓋率變動'];
-const driverSets = [
-  [['roe', 'ROE', '%'], ['debt', '借款依存度', '%'], ['quick', '速動比率', 'x']],
-  [['operatingMargin', '營益率', '%'], ['quick', '速動比率', 'x'], ['interestRate', '利息率', '%']],
-  [['debt', '借款依存度', '%'], ['roe', 'ROE', '%'], ['collectionDays', '收款天數', '天'], ['quick', '速動比率', 'x']],
-  [['inventoryDays', '存貨天數', '天'], ['operatingMargin', '營益率', '%'], ['debt', '借款依存度', '%']]
+const quarters = ['2023 Q3', '2023 Q4', '2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1', '2025 Q2', '2025 Q3', '2025 Q4', '2026 Q1', '2026 Q2'];
+
+const roster = [
+  ['7723', '築間', '觀光餐旅'], ['3272', '東碩', '電子—電腦及週邊設備'], ['2330', '台積電', '半導體'], ['2454', '聯發科', '半導體'],
+  ['2303', '聯電', '半導體'], ['3711', '日月光投控', '半導體'], ['6415', '矽力-KY', '半導體'], ['2317', '鴻海', '其他電子'],
+  ['2382', '廣達', '電腦及週邊設備'], ['2357', '華碩', '電腦及週邊設備'], ['2376', '技嘉', '電腦及週邊設備'], ['3231', '緯創', '電腦及週邊設備'],
+  ['2308', '台達電', '電子零組件'], ['2327', '國巨', '電子零組件'], ['3037', '欣興', '電子零組件'], ['8046', '南電', '電子零組件'],
+  ['3008', '大立光', '光電'], ['2409', '友達', '光電'], ['2412', '中華電', '通信網路'], ['3045', '台灣大', '通信網路'],
+  ['4904', '遠傳', '通信網路'], ['2345', '智邦', '通信網路'], ['1101', '台泥', '水泥'], ['1102', '亞泥', '水泥'],
+  ['1301', '台塑', '塑膠'], ['1303', '南亞', '塑膠'], ['1326', '台化', '塑膠'], ['6505', '台塑化', '油電燃氣'],
+  ['2002', '中鋼', '鋼鐵'], ['2027', '大成鋼', '鋼鐵'], ['1216', '統一', '食品'], ['1210', '大成', '食品'],
+  ['2912', '統一超', '貿易百貨'], ['2603', '長榮', '航運'], ['2609', '陽明', '航運'], ['2615', '萬海', '航運'],
+  ['2610', '華航', '航運'], ['2618', '長榮航', '航運'], ['2727', '王品', '觀光餐旅'], ['2542', '興富發', '建材營造'],
+  ['5522', '遠雄', '建材營造'], ['1477', '聚陽', '紡織纖維'], ['1402', '遠東新', '紡織纖維'], ['9904', '寶成', '其他'],
+  ['9910', '豐泰', '其他'], ['2105', '正新', '橡膠'], ['2207', '和泰車', '汽車'], ['1519', '華城', '電機機械']
 ];
 
-const companies = labels.map((name, index) => {
-  const severe = worsening.has(index);
-  const improving = index === 4 || index === 10;
-  const base = 26 + (index % 6) * 7 + rand() * 5 + (severe ? 6 : 0);
-  const trend = severe ? 3.3 : improving ? -1.25 : (rand() - .54) * .55;
-  const series = quarters.map((period, q) => {
-    const score = Math.max(12, Math.min(92, base + trend * q + (rand() - .5) * 6));
-    const grade = Math.max(1, Math.min(9, Math.round(score / 11)));
-    const alert = (severe && q >= 7 && (q === 8 || q === 10)) || (!severe && index % 5 === 0 && q === 9);
-    const roe = round(13 - score / 8 + (rand() - .5) * 2);
-    const roa = round(roe * (.39 + rand() * .12));
-    const operatingMargin = round(roe * (1.35 + rand() * .18));
-    const debt = round(24 + score * .58 + (rand() - .5) * 6);
-    const quick = round(1.9 - score / 95 + (rand() - .5) * .16, 2);
-    return { period, score: round(score), grade, alert, roe, roa, operatingMargin, debt, quick, interestRate: round(1.2 + score / 22 + rand() * .6), inventoryDays: Math.round(22 + score * 1.45 + rand() * 14), collectionDays: Math.round(26 + score * 1.12 + rand() * 12) };
-  });
-  series.forEach((point, q) => {
-    const nextGrade = q < series.length - 1
-      ? series[q + 1].grade
-      : Math.max(1, Math.min(9, point.grade + Math.sign(trend) * (Math.abs(trend) > 1 ? 1 : 0)));
-    const noise = rand() < .18 ? (rand() < .5 ? -1 : 1) : 0;
-    point.modelGrade = Math.max(1, Math.min(9, nextGrade + noise));
+const worsening = new Set(['7723', '3272', '2303', '2409', '2609', '2542']);
+const improving = new Set(['2330', '2412', '2912']);
+/* 弱訊號組：有方向但分數不高，落 MEDIUM/LOW 分層，讓三層都有人 */
+const weakDown = new Set(['2027', '1402', '9904', '2610', '5522']);
+const weakUp = new Set(['2308', '1216']);
+const rated = new Set(['7723', '3272', '2303']);
+const drivers = [['roa', '稅後資產報酬率', '%'], ['roe', '稅後權益報酬率', '%'], ['totalScore', '試算總分', '分']];
+
+const companies = roster.map(([id, name, industry], index) => {
+  const isWorsening = worsening.has(id), isImproving = improving.has(id);
+  const baseGrade = Math.max(2, Math.min(8, 4 + (index % 4) + (isWorsening ? 1 : 0) - (isImproving ? 1 : 0)));
+  const drift = isWorsening ? .32 : isImproving ? -.22 : (random() - .5) * .12;
+  const baseRevenue = 60 + Math.pow(random(), 2) * 5200;
+  const gradePath = quarters.map((_, quarterIndex) =>
+    Math.max(2, Math.min(8, Math.round(baseGrade + drift * quarterIndex + (random() - .5) * .55))));
+  const series = quarters.map((period, quarterIndex) => {
+    const grade = gradePath[quarterIndex];
+    /* 模型試算領先官方 1–2 季（惡化/改善公司看得到虛線先行），其餘小幅擾動 */
+    const lead = (isWorsening || isImproving) ? 2 : 1;
+    const modelGrade = Math.max(2, Math.min(9, gradePath[Math.min(quarterIndex + lead, gradePath.length - 1)] + (random() < .18 ? (random() < .5 ? 1 : -1) : 0)));
+    const roa = round(5.8 - grade * .72 - drift * quarterIndex * .8 + (random() - .5) * .8);
+    const roe = round(roa * (1.75 + random() * .3));
+    const operatingMargin = round(Math.max(-4, roa * (1.4 + random() * .5) + 2.5));
+    const totalScore = Math.round(-154 - grade * 10 - quarterIndex * drift * 7 + (random() - .5) * 9);
+    const scoreDown = round(Math.max(.08, Math.min(.98, .18 + grade * .07 + (isWorsening ? .22 : 0) + (random() - .5) * .12)), 2);
+    const scoreUp = round(Math.max(.05, Math.min(.88, .34 - grade * .025 + (isImproving ? .35 : 0) + (random() - .5) * .1)), 2);
+    return {
+      period, grade, modelGrade, roa, roe, operatingMargin, totalScore, score: totalScore, scoreDown, scoreUp,
+      debt: round(24 + grade * 4.2 + (random() - .5) * 5),
+      quick: round(Math.max(.4, 2.1 - grade * .16 + (random() - .5) * .2), 2),
+      interestRate: round(1.4 + grade * .28 + (random() - .5) * .3),
+      inventoryDays: Math.round(34 + grade * 6 + (random() - .5) * 10),
+      collectionDays: Math.round(48 + grade * 8 + (random() - .5) * 12),
+      coverage: 92 + (index % 8),
+      alert: isWorsening && quarterIndex > 7
+    };
   });
   const latest = series.at(-1), prior = series.at(-2);
-  const movement = latest.score - prior.score > 1.5 ? 'deteriorated' : latest.score - prior.score < -1.5 ? 'improved' : 'stable';
+  const predictionDelta = isWorsening || weakDown.has(id) ? 1 : isImproving || weakUp.has(id) ? -1 : 0;
+  if (weakDown.has(id)) latest.scoreDown = round(.32 + random() * .3, 2);
+  if (weakUp.has(id)) latest.scoreUp = round(.3 + random() * .28, 2);
+  latest.modelGrade = Math.max(2, Math.min(9, latest.grade + predictionDelta));
+  const direction = predictionDelta > 0 ? 'DOWN' : predictionDelta < 0 ? 'UP' : 'FLAT';
+  const riskScore = direction === 'DOWN' ? latest.scoreDown : direction === 'UP' ? latest.scoreUp : Math.max(latest.scoreDown, latest.scoreUp);
+  const band = direction === 'DOWN' && riskScore >= .7 ? 'HIGH' : direction !== 'FLAT' && riskScore >= .45 ? 'MEDIUM' : direction !== 'FLAT' ? 'LOW' : '';
+  /* 原因欄照 v3 口徑：試算 vs 現評 ＋ 一項有數字的變動；FLAT 不給變動理由 */
+  const reason = direction === 'DOWN'
+    ? `試算${latest.modelGrade} vs 現評${latest.grade}，稅後資產報酬率 ${prior.roa}→${latest.roa}% +${predictionDelta}`
+    : direction === 'UP'
+      ? `試算${latest.modelGrade} vs 現評${latest.grade}，稅後權益報酬率 ${prior.roe}→${latest.roe}% ${predictionDelta}`
+      : '—';
+  const movement = latest.grade > prior.grade ? 'deteriorated' : latest.grade < prior.grade ? 'improved' : 'stable';
   return {
-    id: String(index + 1).padStart(4, '0'), name: `${name}${String.fromCharCode(65 + index)}`, industry: industries[index % industries.length], series,
-    grade: latest.grade, score: latest.score, movement, signals: series.filter(point => point.alert).length,
-    revenue: round(80 + index * 17 + rand() * 55), totalAssets: round(180 + index * 39 + rand() * 120),
-    coverage: Math.round(72 + rand() * 27), complete: index % 7 !== 0, source: index % 3 === 0 ? '試算' : '合成基準',
-    drivers: driverSets[index % driverSets.length].slice(0, 2 + (index % 3)),
-    reason: reasonPool[index % reasonPool.length], updated: `2026-08-${String(12 + (index % 16)).padStart(2, '0')}`
+    id, name, industry, series, drivers,
+    revenue: round(baseRevenue), totalAssets: round(baseRevenue * (1.3 + random() * 1.4)),
+    grade: latest.grade, score: latest.totalScore, movement, signals: series.filter(point => point.alert).length,
+    coverage: latest.coverage, complete: (index % 11) !== 3, source: '合成資料', reason,
+    prediction: { direction, band, riskScore, scoreDown: latest.scoreDown, scoreUp: latest.scoreUp, rankDown: 0, rankUp: 0, rated: rated.has(id), ratedGrade: Math.max(2, Math.min(9, latest.modelGrade)) },
+    updated: '2026-09-04'
   };
 });
 
-const payload = { generatedAt: '2026-09-01', quarters, runs: ['v210', 'v230'], companies };
+const sortedDown = [...companies].sort((a, b) => b.prediction.scoreDown - a.prediction.scoreDown);
+const sortedUp = [...companies].sort((a, b) => b.prediction.scoreUp - a.prediction.scoreUp);
+sortedDown.forEach((company, index) => { company.prediction.rankDown = index + 1; });
+sortedUp.forEach((company, index) => { company.prediction.rankUp = index + 1; });
+
+const payload = { generatedAt: '2026-09-04 09:30', quarters, runs: ['predict-view-3.2.0'], companies };
 writeFileSync(new URL('./companies.json', import.meta.url), JSON.stringify(payload, null, 2) + '\n');
 writeFileSync(new URL('./companies.js', import.meta.url), `window.TCRI_DATA = ${JSON.stringify(payload)};\n`);
 console.log(`Generated ${companies.length} synthetic companies.`);

@@ -1,6 +1,96 @@
 <!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>TCRI 評等預測｜合成演示</title><link rel="stylesheet" href="style.css"></head>
-<body class="predict-page"><header class="topbar"><div class="topbar-inner"><div><a class="back-link" href="../../">← 返回作品集</a><p class="brand-kicker">TCRI · CREDIT RISK WORKBENCH</p><h1>TCRI 評等預測 <span id="predict-period"></span> <span class="build-id">SYNTHETIC DEMO</span></h1></div><p class="topbar-note">模型推估、非官方評等，僅供人工複核｜資料產生 <span id="generated-at"></span>｜<a href="platform.html">TCRI平台</a></p></div></header><main>
-<div class="demo-banner"><span><strong>合成資料演示</strong>　本頁為合成演示資料，非台新內部資料。</span></div>
-<section class="panel filter-panel"><form id="predict-filters" class="filters predict-filters"><div class="field"><label for="p-period">預測季度</label><select id="p-period"></select></div><div class="field"><label for="p-run">模型 run</label><select id="p-run"><option value="v230">v230 · 校準版</option><option value="v210">v210 · 對照版</option></select></div><div class="field"><label for="p-search">公司／代號／產業</label><input id="p-search" placeholder="例如：示範、0001"></div><div class="field"><label for="p-direction">預測方向</label><select id="p-direction"><option value="all">全部</option><option value="DOWN">降級預警</option><option value="UP">升級訊號</option><option value="FLAT">維持</option></select></div><button class="primary-button">套用</button><button class="clear-link" type="button" id="p-clear">清除</button></form></section>
-<section class="panel summary" id="predict-summary"></section><section class="panel main-panel"><div class="panel-head"><div><h2>模型預測觀察清單</h2><span class="panel-meta">依風險分層、方向與警示分數排序；分數為未校準排序分數</span></div><div class="head-actions"><button class="secondary-button" id="p-export" type="button">匯出 CSV</button></div></div><div class="table-wrap"><table class="predict-table"><thead><tr><th>公司</th><th>產業</th><th>前期／官方</th><th>預測等級</th><th>方向</th><th>風險分層</th><th>警示分數</th><th>主要原因*</th><th>模型 run</th></tr></thead><tbody id="predict-rows"></tbody></table></div><p class="predict-note">* 模型推估之主要驅動因子，非官方原因。LOW 為當季相對名次訊號，可能隨新財報資料而變動。</p></section></main><footer>訊號平均領先 TCRI 調評 34 天｜樣本外回測年化 +7.38%｜最大回撤 -5.65%（模擬回測、非實盤績效）</footer><script src="data/companies.js"></script><script src="predict.js"></script></body></html>
+<body class="predict-page">
+<header class="topbar"><div class="topbar-inner">
+  <div>
+    <a class="back-link" href="../../">← 返回作品集</a>
+    <p class="brand-kicker">TCRI · CREDIT RISK WORKBENCH</p>
+    <h1>TCRI 評等預測 · <span id="predict-period"></span> <span class="build-id">SYNTHETIC DEMO</span></h1>
+  </div>
+  <p class="topbar-note">模型推估、非官方評等，僅供人工複核｜資料產生 <span id="generated-at"></span>｜<a href="platform.html" target="_blank" rel="noopener">→ TCRI平台</a></p>
+</div></header>
+<main>
+  <div class="demo-banner"><span><strong>合成資料演示</strong>　本頁為合成演示資料，非台新內部資料；公司名稱與代號為真實上市櫃公司，等級與數值全為虛構。</span></div>
+
+  <section class="panel filter-panel" aria-label="清單篩選">
+    <form class="filters" id="predict-filters">
+      <div class="field"><label for="f-period">預測季</label><select id="f-period"></select></div>
+      <div class="field"><label for="f-q">公司／代號／產業</label><input id="f-q" type="search" maxlength="40" placeholder="例如 2330、台積電、半導體" autocomplete="off"></div>
+      <div class="field"><label for="f-move">預測方向</label><select id="f-move"><option value="">全部（預設）</option><option value="DOWN">只看降級 DOWN</option><option value="UP">只看升級 UP</option><option value="FLAT">只看維持 FLAT</option></select></div>
+      <div class="field"><label for="f-band">風險分層</label><select id="f-band"><option value="">全部</option><option value="HIGH">HIGH</option><option value="MEDIUM">MEDIUM</option><option value="LOW">LOW</option></select></div>
+      <div class="field"><label for="f-gmin">現行評等區間</label><div class="score-line"><select id="f-gmin" aria-label="現行評等下限"></select><select id="f-gmax" aria-label="現行評等上限"></select></div></div>
+      <div class="field"><label for="f-size">每頁</label><select id="f-size"><option value="25">25 筆</option><option value="50" selected>50 筆</option><option value="100">100 筆</option></select></div>
+      <button class="primary-button" type="submit">套用</button>
+      <button class="clear-link" type="button" id="f-clear">清除</button>
+    </form>
+  </section>
+
+  <section class="panel summary" id="predict-summary" aria-label="本季摘要"></section>
+
+  <div class="workspace">
+    <section class="panel main-panel" id="list">
+      <div class="panel-head">
+        <div>
+          <h2>預測清單</h2>
+          <span class="panel-meta" id="list-meta"></span>
+        </div>
+        <div class="head-actions">
+          <button class="secondary-button" type="button" id="density-toggle">緊湊檢視</button>
+          <button class="secondary-button" type="button" id="p-export">匯出 CSV</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th class="sticky-company"><button class="sort-link" type="button" data-sort="stock">公司</button></th>
+            <th><button class="sort-link" type="button" data-sort="industry">產業</button></th>
+            <th class="mid"><button class="sort-link" type="button" data-sort="prev_grade">現行 → 預測</button></th>
+            <th class="mid"><button class="sort-link" type="button" data-sort="delta">方向</button></th>
+            <th class="num" title="只顯示該列預測方向對應的那一支分數（降級列＝score_down，升級列＝score_up，維持列＝兩者較高者並標 ↕）。未校準排序分數，非機率。"><button class="sort-link" type="button" data-sort="alert_score">風險分數</button></th>
+            <th class="mid" title="點這裡回到預設排序：降級優先 → 分層 → 該方向分數。HIGH／MEDIUM＝歷史校準的絕對門檻；LOW＝本季該方向名次前段但未達門檻，會隨新財報變動"><button class="sort-link" type="button" data-sort="risk">分層</button></th>
+            <th><span class="plain-head" title="模型推估、非官方原因；完整內容請點公司名稱展開">主要原因</span></th>
+          </tr></thead>
+          <tbody id="predict-rows"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span class="panel-meta" id="page-meta"></span>
+        <div class="pagination-links">
+          <button class="page-link" type="button" id="prev-page">上一頁</button>
+          <button class="page-link" type="button" id="next-page">下一頁</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side-column">
+      <section class="panel">
+        <div class="panel-head"><div><h3>風險分層導覽</h3><span class="panel-meta">點一下直接篩選</span></div><button class="clear-link" type="button" id="side-clear" hidden>全部</button></div>
+        <div class="movement-grid" id="band-nav"></div>
+        <p class="side-split">預測方向</p>
+        <div class="movement-grid" id="move-nav"></div>
+        <p class="side-note">以上為本季全體計數，不受關鍵字與評等區間篩選影響；清單筆數會與此不同。</p>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><h3>圖例／怎麼看</h3><span class="panel-meta">每項一行</span></div></div>
+        <ul class="legend-list">
+          <li><span class="legend-key">HIGH</span><span>已達歷史校準門檻，優先複核。</span></li>
+          <li><span class="legend-key">MEDIUM</span><span>達次一階門檻，次順位。</span></li>
+          <li><span class="legend-key is-mute">LOW</span><span>本季名次前段，會隨新財報變動。</span></li>
+          <li><span class="legend-key is-down">↓ 降級</span><span>預測下次評等調降（等級數字變大）。</span></li>
+          <li><span class="legend-key is-up">↑ 升級</span><span>預測下次評等調升。</span></li>
+          <li><span class="legend-key is-mute">→ 維持</span><span>兩個方向都未過門檻。</span></li>
+          <li><span class="legend-key is-mute">↕</span><span>維持列：顯示降／升較高的那一支分數。</span></li>
+          <li><span class="legend-key is-mute">分數</span><span>未校準排序分數，不是機率。</span></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="page-foot-line">
+    <p class="muted" id="foot-line"></p>
+  </footer>
+</main>
+<footer>訊號平均領先 TCRI 調評 34 天｜樣本外回測年化 +7.38%｜最大回撤 -5.65%（模擬回測、非實盤績效）</footer>
+<script src="data/companies.js"></script>
+<script src="predict.js"></script>
+</body></html>
