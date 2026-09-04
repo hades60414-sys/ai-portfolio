@@ -3,10 +3,10 @@ import { writeFileSync } from 'node:fs';
 let seed = 20260901;
 const rand = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
 const round = (value, places = 1) => Number(value.toFixed(places));
-const quarters = ['2023 Q3', '2023 Q4', '2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1', '2025 Q2', '2025 Q3', '2025 Q4', '2026 Q1', '2026 Q2'];
-const labels = ['示範製造', '示範材料', '示範服務', '示範科技', '示範物流', '示範能源', '示範零售', '示範醫材', '示範建設', '示範軟體', '示範化工', '示範運輸', '示範食品', '示範光電', '示範通路', '示範機電'];
+const quarters = ['2023 Q1', '2023 Q2', '2023 Q3', '2023 Q4', '2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1', '2025 Q2', '2025 Q3', '2025 Q4'];
+const labels = ['示範製造', '示範材料', '示範服務', '示範科技', '示範物流', '示範能源', '示範零售', '示範醫材', '示範建設', '示範軟體', '示範化工', '示範運輸'];
 const industries = ['工業', '材料', '服務', '資訊', '運輸', '能源', '消費', '醫療'];
-const worsening = new Set([2, 7, 13]);
+const worsening = new Set([2, 7, 8]);
 const reasonPool = ['流動性與槓桿訊號變化', '營運資金週轉調整', '獲利能力與償債指標', '現金流覆蓋率變動'];
 
 const companies = labels.map((name, index) => {
@@ -36,7 +36,7 @@ const companies = labels.map((name, index) => {
   };
 });
 
-const payload = { generatedAt: '2026-09-01', quarters, companies };
+const payload = { generatedAt: '2026-09-01', quarters, runs: ['v210', 'v230'], companies };
 writeFileSync(new URL('./companies.json', import.meta.url), JSON.stringify(payload, null, 2) + '\n');
 writeFileSync(new URL('./companies.js', import.meta.url), `window.TCRI_DATA = ${JSON.stringify(payload)};\n`);
 console.log(`Generated ${companies.length} synthetic companies.`);

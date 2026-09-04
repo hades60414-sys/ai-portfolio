@@ -1732,3 +1732,28 @@ h3 {
   text-wrap: balance;
 }
 
+
+/* Taishin featured demo callout - echoes the TCRI demo wine-red workbench */
+.taishin-demo-callout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "kicker cta" "title cta" "desc cta";
+  gap: 4px 24px;
+  align-items: center;
+  margin: 28px 0 8px;
+  padding: 26px 32px;
+  color: #fff;
+  background: linear-gradient(118deg, #550b1b 0%, #741328 62%, #882039 100%);
+  border-bottom: 4px solid #a5344b;
+  border-radius: 12px;
+  text-decoration: none;
+}
+.taishin-demo-callout:hover .callout-cta { background: #fff; color: #741328; }
+.taishin-demo-callout .callout-kicker { grid-area: kicker; color: #e8b9c3; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
+.taishin-demo-callout .callout-title { grid-area: title; font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+.taishin-demo-callout .callout-desc { grid-area: desc; color: #f0dfe3; font-size: 14px; }
+.taishin-demo-callout .callout-cta { grid-area: cta; padding: 12px 22px; border: 2px solid rgba(255,255,255,.75); border-radius: 999px; font-size: 15px; font-weight: 800; white-space: nowrap; transition: background .15s, color .15s; }
+@media (max-width: 760px) {
+  .taishin-demo-callout { grid-template-columns: 1fr; grid-template-areas: "kicker" "title" "desc" "cta"; padding: 22px 20px; }
+  .taishin-demo-callout .callout-cta { justify-self: start; margin-top: 10px; }
+}
