@@ -66,7 +66,6 @@ for (const project of projects) {
     "category",
     "status",
     "visibility",
-    "summary",
     "problem",
     "role",
     "decision",

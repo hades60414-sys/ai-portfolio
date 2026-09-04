@@ -589,7 +589,7 @@ section[id] {
 }
 
 .case-copy h3 {
-  margin-top: 32px;
+  margin-top: 48px;
   font-size: clamp(30px, 3vw, 44px);
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -600,8 +600,8 @@ section[id] {
 .case-story,
 .dialog-story {
   display: grid;
-  gap: 14px;
-  margin-top: 28px;
+  gap: 26px;
+  margin-top: 40px;
   max-width: 54ch;
 }
 
@@ -614,6 +614,8 @@ section[id] {
 .case-story .story-problem,
 .dialog-story .story-problem {
   color: var(--muted);
+  font-size: 19px;
+  line-height: 1.6;
 }
 
 .case-story .story-proof,
@@ -843,6 +845,9 @@ section[id] {
 }
 
 .project-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
   min-width: 68px;
   min-height: 44px;
   padding: 0;

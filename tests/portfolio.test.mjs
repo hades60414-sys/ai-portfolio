@@ -29,7 +29,7 @@ test("Taishin project claims and synthetic demo boundary are present", () => {
   assert.match(tcri.proof, /-5\.65%/);
   assert.match(tcri.boundary, /模擬回測、非實盤績效/);
   assert.match(anc.proof, /178/);
-  assert.match(marketvault.role, /交易室市場資料需求/);
+  assert.match(marketvault.role + marketvault.decision, /交易室市場資料需求/);
 });
 
 test("every project leads with an outcome headline and a three-sentence story", () => {
@@ -38,10 +38,16 @@ test("every project leads with an outcome headline and a three-sentence story", 
   for (const project of projects) {
     assert.notEqual(project.title, project.kicker, project.id + ": headline must not repeat the project name");
     assert.ok(project.title.length <= 24, project.id + ": headline too long for a display heading");
-    for (const [field, min] of [["problem", 16], ["role", 20], ["proof", 16]]) {
+    // 上限來自實測：文字欄寬約 30 字一行，role 超過 42 字就不再讀起來像一句話
+    for (const [field, min, max] of [["problem", 16, 46], ["role", 20, 42], ["proof", 16, 56]]) {
       assert.ok(project[field].length >= min, project.id + ": " + field + " is too thin to carry a story beat");
+      assert.ok(project[field].length <= max, project.id + ": " + field + " runs past one readable sentence");
       assert.ok(project[field].endsWith("。"), project.id + ": " + field + " must read as a finished sentence");
     }
+    const beats = project.problem.length + project.role.length + project.proof.length;
+    assert.ok(beats <= 135, project.id + ": the three beats total " + beats + " characters and overwhelm the card");
+    assert.ok(["台新實習", "公開可試用", "私人專案"].includes(project.status), project.id + ": unexpected status label " + project.status);
+    assert.ok(project.boundary.length <= 30, project.id + ": boundary must stay a one-line note");
   }
 });
 
@@ -51,7 +57,7 @@ test("homepage-visible copy stays free of engineering jargon", async () => {
   const body = html.slice(html.indexOf("<body"));
   assert.doesNotMatch(body, jargon, "index.html body copy must stay in plain language");
   for (const project of projects) {
-    for (const field of ["title", "kicker", "summary", "problem", "role", "proof", "boundary"]) {
+    for (const field of ["title", "kicker", "problem", "role", "proof", "boundary"]) {
       assert.doesNotMatch(project[field], jargon, project.id + ": jargon belongs in decision/tags, not " + field);
     }
   }
@@ -64,7 +70,7 @@ test("cards and dialog render the story in problem to role to proof order", asyn
   assert.ok(story.indexOf("project.role") < story.indexOf("project.proof"), "role must come before proof");
   assert.match(app, /copy\.append\(meta, element\("h3", "", project\.title\), story\(project, "case-story"\)/);
   assert.match(app, /story\(project, "dialog-story"\)/);
-  assert.match(app, /title\.append\(element\("h4", "", project\.kicker\)/);
+  assert.match(app, /title\.append\(element\("h4", "", project\.title\), element\("p", "", project\.kicker\)\)/);
 });
 
 test("only verified repositories and demos are exposed", () => {

@@ -9,7 +9,7 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const primaryNav = document.querySelector("[data-nav]");
 const header = document.querySelector("[data-header]");
 const categoryLabels = {
-  taishin: "台新綜合證券 金融交易總處｜Internship",
+  taishin: "台新實習",
   research: "量化研究與驗證",
   "ai-apps": "AI 應用",
   workflow: "工具與工作流"
@@ -115,19 +115,26 @@ function selectedCase(project, index) {
   const copy = element("div", "case-copy");
   const meta = element("div", "case-meta");
   meta.append(element("span", "", project.kicker), element("span", "", project.status));
-  copy.append(meta, element("h3", "", project.title), story(project, "case-story"), element("p", "case-boundary", project.boundary), actionArea(project));
+  copy.append(meta, element("h3", "", project.title), story(project, "case-story"));
+  if (project.category === "taishin") copy.append(element("p", "case-boundary", project.boundary));
+  copy.append(actionArea(project));
   article.append(visualFor(project), copy);
   return article;
 }
 
 function indexRow(project, index) {
   const row = element("article", "project-row");
-  const open = element("button", "project-open", "查看");
-  open.type = "button";
-  open.dataset.projectId = project.id;
-  open.setAttribute("aria-label", "查看 " + project.kicker + " 案例摘要");
+  const open = project.featured
+    ? projectLink("回到案例 ↑", "#case-" + project.id, "project-open")
+    : element("button", "project-open", "查看");
+  if (project.featured) open.setAttribute("aria-label", "回到上方的 " + project.kicker + " 案例");
+  else {
+    open.type = "button";
+    open.dataset.projectId = project.id;
+    open.setAttribute("aria-label", "查看 " + project.kicker + " 案例摘要");
+  }
   const title = element("div", "project-title");
-  title.append(element("h4", "", project.kicker), element("p", "", project.summary));
+  title.append(element("h4", "", project.title), element("p", "", project.kicker));
   row.append(element("span", "project-number", String(index + 1).padStart(2, "0")), title, element("span", "project-status", project.status), open);
   return row;
 }
