@@ -7,15 +7,15 @@ import { projects } from "../data/projects.js";
 
 const root = resolve(import.meta.dirname, "..");
 
-test("portfolio reorganizes 15 systems into four categories and seven featured cases", () => {
-  assert.equal(projects.length, 15);
+test("portfolio organizes 17 projects into four categories and nine featured cases", () => {
+  assert.equal(projects.length, 17);
   assert.equal(new Set(projects.map(({ id }) => id)).size, projects.length);
   for (const category of ["taishin", "research", "ai-apps", "workflow"]) {
     assert.ok(projects.some((project) => project.category === category), "missing " + category);
   }
   const featured = projects.filter(({ featured }) => featured).sort((a, b) => a.featureRank - b.featureRank);
-  assert.deepEqual(featured.map(({ id }) => id), ["tcri-workbench", "anc-alerts", "marketvault", "bln-pricing", "edge-validator", "chat-stock-ai", "options-assistant"]);
-  assert.equal(featured.length, 7);
+  assert.deepEqual(featured.map(({ id }) => id), ["tcri-workbench", "anc-alerts", "marketvault", "bln-pricing", "course-trading", "tcri-cb-strategy", "edge-validator", "chat-stock-ai", "options-assistant"]);
+  assert.equal(featured.length, 9);
 });
 
 test("Taishin project claims and synthetic demo boundary are present", () => {
@@ -24,10 +24,13 @@ test("Taishin project claims and synthetic demo boundary are present", () => {
   const marketvault = projects.find(({ id }) => id === "marketvault");
   assert.equal(tcri.category, "taishin");
   assert.equal(tcri.demo, "demo/tcri/");
-  assert.match(tcri.proof, /34 天/);
-  assert.match(tcri.proof, /\+7\.38%/);
-  assert.match(tcri.proof, /-5\.65%/);
-  assert.match(tcri.boundary, /模擬回測、非實盤績效/);
+  assert.match(tcri.proof, /尚未超越基準/);
+  assert.match(tcri.boundary, /持續優化中/);
+  assert.match(tcri.boundary, /合成資料/);
+  assert.doesNotMatch(JSON.stringify(tcri), /34 天|7\.38%|5\.65%/);
+  const cb = projects.find(({ id }) => id === "tcri-cb-strategy");
+  assert.equal(cb.category, "taishin");
+  assert.match(cb.decision, /固定持有收益不能歸因於預測模型/);
   assert.match(anc.proof, /178/);
   assert.match(marketvault.role + marketvault.decision, /交易室市場資料需求/);
 });
@@ -46,7 +49,7 @@ test("every project leads with an outcome headline and a three-sentence story", 
     }
     const beats = project.problem.length + project.role.length + project.proof.length;
     assert.ok(beats <= 135, project.id + ": the three beats total " + beats + " characters and overwhelm the card");
-    assert.ok(["台新實習", "公開可試用", "私人專案"].includes(project.status), project.id + ": unexpected status label " + project.status);
+    assert.ok(["台新實習", "公開可試用", "私人專案", "課堂獨立實作"].includes(project.status), project.id + ": unexpected status label " + project.status);
     assert.ok(project.boundary.length <= 30, project.id + ": boundary must stay a one-line note");
   }
 });
@@ -79,6 +82,28 @@ test("only verified repositories and demos are exposed", () => {
   assert.ok(linked.every(({ link }) => link.startsWith("https://github.com/hades60414-sys/")));
   const externalDemos = projects.filter(({ demo }) => demo?.startsWith("https://"));
   assert.deepEqual(externalDemos.map(({ id }) => id), ["edge-validator"]);
+});
+
+test("course reports and research experience are connected to the portfolio", async () => {
+  const course = projects.find(({ id }) => id === "course-trading");
+  assert.equal(course.status, "課堂獨立實作");
+  assert.match(course.proof, /36\.18%/);
+  assert.match(course.proof, /-49\.41%/);
+  assert.match(course.boundary, /模擬回測、非實盤績效/);
+  assert.deepEqual(course.documents.map(({ href }) => href), ["reports/trend-0050.pdf", "reports/programming-experience.pdf"]);
+  for (const { href } of course.documents) {
+    const bytes = await readFile(resolve(root, href));
+    assert.equal(bytes.subarray(0, 5).toString(), "%PDF-", href);
+  }
+  const html = await readFile(resolve(root, "index.html"), "utf8");
+  for (const target of ["trading", "index", "leadership"]) {
+    assert.ok(html.includes(`href="#${target}"`) && html.includes(`id="${target}"`));
+  }
+  assert.match(html, /Willow/);
+  assert.match(html, /富國銀行/);
+  assert.match(html, /研究助理相關主題與後續整理/);
+  assert.doesNotMatch(html, /教我在下結論之前先把數字的來源查清楚/);
+  await access(resolve(root, "assets/quantum-research.png"));
 });
 
 test("local media and social preview exist with matching file signatures", async () => {

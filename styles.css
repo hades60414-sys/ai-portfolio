@@ -1804,6 +1804,25 @@ h3 {
 .dialog-image { display: block; height: auto; max-height: none; object-fit: contain; }
 .image-link { display: block; }
 .image-link:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.capability-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+.capability-nav a { padding: 14px 12px; border-top: 2px solid var(--accent); text-decoration: none; background: rgba(255,255,255,.3); }
+.capability-nav strong { display: block; font-size: 17px; }
+.capability-nav span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.capability-nav a:hover { background: #fff; }
+.demo-notice { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.dialog-research { display: grid; gap: 22px; margin-top: 28px; }
+.dialog-research h3 { margin: 0 0 8px; font-size: 18px; }
+.dialog-research p { margin: 0; line-height: 1.85; }
+.research-details { margin-top: 22px; border-block: 1px solid var(--rule); }
+.research-details summary { padding: 18px 0; color: var(--accent); font-size: 16px; font-weight: 700; cursor: pointer; }
+.research-content { padding-bottom: 24px; }
+.research-content figure { margin: 0 0 24px; }
+.research-content img { display: block; width: 100%; height: auto; }
+.research-content figcaption { margin-top: 10px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+.research-content h3 { margin: 22px 0 8px; font-size: 18px; }
+.timeline .research-content p { font-size: 16px; font-weight: 400; line-height: 1.85; }
+.timeline .research-content .research-deliverables { padding-top: 14px; border-top: 1px solid var(--rule); margin-top: 22px; color: var(--muted); font-size: 14px; }
+#leadership, #research-assistant { scroll-margin-top: 110px; }
 .society-demo { display: block; margin-top: 24px; text-decoration: none; border: 1px solid var(--rule); }
 .society-demo img { display: block; width: 100%; height: auto; }
 .timeline .society-demo span { margin: 0; padding: 12px; color: var(--accent); background: var(--paper); }
@@ -1815,6 +1834,10 @@ h3 {
 }
 
 @media (max-width: 760px) {
+  .capability-nav { gap: 8px; }
+  .capability-nav a { padding: 12px 8px; }
+  .capability-nav strong { font-size: 16px; }
+  .capability-nav span { font-size: 11px; }
   .case-spread { gap: 28px; padding-block: 56px; }
   .case-copy { order: -1; }
   .case-copy h3 { margin-top: 24px; }

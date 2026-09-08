@@ -3,7 +3,8 @@ import { sites } from "@openai/sites-vite-plugin";
 import { copyFile, mkdir, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const projectImageNames = ["chat-stock.png", "edge-validator.png", "task-gacha.png", "tcri-workbench.png", "options-assistant.png", "portfolio-dashboard.png", "lab-llm-chat.png", "daily-flow.png", "investment-game.png", "wild-alpha.png", "auto-quant.png", "sector-radar.png"];
+const projectImageNames = ["chat-stock.png", "edge-validator.png", "task-gacha.png", "tcri-workbench.png", "options-assistant.png", "portfolio-dashboard.png", "lab-llm-chat.png", "daily-flow.png", "investment-game.png", "wild-alpha.png", "auto-quant.png", "sector-radar.png", "course-trading.png", "quantum-research.png"];
+const reportNames = ["trend-0050.pdf", "programming-experience.pdf"];
 
 function staticWorker() {
   return {
@@ -56,11 +57,15 @@ function staticWorker() {
       ].join("\n");
 
       await mkdir(resolve(client, "assets"), { recursive: true });
+      await mkdir(resolve(client, "reports"), { recursive: true });
       await mkdir(server, { recursive: true });
       await unlink(htmlPath);
       await Promise.all([
         ...projectImageNames.map((name) =>
           copyFile(resolve(import.meta.dirname, "assets", name), resolve(client, "assets", name))
+        ),
+        ...reportNames.map((name) =>
+          copyFile(resolve(import.meta.dirname, "reports", name), resolve(client, "reports", name))
         ),
         copyFile(resolve(import.meta.dirname, "assets", "og.png"), resolve(client, "assets", "og.png")),
         copyFile(resolve(import.meta.dirname, "robots.txt"), resolve(client, "robots.txt")),

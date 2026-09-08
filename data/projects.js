@@ -3,15 +3,31 @@
 // 技術細節與測試數只放 decision 與 tags，它們只在展開的案例摘要裡出現
 export const projects = [
   {
-    id: "tcri-workbench", title: "讓信用風險提早 34 天被看見", kicker: "TCRI 信用風險預警平台", category: "taishin", featured: true, featureRank: 1,
+    id: "tcri-workbench", title: "建立信評預測與效力驗證平台", kicker: "TCRI 信評預測與研究平台", category: "taishin", featured: true, featureRank: 1,
     status: "台新實習", visibility: "private", year: "2026",
-    problem: "等到信評被調降，市場多半已經反應完了；風險單位想更早知道，但線索散在一份份財報裡。",
-    role: "把歷年財報與信評變動放在一起比對，做出一套會提前亮燈的風險分級畫面。",
-    proof: "訊號平均比 TCRI 調評早 34 天亮燈；依此訊號建構的樣本外回測年化 +7.38%、最大回撤 -5.65%。",
-    decision: "先用歷史資料回測驗證訊號的領先性，公開版本只放合成資料的操作演示。原始資料、公式與公司環境不公開。",
-    boundary: "模擬回測、非實盤績效，上線驗證仍在進行。",
+    problem: "財報與信評更新之間存在時間差，研究重點是模型能否從中辨識真正的評級變動。",
+    role: "整合財報、信評資料與風險排序，建立預測介面及逐年向前驗證流程。",
+    proof: "已完成樣本外效力評估；目前尚未超越基準，正優化評級變動辨識與誤報問題。",
+    decision: "目前精確評級輸出尚未超越沿用當時評級的基準；後續將評級變動辨識、方向預測與分區間校準拆開改善。財報到信評更新的時間差不等於成功預警；可轉債交易價值另以獨立策略回測評估。",
+    boundary: "預測模型持續優化中；畫面為合成資料。",
     tags: ["Python / PHP 後台", "歷史回測驗證"], demo: "demo/tcri/",
+    demoNotice: "舊版合成介面；頁尾舊績效已撤回，請以本頁最新研究結論為準。",
     image: "assets/tcri-workbench.png", imageAlt: "TCRI 公開合成演示的評等預測清單，截圖數值已隱去", imageCaption: "公開合成演示 · 非實際評等"
+  },
+  {
+    id: "tcri-cb-strategy", title: "比較可轉債擇券與進退場策略", kicker: "TCRI × CB 交易策略研究", category: "taishin", featured: true, featureRank: 6, area: "trading",
+    status: "台新實習", visibility: "private", year: "2026",
+    problem: "財報到信評更新之間存在時間差，但能否轉成可轉債的交易優勢，需要另外驗證。",
+    role: "把基本擇券、模型篩選、進場時點與退出政策拆開回測，並納入交易成本。",
+    proof: "完成擇券與進退場政策比較；延後進場較有利，提前賣出尚未呈現穩定優勢。",
+    decision: "以相同可交易母體，比較基本篩選與模型風險篩選、財報後進場與延後進場，再測試固定持有、信評更新退出及模型預警退出。分數是尚未校準的排序依據；固定持有收益不能歸因於預測模型。",
+    boundary: "初步研究；內部個券資料與明細不公開。",
+    tags: ["可轉債策略", "交易成本敏感度", "持有／退出政策"],
+    details: [
+      { title: "擇券與進場", text: "在相同交易條件下，分開測試模型篩選與進場早晚。最新評估較支持篩選後等待資訊消化，但交易樣本仍少，尚不足以宣稱策略驗證完成。" },
+      { title: "持有與退出", text: "將固定持有設為共同基準，另比較信評更新與模型預警退出。模型未觸發退出時，不能把持有期間的收益當作模型績效。" },
+      { title: "研究結論", text: "目前樣本不支持財報後立即卡位，也未支持把警示直接轉成賣出。後續重點是分區間校準、誤賣成本與可成交條件。" }
+    ]
   },
   {
     id: "anc-alerts", title: "把人工盯盤的風險指標變成自動亮燈", kicker: "ANC 預警與回測平台", category: "taishin", featured: true, featureRank: 2,
@@ -44,7 +60,27 @@ export const projects = [
     tags: ["C# / WinForms", "情境分析與計算核對"]
   },
   {
-    id: "edge-validator", title: "先分辨這條回測曲線是實力還是運氣", kicker: "Edge Validator", category: "research", featured: true, featureRank: 5,
+    id: "course-trading", title: "把交易想法寫成三套回測策略", kicker: "課堂獨立實作：0050、BTC 與因子選股", category: "research", featured: true, featureRank: 5, area: "trading",
+    status: "課堂獨立實作", visibility: "public", year: "2025–2026",
+    problem: "從選股、進出場到部位大小，投資想法必須化為明確規則，才能比較結果。",
+    role: "獨立完成台股、比特幣與因子選股程式，串接資料處理、模型訓練與回測。",
+    proof: "台股修訂回測年化 +36.18%、最大回撤 -49.41%；並附完整報告與程式截圖。",
+    decision: "原作以 Python、Random Forest 與 Backtesting.py 實作。申請修訂版排除未成熟的五日標籤，對齊觀望條件與績效定義；固定原作參數，另做成本、槓桿與移除模型的比較。",
+    boundary: "模擬回測、非實盤績效；參數曾經挑選。",
+    tags: ["Python", "滾動訓練", "策略回測"],
+    image: "assets/course-trading.png", imageAlt: "趨勢0050修訂策略與買入持有的淨值及回撤比較", imageCaption: "2018/12–2025/11 修訂回測 · 非實盤績效",
+    documents: [
+      { label: "策略報告 PDF", href: "reports/trend-0050.pdf" },
+      { label: "程式經驗 PDF", href: "reports/programming-experience.pdf" }
+    ],
+    details: [
+      { title: "趨勢 0050", text: "以均線辨識市場狀態，再以五日報酬預測調整曝險。修訂策略年化報酬高於基準，但最大回撤也較大，風險調整後表現未全面勝出。" },
+      { title: "趨勢 BTC", text: "在同一研究架構中加入雙均線、波動濾網、權益停損與冷卻期，處理不同市場的波動特性與價格單位。" },
+      { title: "因子選股", text: "合併個股報酬、市值、成交值與本益比，依月底排序調整投組權重，再配置至次月。BTC 與因子選股本次僅整理程式成果，未重跑或沿用舊績效。" }
+    ]
+  },
+  {
+    id: "edge-validator", title: "先分辨這條回測曲線是實力還是運氣", kicker: "Edge Validator", category: "research", featured: true, featureRank: 7,
     status: "公開可試用", visibility: "public", year: "2026",
     problem: "策略試一百次，總會有幾條曲線很漂亮；但漂亮不代表下一次還會贏。",
     role: "把常用的過度擬合檢定包成同一個工具，上傳績效資料就能得到一份判讀。",
@@ -54,7 +90,7 @@ export const projects = [
     tags: ["瀏覽器內計算", "統計檢定"], image: "assets/edge-validator.png", imageAlt: "Edge Validator 深色首頁，詢問策略是真實訊號還是雜訊擬合", demo: "https://hades60414-sys.github.io/edge-validator/", link: "https://github.com/hades60414-sys/edge-validator"
   },
   {
-    id: "chat-stock-ai", title: "用講的就能選股，不用先學篩選語法", kicker: "選股對話", category: "ai-apps", featured: true, featureRank: 6,
+    id: "chat-stock-ai", title: "用講的就能選股，不用先學篩選語法", kicker: "選股對話", category: "ai-apps", featured: true, featureRank: 8,
     status: "私人專案", visibility: "private", year: "2026",
     problem: "傳統選股器要你先知道該用哪個欄位、填哪個數字，想法還沒成形就被介面卡住。",
     role: "改成對話：使用者講想法，系統反問把條件補齊，最後產出一份明確的名單。",
@@ -64,7 +100,7 @@ export const projects = [
     tags: ["對話式介面", "規則模式可離線"], image: "assets/chat-stock.png", imageAlt: "選股對話的原始操作介面，展示示範對話與假資料篩選清單", imageCaption: "原始介面 · 示範對話與假資料"
   },
   {
-    id: "options-assistant", title: "把一句市場看法變成算得出風險的部位", kicker: "選擇權助手", category: "research", featured: true, featureRank: 7,
+    id: "options-assistant", title: "把一句市場看法變成算得出風險的部位", kicker: "選擇權助手", category: "research", featured: true, featureRank: 9,
     status: "私人專案", visibility: "private", year: "2026",
     problem: "口語的市場看法要變成實際部位，中間的乘數與條款很容易弄錯，弄錯就是賠錢。",
     role: "讓模型只負責翻成候選策略，定價、風險與排序全部交給程式算。",

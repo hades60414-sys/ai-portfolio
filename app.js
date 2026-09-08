@@ -2,6 +2,7 @@ import { projects } from "./data/projects.js";
 
 const taishinWork = document.querySelector("[data-taishin-work]");
 const personalWork = document.querySelector("[data-personal-work]");
+const tradingWork = document.querySelector("[data-trading-work]");
 const projectGroups = document.querySelector("[data-project-groups]");
 const projectDialog = document.querySelector("[data-project-dialog]");
 const dialogContent = document.querySelector("[data-dialog-content]");
@@ -63,6 +64,8 @@ function systemDiagram(project) {
       ? ["資料驗證", "預測基線", "預警快照"]
       : project.id === "marketvault"
         ? ["擷取", "追溯", "唯讀使用"]
+        : project.id === "tcri-cb-strategy"
+          ? ["基本擇券", "進場比較", "退出與成本"]
         : project.id === "bln-pricing"
           ? ["輸入條件", "商品試算", "逐項核對"]
           : ["模型理解", "程式計算", "人工確認"];
@@ -103,8 +106,15 @@ function story(project, className) {
 
 function actionArea(project) {
   const actions = element("div", "case-actions");
+  if (project.demoNotice) actions.append(element("p", "demo-notice", project.demoNotice));
   if (project.demo) actions.append(projectLink(project.id === "tcri-workbench" ? "開啟互動 Demo" : "開啟 Demo", project.demo, "button button-solid"));
   if (project.link) actions.append(projectLink("GitHub ↗", project.link, "text-action link-action"));
+  for (const document of project.documents || []) {
+    const link = projectLink(document.label + " ↗", document.href, "text-action document-link");
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    actions.append(link);
+  }
   const details = element("button", "text-action", "查看案例摘要");
   details.type = "button";
   details.dataset.projectId = project.id;
@@ -120,7 +130,7 @@ function selectedCase(project, index) {
   const meta = element("div", "case-meta");
   meta.append(element("span", "", project.kicker), element("span", "", project.status));
   copy.append(meta, element("h3", "", project.title), story(project, "case-story"));
-  if (project.category === "taishin") copy.append(element("p", "case-boundary", project.boundary));
+  if (project.category === "taishin" || project.area === "trading") copy.append(element("p", "case-boundary", project.boundary));
   copy.append(actionArea(project));
   article.append(visualFor(project), copy);
   return article;
@@ -145,8 +155,9 @@ function indexRow(project, index) {
 
 function renderPortfolio() {
   const selected = projects.filter((project) => project.featured).sort((a, b) => a.featureRank - b.featureRank);
-  taishinWork.replaceChildren(...selected.filter((project) => project.category === "taishin").map(selectedCase));
-  personalWork.replaceChildren(...selected.filter((project) => project.category !== "taishin").map((project, index) => selectedCase(project, index)));
+  taishinWork.replaceChildren(...selected.filter((project) => project.category === "taishin" && project.area !== "trading").map(selectedCase));
+  tradingWork.replaceChildren(...selected.filter((project) => project.area === "trading").map(selectedCase));
+  personalWork.replaceChildren(...selected.filter((project) => project.category !== "taishin" && project.area !== "trading").map(selectedCase));
   const groups = Object.keys(categoryLabels).map((category) => {
     const section = element("section", "index-group");
     const heading = element("h3", "", categoryLabels[category]);
@@ -172,9 +183,16 @@ function showProject(id, trigger) {
   const tags = element("ul", "tag-list");
   project.tags.forEach((tag) => tags.append(element("li", "", tag)));
   const actions = element("div", "dialog-actions");
+  if (project.demoNotice) actions.append(element("p", "demo-notice", project.demoNotice));
   if (project.demo) actions.append(projectLink(project.id === "tcri-workbench" ? "開啟互動 Demo" : "開啟 Demo", project.demo, "button button-solid"));
   if (project.link) actions.append(projectLink("GitHub ↗", project.link, "text-action link-action"));
-  if (!project.demo && !project.link) actions.append(element("span", "private-label", "無公開程式庫或資料入口"));
+  for (const document of project.documents || []) {
+    const link = projectLink(document.label + " ↗", document.href, "text-action document-link");
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    actions.append(link);
+  }
+  if (!project.demo && !project.link && !project.documents?.length) actions.append(element("span", "private-label", "無公開程式庫或資料入口"));
   fragment.append(meta, title);
   if (project.image) {
     const media = element("figure", "dialog-media");
@@ -186,7 +204,17 @@ function showProject(id, trigger) {
     media.append(fullImage, element("figcaption", "media-caption", (project.imageCaption || "專案畫面") + " · 點圖查看完整畫面 ↗"));
     fragment.append(media);
   }
-  fragment.append(story(project, "dialog-story"), details, tags, actions);
+  fragment.append(story(project, "dialog-story"));
+  if (project.details?.length) {
+    const research = element("div", "dialog-research");
+    project.details.forEach(({ title, text }) => {
+      const section = element("section", "");
+      section.append(element("h3", "", title), element("p", "", text));
+      research.append(section);
+    });
+    fragment.append(research);
+  }
+  fragment.append(details, tags, actions);
   dialogContent.replaceChildren(fragment);
   openDialog(trigger);
 }

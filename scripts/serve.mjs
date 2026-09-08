@@ -25,7 +25,8 @@ const contentTypes = new Map([
   [".png", "image/png"],
   [".jpg", "image/jpeg"],
   [".jpeg", "image/jpeg"],
-  [".webp", "image/webp"]
+  [".webp", "image/webp"],
+  [".pdf", "application/pdf"]
 ]);
 
 const securityHeaders = {

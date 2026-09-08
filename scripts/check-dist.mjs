@@ -20,6 +20,10 @@ const required = [
   "dist/client/assets/wild-alpha.png",
   "dist/client/assets/auto-quant.png",
   "dist/client/assets/sector-radar.png",
+  "dist/client/assets/course-trading.png",
+  "dist/client/assets/quantum-research.png",
+  "dist/client/reports/trend-0050.pdf",
+  "dist/client/reports/programming-experience.pdf",
   "dist/server/index.js",
   "dist/server/wrangler.json"
 ];
