@@ -11,7 +11,15 @@ const required = [
   "dist/client/assets/edge-validator.png",
   "dist/client/assets/og.png",
   "dist/client/assets/task-gacha.png",
+  "dist/client/assets/tcri-workbench.png",
+  "dist/client/assets/options-assistant.png",
+  "dist/client/assets/portfolio-dashboard.png",
+  "dist/client/assets/lab-llm-chat.png",
+  "dist/client/assets/daily-flow.png",
+  "dist/client/assets/investment-game.png",
   "dist/client/assets/wild-alpha.png",
+  "dist/client/assets/auto-quant.png",
+  "dist/client/assets/sector-radar.png",
   "dist/server/index.js",
   "dist/server/wrangler.json"
 ];

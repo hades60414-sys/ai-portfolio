@@ -10,7 +10,8 @@ export const projects = [
     proof: "訊號平均比 TCRI 調評早 34 天亮燈；依此訊號建構的樣本外回測年化 +7.38%、最大回撤 -5.65%。",
     decision: "先用歷史資料回測驗證訊號的領先性，公開版本只放合成資料的操作演示。原始資料、公式與公司環境不公開。",
     boundary: "模擬回測、非實盤績效，上線驗證仍在進行。",
-    tags: ["Python / PHP 後台", "歷史回測驗證"], demo: "demo/tcri/"
+    tags: ["Python / PHP 後台", "歷史回測驗證"], demo: "demo/tcri/",
+    image: "assets/tcri-workbench.png", imageAlt: "TCRI 公開合成演示的評等預測清單，截圖數值已隱去", imageCaption: "公開合成演示 · 非實際評等"
   },
   {
     id: "anc-alerts", title: "把人工盯盤的風險指標變成自動亮燈", kicker: "ANC 預警與回測平台", category: "taishin", featured: true, featureRank: 2,
@@ -33,7 +34,17 @@ export const projects = [
     tags: ["PostgreSQL / DuckDB", "資料來源追溯"]
   },
   {
-    id: "edge-validator", title: "先分辨這條回測曲線是實力還是運氣", kicker: "Edge Validator", category: "research", featured: true, featureRank: 4,
+    id: "bln-pricing", title: "把商品條款拆成可核對的試算流程", kicker: "BLN 商品評價模型", category: "taishin", featured: true, featureRank: 4,
+    status: "台新實習", visibility: "private", year: "2026",
+    problem: "商品條款牽涉不同的收付款時點，只看最後金額，很難發現是哪個環節算錯。",
+    role: "把條款整理成試算流程，將輸入、交割與風險分開呈現，方便逐項核對。",
+    proof: "已有可操作的試算介面，能沿著輸入與中間值追查結果，並區分試算與正式評價。",
+    decision: "以 C# 桌面介面整合商品試算與情境分析，將契約計算與模型估值分層處理。模型參數仍需校準與獨立驗證，不將試算結果視為正式評價或核准額度。",
+    boundary: "僅展示工作方法，原始文件、公式與試算數值不公開。",
+    tags: ["C# / WinForms", "情境分析與計算核對"]
+  },
+  {
+    id: "edge-validator", title: "先分辨這條回測曲線是實力還是運氣", kicker: "Edge Validator", category: "research", featured: true, featureRank: 5,
     status: "公開可試用", visibility: "public", year: "2026",
     problem: "策略試一百次，總會有幾條曲線很漂亮；但漂亮不代表下一次還會贏。",
     role: "把常用的過度擬合檢定包成同一個工具，上傳績效資料就能得到一份判讀。",
@@ -43,24 +54,25 @@ export const projects = [
     tags: ["瀏覽器內計算", "統計檢定"], image: "assets/edge-validator.png", imageAlt: "Edge Validator 深色首頁，詢問策略是真實訊號還是雜訊擬合", demo: "https://hades60414-sys.github.io/edge-validator/", link: "https://github.com/hades60414-sys/edge-validator"
   },
   {
-    id: "chat-stock-ai", title: "用講的就能選股，不用先學篩選語法", kicker: "選股對話", category: "ai-apps", featured: true, featureRank: 5,
+    id: "chat-stock-ai", title: "用講的就能選股，不用先學篩選語法", kicker: "選股對話", category: "ai-apps", featured: true, featureRank: 6,
     status: "私人專案", visibility: "private", year: "2026",
     problem: "傳統選股器要你先知道該用哪個欄位、填哪個數字，想法還沒成形就被介面卡住。",
     role: "改成對話：使用者講想法，系統反問把條件補齊，最後產出一份明確的名單。",
     proof: "同一份想法重跑會得到同一份名單；沒有金鑰時也能用純規則模式操作。",
     decision: "AI 只負責理解模糊語意，篩選條件與最終名單交給確定性程式管理，避免同樣的問題得到不同答案；同一套核心同時支撐兩種介面，287 項測試全數通過。",
     boundary: "程式庫與市場資料維持私人。",
-    tags: ["對話式介面", "規則模式可離線"], image: "assets/chat-stock.png", imageAlt: "選股對話介面，左側為逐輪對話，右側為收斂後股票清單"
+    tags: ["對話式介面", "規則模式可離線"], image: "assets/chat-stock.png", imageAlt: "選股對話的原始操作介面，展示示範對話與假資料篩選清單", imageCaption: "原始介面 · 示範對話與假資料"
   },
   {
-    id: "options-assistant", title: "把一句市場看法變成算得出風險的部位", kicker: "選擇權助手", category: "research", featured: true, featureRank: 6,
+    id: "options-assistant", title: "把一句市場看法變成算得出風險的部位", kicker: "選擇權助手", category: "research", featured: true, featureRank: 7,
     status: "私人專案", visibility: "private", year: "2026",
     problem: "口語的市場看法要變成實際部位，中間的乘數與條款很容易弄錯，弄錯就是賠錢。",
     role: "讓模型只負責翻成候選策略，定價、風險與排序全部交給程式算。",
     proof: "內建 24 條檢查規則會攔下不合理的報價與組合，跨部位風險每次都完整重算。",
     decision: "採 anchor-first：先固定市場基準價再往下推導；定價用 Black-76、風險用 Greeks，最終決定權留給人；55 項測試涵蓋定價與規則。",
     boundary: "不連接真實下單，帳戶與部位皆不公開。",
-    tags: ["選擇權定價", "人工最終確認"]
+    tags: ["選擇權定價", "人工最終確認"],
+    image: "assets/options-assistant.png", imageAlt: "選擇權助手的觀點輸入與風險試算介面，使用合成報價試算", imageCaption: "原始介面 · 合成報價試算"
   },
   {
     id: "wild-alpha", title: "自動搜出的策略，一樣要通過統計審查", kicker: "wild_alpha", category: "research", status: "私人專案", visibility: "private", year: "2026",
@@ -69,7 +81,7 @@ export const projects = [
     proof: "曾經整輪沒有任何策略通過，也主動撤回過先前的結論；每一次執行都可以重現。",
     decision: "把語料解析、策略搜尋、封存樣本外驗證、是否上線的裁決分成四個彼此獨立的階段，避免互相污染；固定隨機種子讓每次執行可重跑。",
     boundary: "研究仍在進行，不提供下載或公開連結。",
-    tags: ["可重現研究", "封存樣本外"], image: "assets/wild-alpha.png", imageAlt: "wild_alpha 從語料解析、策略演化到統計驗證的系統架構"
+    tags: ["可重現研究", "封存樣本外"], image: "assets/wild-alpha.png", imageAlt: "wild_alpha 的策略搜尋與統計驗證架構", imageCaption: "研究架構 · 非操作介面"
   },
   {
     id: "auto-quant-btc", title: "讓自動研究跑得再快也碰不到真實下單", kicker: "auto-quant-btc", category: "research", status: "私人專案", visibility: "private", year: "2026",
@@ -77,8 +89,8 @@ export const projects = [
     role: "把資料、策略生成、成本估計與回測串成一條流程，末端加一道人工授權的關卡。",
     proof: "所有試驗都預先登記、成本與滑價都計入，整條流程只在模擬環境執行。",
     decision: "自動研究與真實執行能力完全分離，未經人工授權不會進到下一層，每次乾跑都留紀錄。",
-    boundary: "不公開績效、程式或連結。",
-    tags: ["僅模擬環境", "風險關卡"]
+    boundary: "僅模擬研究，非實盤績效；不提供下單入口。",
+    tags: ["僅模擬環境", "風險關卡"], image: "assets/auto-quant.png", imageAlt: "auto-quant-btc 的歷史模擬研究曲線，非實盤績效", imageCaption: "歷史研究圖表 · 模擬回測、非實盤績效"
   },
   {
     id: "sector-radar", title: "盤中只在真的異常時才出聲", kicker: "族群雷達", category: "research", status: "私人專案", visibility: "private", year: "2026",
@@ -87,7 +99,7 @@ export const projects = [
     proof: "每一筆輸出都記錄了當下用的是哪個時間點的資料，以及門檻的校準結果。",
     decision: "先做歷史回放與只記錄不推播的影子運行，再決定訊號是否有資格打擾使用者。",
     boundary: "資料來源授權與測試尚待收斂，不建立公開連結。",
-    tags: ["門檻校準", "唯讀資料來源"]
+    tags: ["門檻校準", "唯讀資料來源"], image: "assets/sector-radar.png", imageAlt: "族群雷達的歷史盤前研究報告，非即時行情或投資訊號", imageCaption: "歷史研究報告 · 非即時行情"
   },
   {
     id: "portfolio-dashboard", title: "把散在各家券商的部位收成一張表", kicker: "投資組合儀表板", category: "ai-apps", status: "私人專案", visibility: "private", year: "2026",
@@ -96,7 +108,8 @@ export const projects = [
     proof: "支援多種資產的點值換算與到期提醒；單一資料來源失效時會自動改用備援。",
     decision: "影像辨識只負責提出欄位建議，部位更新一定要通過規則檢查與使用者確認才算數。",
     boundary: "個人持倉、券商截圖與各項金鑰不公開。",
-    tags: ["截圖辨識輔助", "多市場資產"]
+    tags: ["截圖辨識輔助", "多市場資產"],
+    image: "assets/portfolio-dashboard.png", imageAlt: "投資組合儀表板的資產總覽，全部為示範資料，非實際資產或績效", imageCaption: "原始介面 · 假資料展示"
   },
   {
     id: "lab-llm-chat", title: "讓團隊用得到本地模型，又不對外裸奔", kicker: "Lab LLM Chat", category: "ai-apps", status: "私人專案", visibility: "private", year: "2026",
@@ -105,7 +118,8 @@ export const projects = [
     proof: "誰能用、能用多少、用過什麼都有明確界線；外部要用一律走需要驗證的通道。",
     decision: "應用維持只在本機監聽，外部存取只透過具驗證的通道或私有網路，不直接開放服務埠。",
     boundary: "使用者資料與各項金鑰不公開。",
-    tags: ["本地模型代管", "登入與額度控管"]
+    tags: ["本地模型代管", "登入與額度控管"],
+    image: "assets/lab-llm-chat.png", imageAlt: "Lab Chat 的對話與歷史紀錄介面，使用者、對話及服務狀態均為示範內容", imageCaption: "原始介面 · 示範對話"
   },
   {
     id: "research-radar", title: "每週把新研究整理好，要不要做由人決定", kicker: "Research Radar", category: "workflow", status: "公開可試用", visibility: "public", year: "2026",
@@ -123,7 +137,8 @@ export const projects = [
     proof: "自用中，可離線安裝、資料留在裝置上，也能自行備份與還原。",
     decision: "核心規劃刻意不依賴 AI，才能保證同樣的輸入每次得到同樣的安排；93 項測試涵蓋排程與備份還原。",
     boundary: "個人資料分流尚待完成，不建立公開連結。",
-    tags: ["離線可用", "資料留在裝置"]
+    tags: ["離線可用", "資料留在裝置"],
+    image: "assets/daily-flow.png", imageAlt: "daily-flow 的今日任務介面，全新獨立環境載入內建範例任務", imageCaption: "原始介面 · 範例任務"
   },
   {
     id: "task-gacha", title: "讓「下一件做什麼」不再耗掉一個早上", kicker: "Task Gacha", category: "workflow", status: "私人專案", visibility: "private", year: "2026",
@@ -132,6 +147,6 @@ export const projects = [
     proof: "自用中，離線也能抽，抽完的狀態會留在裝置上。",
     decision: "用有限機率與明確回饋取代無限清單，資料優先留在裝置上；111 項測試涵蓋首次使用與抽卡流程。",
     boundary: "程式庫維持私人，公開前的檢查尚未完成。",
-    tags: ["抽卡式選擇", "離線狀態保存"], image: "assets/task-gacha.png", imageAlt: "Task Gacha 的紫色分層卡片視覺"
+    tags: ["抽卡式選擇", "離線狀態保存"], image: "assets/task-gacha.png", imageAlt: "Task Gacha 的原始扭蛋介面，全新獨立環境不含個人任務", imageCaption: "原始介面 · 獨立示範環境", imageWidth: 600, imageHeight: 1000
   }
 ];

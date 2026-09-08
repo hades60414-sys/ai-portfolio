@@ -56,7 +56,7 @@ if (!sitemap.includes(`<loc>${productionUrl}</loc>`)) failures.push("sitemap.xml
 
 const ids = projects.map((project) => project.id);
 if (new Set(ids).size !== ids.length) failures.push("Project IDs must be unique");
-if (projects.length !== 14) failures.push(`Expected 14 curated projects, found ${projects.length}`);
+if (projects.length !== 15) failures.push(`Expected 15 curated projects, found ${projects.length}`);
 
 for (const project of projects) {
   for (const field of [
@@ -90,8 +90,8 @@ if (publicLinks.some((project) => project.visibility !== "public")) {
   failures.push("Only public projects may expose repository or external demo links");
 }
 
-if (projects.filter((project) => project.featured).length !== 6) {
-  failures.push("Expected exactly six featured projects");
+if (projects.filter((project) => project.featured).length !== 7) {
+  failures.push("Expected exactly seven featured projects");
 }
 
 if (failures.length) {

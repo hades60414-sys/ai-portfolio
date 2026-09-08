@@ -48,8 +48,8 @@ function projectImage(project, className) {
   image.src = project.image;
   image.alt = project.imageAlt;
   image.loading = project.featured ? "eager" : "lazy";
-  image.width = 1280;
-  image.height = 800;
+  image.width = project.imageWidth || 1440;
+  image.height = project.imageHeight || 900;
   return image;
 }
 
@@ -63,7 +63,9 @@ function systemDiagram(project) {
       ? ["資料驗證", "預測基線", "預警快照"]
       : project.id === "marketvault"
         ? ["擷取", "追溯", "唯讀使用"]
-        : ["模型理解", "程式計算", "人工確認"];
+        : project.id === "bln-pricing"
+          ? ["輸入條件", "商品試算", "逐項核對"]
+          : ["模型理解", "程式計算", "人工確認"];
   visual.append(element("p", "diagram-label", project.kicker));
   const flow = element("div", "diagram-flow");
   stages.forEach((stage, index) => {
@@ -76,7 +78,9 @@ function systemDiagram(project) {
 
 function visualFor(project) {
   const figure = element("figure", "case-visual");
+  if (project.image) figure.classList.add("has-image");
   figure.append(project.image ? projectImage(project, "case-image") : systemDiagram(project));
+  figure.append(element("figcaption", "media-caption", project.imageCaption || (project.image ? "專案畫面" : "工作流程示意")));
   return figure;
 }
 
@@ -171,7 +175,18 @@ function showProject(id, trigger) {
   if (project.demo) actions.append(projectLink(project.id === "tcri-workbench" ? "開啟互動 Demo" : "開啟 Demo", project.demo, "button button-solid"));
   if (project.link) actions.append(projectLink("GitHub ↗", project.link, "text-action link-action"));
   if (!project.demo && !project.link) actions.append(element("span", "private-label", "無公開程式庫或資料入口"));
-  fragment.append(meta, title, story(project, "dialog-story"), details, tags, actions);
+  fragment.append(meta, title);
+  if (project.image) {
+    const media = element("figure", "dialog-media");
+    const fullImage = projectLink("", project.image, "image-link");
+    fullImage.target = "_blank";
+    fullImage.rel = "noopener noreferrer";
+    fullImage.setAttribute("aria-label", "開啟 " + project.kicker + " 完整畫面（另開視窗）");
+    fullImage.append(projectImage(project, "dialog-image"));
+    media.append(fullImage, element("figcaption", "media-caption", (project.imageCaption || "專案畫面") + " · 點圖查看完整畫面 ↗"));
+    fragment.append(media);
+  }
+  fragment.append(story(project, "dialog-story"), details, tags, actions);
   dialogContent.replaceChildren(fragment);
   openDialog(trigger);
 }

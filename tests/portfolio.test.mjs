@@ -7,15 +7,15 @@ import { projects } from "../data/projects.js";
 
 const root = resolve(import.meta.dirname, "..");
 
-test("portfolio reorganizes 14 systems into four categories and six featured cases", () => {
-  assert.equal(projects.length, 14);
+test("portfolio reorganizes 15 systems into four categories and seven featured cases", () => {
+  assert.equal(projects.length, 15);
   assert.equal(new Set(projects.map(({ id }) => id)).size, projects.length);
   for (const category of ["taishin", "research", "ai-apps", "workflow"]) {
     assert.ok(projects.some((project) => project.category === category), "missing " + category);
   }
   const featured = projects.filter(({ featured }) => featured).sort((a, b) => a.featureRank - b.featureRank);
-  assert.deepEqual(featured.map(({ id }) => id), ["tcri-workbench", "anc-alerts", "marketvault", "edge-validator", "chat-stock-ai", "options-assistant"]);
-  assert.equal(featured.length, 6);
+  assert.deepEqual(featured.map(({ id }) => id), ["tcri-workbench", "anc-alerts", "marketvault", "bln-pricing", "edge-validator", "chat-stock-ai", "options-assistant"]);
+  assert.equal(featured.length, 7);
 });
 
 test("Taishin project claims and synthetic demo boundary are present", () => {
