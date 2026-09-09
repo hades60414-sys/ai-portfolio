@@ -31,7 +31,9 @@ html.has-open-dialog {
 
 body {
   margin: 0;
-  background: var(--paper);
+  /* 暖紙材質取自形象海報本體，560px 鏡射磚無縫平鋪 */
+  background: var(--paper) url("assets/paper-texture.jpg");
+  background-size: 560px;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 17px;
@@ -128,7 +130,8 @@ section[id] {
   justify-content: space-between;
   min-height: 72px;
   padding: 0 48px;
-  background: var(--paper);
+  background: var(--paper) url("assets/paper-texture.jpg");
+  background-size: 560px;
   border-bottom: 1px solid transparent;
 }
 
@@ -1083,7 +1086,8 @@ dialog {
   max-height: min(900px, calc(100svh - 48px));
   overflow: auto;
   padding: 72px 64px 64px;
-  background: var(--paper);
+  background: var(--paper) url("assets/paper-texture.jpg");
+  background-size: 560px;
   color: var(--ink);
   border: 1px solid var(--ink);
   border-radius: 0;
@@ -1285,7 +1289,8 @@ dialog::backdrop {
     display: none;
     align-items: stretch;
     padding: 14px 20px 22px;
-    background: var(--paper);
+    background: var(--paper) url("assets/paper-texture.jpg");
+    background-size: 560px;
     border-bottom: 1px solid var(--ink);
   }
 
