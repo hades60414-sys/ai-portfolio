@@ -329,9 +329,26 @@ section[id] {
 }
 
 .portrait-frame img {
+  display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
+  height: auto;
+}
+
+/* 仿原海報字樣：細襯線斜體、寬字距、下方細線 */
+.portrait-caption {
+  margin-top: 18px;
+  color: #8a8177;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.42em;
+  text-align: center;
+}
+
+.portrait-caption span {
+  display: inline-block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #c9c1b4;
 }
 
 .running-line {
