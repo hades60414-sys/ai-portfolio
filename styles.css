@@ -4,7 +4,7 @@
   --muted: #625e56;
   --rule: #cfc7b9;
   --surface: #ece6da;
-  --accent: #1e4eb7;
+  --accent: #3f5673; /* 鋼青：取自手繪插畫襯衫色域，對紙底對比 6.63:1 */
   --navy: #12263f;
   --vermilion: #c9472e;
   --white: #fffdf8;
@@ -286,12 +286,12 @@ section[id] {
 }
 
 .button-solid {
-  background: var(--accent);
-  color: var(--white);
+  background: var(--ink);
+  color: #f5f0e6;
 }
 
 .button-solid:hover {
-  background: var(--navy);
+  background: var(--accent);
 }
 
 .text-action {
@@ -326,16 +326,6 @@ section[id] {
   position: relative;
   overflow: hidden;
   background: var(--surface);
-}
-
-.portrait-frame::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 42px;
-  height: 42px;
-  background: var(--vermilion);
-  content: "";
 }
 
 .portrait-frame img {
@@ -1756,14 +1746,14 @@ h3 {
   background: #fbf8f1;
   border: 1px solid #ddd3c2;
   border-left: 6px solid #8d1730;
-  border-radius: 12px;
+  border-radius: 4px;
   text-decoration: none;
 }
 .taishin-demo-callout:hover .callout-cta { background: #611021; }
 .taishin-demo-callout .callout-kicker { grid-area: kicker; color: #8d1730; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
 .taishin-demo-callout .callout-title { grid-area: title; font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
 .taishin-demo-callout .callout-desc { grid-area: desc; color: #6d675e; font-size: 14px; }
-.taishin-demo-callout .callout-cta { grid-area: cta; padding: 12px 22px; color: #fff; background: #8d1730; border-radius: 999px; font-size: 15px; font-weight: 800; white-space: nowrap; transition: background .15s; }
+.taishin-demo-callout .callout-cta { grid-area: cta; padding: 12px 20px; color: #fff; background: #8d1730; border-radius: 4px; font-size: 15px; font-weight: 800; white-space: nowrap; transition: background .15s; }
 @media (max-width: 760px) {
   .taishin-demo-callout { grid-template-columns: 1fr; grid-template-areas: "kicker" "title" "desc" "cta"; padding: 22px 20px; }
   .taishin-demo-callout .callout-cta { justify-self: start; margin-top: 10px; }
@@ -1808,10 +1798,10 @@ h3 {
 .image-link { display: block; }
 .image-link:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .capability-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
-.capability-nav a { padding: 14px 12px; border-top: 2px solid var(--accent); text-decoration: none; background: rgba(255,255,255,.3); }
+.capability-nav a { padding: 14px 12px; border-top: 2px solid #d8d0c2; text-decoration: none; }
 .capability-nav strong { display: block; font-size: 17px; }
 .capability-nav span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
-.capability-nav a:hover { background: #fff; }
+.capability-nav a:hover { background: var(--surface); }
 .demo-notice { flex-basis: 100%; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
 .dialog-research { display: grid; gap: 22px; margin-top: 28px; }
 .dialog-research h3 { margin: 0 0 8px; font-size: 18px; }
