@@ -149,7 +149,7 @@ test("public page removes GRILL and only exposes the approved contact email", as
   assert.match(html, /mailto:Hades60414@gmail\.com/);
   assert.doesNotMatch(html, /09\d{2}[- ]?\d{3}[- ]?\d{3}/);
   assert.doesNotMatch(html.replaceAll("Hades60414@gmail.com", ""), /[A-Za-z0-9._%+-]+@gmail\.com/i);
-  await access(resolve(root, "assets/portrait-zhang-da-heng.png"));
+  await access(resolve(root, "assets/portrait-zhang-da-heng.jpg"));
 });
 
 test("preview server refuses a non-loopback bind", async () => {

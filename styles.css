@@ -322,7 +322,7 @@ section[id] {
 .portrait-frame {
   position: relative;
   overflow: hidden;
-  background: var(--navy);
+  background: var(--surface);
 }
 
 .portrait-frame::after {
@@ -337,7 +337,7 @@ section[id] {
 
 .portrait-frame img {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
 }
 
@@ -1629,18 +1629,19 @@ dialog::backdrop {
   }
 }
 
-/* 2026 portfolio information architecture */
+/* 2026 portfolio information architecture：台新區與全站同用暖紙底，僅留硃紅小方塊作記號 */
 .internship-section .section-heading {
-  background: var(--navy);
-  color: var(--paper);
+  position: relative;
 }
 
-.internship-section .section-heading > div:last-child > p {
-  color: #cbd2d8;
-}
-
-.internship-section .section-index span {
-  color: #87a8ff;
+.internship-section .section-heading::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--vermilion);
+  content: "";
 }
 
 .index-group + .index-group {
@@ -1698,10 +1699,6 @@ dialog::backdrop {
 }
 
 @media (max-width: 760px) {
-  .internship-section .section-heading {
-    margin-inline: calc((100% - 100vw) / 2);
-    padding-inline: 20px;
-  }
 
   .project-row {
     grid-template-columns: 42px minmax(0, 1fr) auto;
@@ -1750,17 +1747,18 @@ h3 {
   align-items: center;
   margin: 28px 0 8px;
   padding: 26px 32px;
-  color: #fff;
-  background: linear-gradient(118deg, #550b1b 0%, #741328 62%, #882039 100%);
-  border-bottom: 4px solid #a5344b;
+  color: var(--ink);
+  background: #fbf8f1;
+  border: 1px solid #ddd3c2;
+  border-left: 6px solid #8d1730;
   border-radius: 12px;
   text-decoration: none;
 }
-.taishin-demo-callout:hover .callout-cta { background: #fff; color: #741328; }
-.taishin-demo-callout .callout-kicker { grid-area: kicker; color: #e8b9c3; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
+.taishin-demo-callout:hover .callout-cta { background: #611021; }
+.taishin-demo-callout .callout-kicker { grid-area: kicker; color: #8d1730; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
 .taishin-demo-callout .callout-title { grid-area: title; font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
-.taishin-demo-callout .callout-desc { grid-area: desc; color: #f0dfe3; font-size: 14px; }
-.taishin-demo-callout .callout-cta { grid-area: cta; padding: 12px 22px; border: 2px solid rgba(255,255,255,.75); border-radius: 999px; font-size: 15px; font-weight: 800; white-space: nowrap; transition: background .15s, color .15s; }
+.taishin-demo-callout .callout-desc { grid-area: desc; color: #6d675e; font-size: 14px; }
+.taishin-demo-callout .callout-cta { grid-area: cta; padding: 12px 22px; color: #fff; background: #8d1730; border-radius: 999px; font-size: 15px; font-weight: 800; white-space: nowrap; transition: background .15s; }
 @media (max-width: 760px) {
   .taishin-demo-callout { grid-template-columns: 1fr; grid-template-areas: "kicker" "title" "desc" "cta"; padding: 22px 20px; }
   .taishin-demo-callout .callout-cta { justify-self: start; margin-top: 10px; }
