@@ -50,6 +50,7 @@ function projectImage(project, className) {
   image.src = project.image;
   image.alt = project.imageAlt;
   image.loading = project.featured ? "eager" : "lazy";
+  image.decoding = "async";
   image.width = project.imageWidth || 1440;
   image.height = project.imageHeight || 900;
   return image;
