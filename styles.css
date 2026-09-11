@@ -1104,15 +1104,19 @@ dialog::backdrop {
   background: rgba(18, 38, 63, 0.78);
 }
 
+/* sticky：長文捲動時關閉鈕留在右上角。sticky 的 top 從 dialog padding 內緣起算，
+   所以 top 與 margin-top 都是「18px − padding-top」，維持距上緣 18px、距右 20px 且不推擠內文 */
 .dialog-close {
-  position: absolute;
-  top: 18px;
-  right: 20px;
-  min-width: 72px;
-  min-height: 44px;
+  position: sticky;
+  top: -54px;
+  z-index: 2;
+  display: block;
+  width: 72px;
+  height: 44px;
+  margin: -54px -44px 10px auto;
   padding: 0;
-  background: none;
-  border: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
   font-family: var(--font-mono);
   font-size: 10px;
   cursor: pointer;
@@ -1547,6 +1551,11 @@ dialog::backdrop {
     padding: 66px 24px 36px;
   }
 
+  .dialog-close {
+    top: -48px;
+    margin: -48px -4px 4px auto;
+  }
+
   .dialog-facts {
     grid-template-columns: 1fr;
   }
@@ -1862,6 +1871,10 @@ h3 {
 }
 
 /* dialog 詳述長文 */
+.dialog-longform {
+  max-width: 40em;
+  margin-top: 40px;
+}
 .dialog-longform p {
   margin: 0 0 16px;
   font-size: 16px;
