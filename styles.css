@@ -728,7 +728,7 @@ section[id] {
   place-items: center;
   border: 1px solid var(--paper);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.06em;
 }
 
@@ -1610,8 +1610,7 @@ dialog::backdrop {
   }
 
   .diagram-flow span {
-    width: 62px;
-    font-size: 8px;
+    width: 76px;
   }
 
   .diagram-consumers {
