@@ -11,7 +11,7 @@ export const projects = [
     decision: "目前精確評級輸出尚未超越沿用當時評級的基準；後續將評級變動辨識、方向預測與分區間校準拆開改善。財報到信評更新的時間差不等於成功預警；可轉債交易價值另以獨立策略回測評估。",
     boundary: "預測模型持續優化中；畫面為合成資料。",
     tags: ["Python / PHP 後台", "歷史回測驗證"], demo: "demo/tcri/",
-    demoNotice: "舊版合成介面；頁尾舊績效已撤回，請以本頁最新研究結論為準。",
+    demoNotice: "介面與實際系統一致；畫面中的評等與數值皆為合成資料。",
     image: "assets/tcri-workbench.png", imageAlt: "TCRI 公開合成演示的評等預測清單，截圖數值已隱去", imageCaption: "公開合成演示 · 非實際評等"
   },
   {
