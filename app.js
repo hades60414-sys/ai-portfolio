@@ -1,4 +1,5 @@
 import { projects } from "./data/projects.js";
+import { stories } from "./data/stories.js";
 
 const taishinWork = document.querySelector("[data-taishin-work]");
 const personalWork = document.querySelector("[data-personal-work]");
@@ -204,7 +205,15 @@ function showProject(id, trigger) {
     media.append(fullImage, element("figcaption", "media-caption", (project.imageCaption || "專案畫面") + " · 點圖查看完整畫面 ↗"));
     fragment.append(media);
   }
-  fragment.append(story(project, "dialog-story"));
+  // 有詳述者在 dialog 用長文取代三句摘要；沒有的沿用 story(project, "dialog-story")
+  const longform = stories[project.id];
+  if (longform?.length) {
+    const caseStory = element("div", "dialog-longform");
+    longform.forEach((text) => caseStory.append(element("p", "", text)));
+    fragment.append(caseStory);
+  } else {
+    fragment.append(story(project, "dialog-story"));
+  }
   if (project.details?.length) {
     const research = element("div", "dialog-research");
     project.details.forEach(({ title, text }) => {
