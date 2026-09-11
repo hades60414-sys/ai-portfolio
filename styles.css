@@ -841,6 +841,7 @@ section[id] {
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .project-title p {
