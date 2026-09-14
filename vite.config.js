@@ -4,7 +4,8 @@ import { copyFile, mkdir, readFile, rm, unlink, writeFile } from "node:fs/promis
 import { resolve } from "node:path";
 
 const projectImageNames = ["chat-stock.png", "edge-validator.png", "task-gacha.png", "tcri-workbench.png", "options-assistant.png", "portfolio-dashboard.png", "lab-llm-chat.png", "daily-flow.png", "investment-game.png", "wild-alpha.png", "auto-quant.png", "sector-radar.png", "course-trading.png", "quantum-research.png"];
-const reportNames = ["trend-0050.pdf", "programming-experience.pdf"];
+projectImageNames.push("trend-tx.png");
+const reportNames = ["trend-0050.pdf", "programming-experience.pdf", "trend-tx.html", "trend-tx.css"];
 
 function staticWorker() {
   return {

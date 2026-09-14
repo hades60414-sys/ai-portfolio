@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>趨勢台指期｜Mike 張大恒</title>
+<meta name="description" content="將趨勢0050交易構想移植至台指期，呈現整數口數、換倉、成本與日夜盤風險的研究結果。">
+<link rel="stylesheet" href="trend-tx.css">
+</head>
+<body><main>
+<a class="back" href="../index.html#case-course-trading">← 返回 Mike 的交易策略作品</a>
+<header><p class="eyebrow">交易策略研究 / TX 日線</p><h1>同一套交易構想，<br>換到台指期驗證。</h1><p class="lead">從趨勢 0050 延伸到大台 TX，保留訊號架構，以台指期資料重新訓練模型，將整數口數、換倉與交易成本納入計算。</p><p class="meta">研究建立 2026.09 · 資料截至 2026.06.30 · 研究本金新台幣 1,000 萬元</p></header>
+<section aria-labelledby="result"><h2 id="result">2026 上半年</h2><div class="metrics"><div><span>累積報酬</span><strong>+209.11<small>%</small></strong></div><div><span>日夜盤高低點最大回撤</span><strong>−24.05<small>%</small></strong></div></div><p class="note">歷史模擬，非實盤績效。此為累積報酬，不是年化；日夜盤估值尚未模擬盤中強平。</p></section>
+<section><h2>先說清楚：這是哪一份驗證？</h2><p>台指期版是 2026 年 9 月新做的跨商品移植研究，沒有搜尋新的交易參數。0050 的策略繳交後驗證，另見 <a href="trend-0050.pdf">0050 報告</a>；台指期並非當初已繳交並持續實盤運行的版本，也不把已看過的台灣市場行情稱作全新獨立樣本外。</p></section>
+<section><h2>報酬與回撤，一起看</h2><div class="table-wrap"><table><caption>大台 TX 原訊號移植版 · 本金 1,000 萬元</caption><thead><tr><th scope="col">觀察期間</th><th scope="col">報酬</th><th scope="col">日收盤 MDD</th><th scope="col">日夜盤 MDD</th></tr></thead><tbody><tr><th scope="row">2019/1–2026/6</th><td>年化 60.39%</td><td>−35.17%</td><td>−35.92%</td></tr><tr><th scope="row">2025/12–2026/6</th><td>累積 240.99%</td><td>−19.87%</td><td>−24.05%</td></tr><tr><th scope="row">2026 上半年</th><td>累積 209.11%</td><td>−19.87%</td><td>−24.05%</td></tr></tbody></table></div><p>只看每天日盤收盤，會漏掉持倉在夜盤中承受的較深回撤。加入高低點估值後，上半年 MDD 從 −19.87% 變為 −24.05%；交易與期末淨值沒有改變。</p><p class="note">日夜盤 MDD 依固定持倉及各時段高低價估值。本次最深回撤不受同時段高低先後次序影響；不代表已重建逐筆成交或強平。</p></section>
+<figure><a href="../assets/trend-tx.png"><img src="../assets/trend-tx.png" width="1870" height="1020" alt="台指期原訊號與目標一倍做多基準的日收盤淨值及回撤，期間2019年1月至2026年6月" loading="lazy"></a><figcaption>圖中為日盤收盤淨值，起點 100、淨值使用對數軸。下半部是日收盤回撤；較完整的日夜盤回撤見上表。</figcaption></figure>
+<section><h2>移植時處理了什麼？</h2><div class="method"><article><h3>保留訊號，重訓模型</h3><p>60 日均線、五日報酬預測與實際空手等待放空規則保持；每 60 日依既有程序重訓，排除尚未成熟的五日標籤。</p></article><article><h3>逐合約計算換倉</h3><p>到期週星期一日盤開盤轉入次月；訊號用連續價格，交易損益用實際合約價格。舊單平倉、新單開倉都扣成本，不把月間價差當獲利。</p></article><article><h3>整數口數與成本</h3><p>大台每點 200 元。每口每邊假設手續費 50 元、滑價 1 點，再加期交稅；本金與口數取整會影響績效。</p></article><article><h3>獨立重建帳務</h3><p>以逐筆交易現金流及持倉市值重建淨值，與主引擎核對；另用只有換倉價差、沒有市場漲跌的案例，確認不會產生虛構收益。</p></article></div></section>
+<section><h2>比較基準與尚待補齊的限制</h2><p>目標一倍做多 TX 基準，同期間年化 26.29%，2026 上半年累積 56.51%；上半年日夜盤 MDD 為 −12.90%。它也採整數口數與再平衡門檻，實際曝險常低於一倍，並非 0050 買入持有。</p><p>較高成本情境（每邊 100 元、2 點滑價）下，全期年化降至 58.74%。研究保證金暫以名目金額 20% 計算，尚未重建歷史公告、券商追繳與盤中強平；不能據此宣稱完整可執行績效。此結果亦不能直接套用到較小本金帳戶。</p></section>
+<section><h2>資料來源</h2><p>使用期交所 2014/1–2026/6 共 150 個月份的官方 TX 日行情。回測期間為 2019/1/2–2026/6/30，共 1,817 個日淨值點；另核對 1,816 個夜盤時段，持倉期間沒有缺少夜盤 OHLC 的日期。</p><ul><li><a href="https://www.taifex.com.tw/cht/3/dlFutDailyMarketView">期交所每日與年度行情</a></li><li><a href="https://www.taifex.com.tw/cht/2/tX?menuid1=12">TX 契約規格</a></li><li><a href="https://www.taifex.com.tw/cht/4/feeSchedules">費用及期交稅</a></li></ul></section>
+<footer>Mike 張大恒 · 策略構想源於本人交易觀察；台指期移植、回測與查核由 AI 協助完成。<br>研究更新 2026.09.14</footer>
+</main></body></html>

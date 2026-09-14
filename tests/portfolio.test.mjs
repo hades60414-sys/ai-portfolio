@@ -87,11 +87,11 @@ test("only verified repositories and demos are exposed", () => {
 test("course reports and research experience are connected to the portfolio", async () => {
   const course = projects.find(({ id }) => id === "course-trading");
   assert.equal(course.status, "課堂獨立實作");
-  assert.match(course.proof, /36\.18%/);
-  assert.match(course.proof, /-49\.41%/);
+  assert.match(course.proof, /2026 上半年回測累積 \+244\.85%/);
+  assert.match(course.proof, /-16\.40%/);
   assert.match(course.boundary, /模擬回測、非實盤績效/);
-  assert.deepEqual(course.documents.map(({ href }) => href), ["reports/trend-0050.pdf", "reports/programming-experience.pdf"]);
-  for (const { href } of course.documents) {
+  assert.deepEqual(course.documents.map(({ href }) => href), ["reports/trend-0050.pdf", "reports/trend-tx.html", "reports/programming-experience.pdf"]);
+  for (const { href } of course.documents.filter(({ href }) => href.endsWith('.pdf'))) {
     const bytes = await readFile(resolve(root, href));
     assert.equal(bytes.subarray(0, 5).toString(), "%PDF-", href);
   }

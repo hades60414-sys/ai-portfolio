@@ -23,6 +23,9 @@ const required = [
   "dist/client/assets/course-trading.png",
   "dist/client/assets/quantum-research.png",
   "dist/client/reports/trend-0050.pdf",
+  "dist/client/reports/trend-tx.html",
+  "dist/client/reports/trend-tx.css",
+  "dist/client/assets/trend-tx.png",
   "dist/client/reports/programming-experience.pdf",
   "dist/server/index.js",
   "dist/server/wrangler.json"

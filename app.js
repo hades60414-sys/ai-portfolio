@@ -100,9 +100,21 @@ function story(project, className) {
   const block = element("div", className);
   block.append(
     element("p", "story-problem", project.problem),
-    element("p", "story-role", project.role),
-    element("p", "story-proof", project.proof)
+    element("p", "story-role", project.role)
   );
+  if (project.highlight) {
+    const result = element("section", "story-proof performance-highlight");
+    result.setAttribute("aria-label", project.proof);
+    result.append(element("p", "performance-title", project.highlight.title), element("p", "performance-period", project.highlight.period));
+    const metrics = element("dl", "performance-metrics");
+    for (const [label, value] of project.highlight.metrics) {
+      const item = element("div", "");
+      item.append(element("dt", "", label), element("dd", "", value));
+      metrics.append(item);
+    }
+    result.append(metrics, element("p", "performance-note", project.highlight.note));
+    block.append(result);
+  } else block.append(element("p", "story-proof", project.proof));
   return block;
 }
 
