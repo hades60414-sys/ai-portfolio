@@ -59,7 +59,6 @@ function projectImage(project, className) {
 function systemDiagram(project) {
   const visual = element("div", "system-diagram");
   visual.setAttribute("role", "img");
-  visual.setAttribute("aria-label", project.kicker + "的工作流程示意");
   const stages = project.id === "tcri-workbench"
     ? ["歷史資料", "風險分級", "預警訊號"]
     : project.id === "anc-alerts"
@@ -71,11 +70,110 @@ function systemDiagram(project) {
         : project.id === "bln-pricing"
           ? ["輸入條件", "商品試算", "逐項核對"]
           : ["模型理解", "程式計算", "人工確認"];
+  visual.setAttribute("aria-label", project.kicker + "的工作流程示意：" + stages.join(" → "));
+
+  // Decorative line art only: no simulated metrics or implied product screens.
+  // All styling stays inside this component; existing page layout is unchanged.
+  const drawings = {
+    validate: [
+      ["M18 18h40v52H18z M28 32h20 M28 43h13 M28 54h17"],
+      ["M52 51l8 8 18-22", true]
+    ],
+    baseline: [
+      ["M14 18v52h68 M23 53h51", false, "4 5"],
+      ["M22 58l11-10 12 4 12-15 10 4 13-16", true]
+    ],
+    snapshot: [
+      ["M16 20h64v50H16z M16 32h64 M27 44h17 M27 57h17 M57 57h12"],
+      ["M57 44h12", true]
+    ],
+    ingest: [
+      ["M14 23h20 M14 44h20 M14 65h20 M34 23l17 21-17 21 M51 44h23"],
+      ["M65 35l9 9-9 9", true]
+    ],
+    lineage: [
+      ["M28 23c0-9 40-9 40 0s-40 9-40 0 M28 23v40c0 9 40 9 40 0V23 M28 43c0 9 40 9 40 0"],
+      ["M40 31v27 M36 54l4 4 4-4", true]
+    ],
+    readonly: [
+      ["M12 44h24 M36 44V20h18 M36 44h18 M36 44v24h18 M64 13h17v14H64z M64 37h17v14H64z M64 61h17v14H64z"],
+      ["M36 44h18", true]
+    ],
+    inputs: [
+      ["M16 24h24 M52 24h28 M16 44h43 M71 44h9 M16 64h11 M39 64h41 M40 18h12v12H40z M59 38h12v12H59z M27 58h12v12H27z"],
+      ["M40 18h12v12H40z", true]
+    ],
+    pricing: [
+      ["M13 53h70 M23 45v16 M48 45v16 M73 45v16 M23 30h50 M23 30v8 M73 30v8"],
+      ["M48 20v20 M43 35l5 5 5-5", true]
+    ],
+    reconcile: [
+      ["M16 21h29 M16 43h29 M16 65h29"],
+      ["M57 19l5 5 12-12 M57 41l5 5 12-12 M57 63l5 5 12-12", true]
+    ],
+    select: [
+      ["M16 19h64L57 44v22l-18 7V44z M27 29h42"],
+      ["M43 51h10", true]
+    ],
+    compare: [
+      ["M14 65h68 M23 20v34 M46 30v24 M69 15v39", false, "3 5"],
+      ["M18 37h10 M41 45h10 M64 26h10 M23 37l23 8 23-19", true]
+    ],
+    costs: [
+      ["M19 17h42v57l-7-4-7 4-7-4-7 4-7-4-7 4z M29 30h20 M29 41h15 M29 52h15"],
+      ["M53 56h27 M73 49l7 7-7 7", true]
+    ]
+  };
+  const icons = {
+    "tcri-workbench": ["lineage", "baseline", "snapshot"],
+    "anc-alerts": ["validate", "baseline", "snapshot"],
+    marketvault: ["ingest", "lineage", "readonly"],
+    "tcri-cb-strategy": ["select", "compare", "costs"],
+    "bln-pricing": ["inputs", "pricing", "reconcile"]
+  }[project.id] || ["inputs", "pricing", "reconcile"];
+  const svgNS = "http://www.w3.org/2000/svg";
+  const makeSvg = (viewBox) => {
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", viewBox);
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "1.6");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    return svg;
+  };
+
   visual.append(element("p", "diagram-label", project.kicker));
   const flow = element("div", "diagram-flow");
+  flow.style.cssText = "display:grid;grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr) 18px minmax(0,1fr);gap:8px;align-items:start;margin-top:48px";
   stages.forEach((stage, index) => {
-    flow.append(element("span", "", stage));
-    if (index < stages.length - 1) flow.append(element("i", "", "→"));
+    const step = element("div", "diagram-step");
+    step.style.cssText = "min-width:0;text-align:center";
+    const icon = makeSvg("0 0 96 88");
+    icon.style.cssText = "display:block;width:100%;max-width:108px;height:88px;margin:0 auto 20px";
+    drawings[icons[index]].forEach(([d, accent, dash]) => {
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttribute("d", d);
+      path.setAttribute("stroke", accent ? "#e3977d" : "currentColor");
+      if (dash) path.setAttribute("stroke-dasharray", dash);
+      icon.append(path);
+    });
+    const number = element("p", "diagram-step-number", String(index + 1).padStart(2, "0"));
+    number.style.cssText = "margin:0 0 8px;color:#b9c1c9;font-family:var(--font-mono);font-size:10px;line-height:1;letter-spacing:.12em";
+    const label = element("p", "diagram-step-label", stage);
+    label.style.cssText = "margin:0;font-size:clamp(11px,1.2vw,14px);line-height:1.6;letter-spacing:.03em;overflow-wrap:anywhere";
+    step.append(icon, number, label);
+    flow.append(step);
+    if (index < stages.length - 1) {
+      const connector = makeSvg("0 0 18 16");
+      connector.style.cssText = "display:block;width:18px;height:16px;margin-top:36px;color:#91a0b1";
+      const arrow = document.createElementNS(svgNS, "path");
+      arrow.setAttribute("d", "M1 8h15 M11 3l5 5-5 5");
+      connector.append(arrow);
+      flow.append(connector);
+    }
   });
   visual.append(flow);
   return visual;
