@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 
 const projectImageNames = ["chat-stock.png", "edge-validator.png", "task-gacha.png", "tcri-workbench.png", "options-assistant.png", "portfolio-dashboard.png", "lab-llm-chat.png", "daily-flow.png", "investment-game.png", "wild-alpha.png", "auto-quant.png", "sector-radar.png", "course-trading.png", "quantum-research.png"];
 projectImageNames.push("trend-tx.png");
+projectImageNames.push("anc-alerts-flat.jpg", "marketvault-flat.jpg", "bln-pricing-flat.jpg", "tcri-cb-strategy-flat.jpg");
 const reportNames = ["trend-0050.pdf", "programming-experience.pdf", "trend-tx.html", "trend-tx.css"];
 
 function staticWorker() {

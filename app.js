@@ -1,4 +1,4 @@
-import { projects } from "./data/projects.js";
+import { projects } from "./data/projects.js?v=flat-artwork-20261118";
 import { stories } from "./data/stories.js";
 
 const taishinWork = document.querySelector("[data-taishin-work]");
