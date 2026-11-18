@@ -23,6 +23,7 @@ export const projects = [
     decision: "以相同可交易母體，比較基本篩選與模型風險篩選、財報後進場與延後進場，再測試固定持有、信評更新退出及模型預警退出。分數是尚未校準的排序依據；固定持有收益不能歸因於預測模型。",
     boundary: "初步研究；內部個券資料與明細不公開。",
     tags: ["可轉債策略", "交易成本敏感度", "持有／退出政策"],
+    image: "assets/tcri-cb-strategy-flat.jpg", imageAlt: "可轉債研究的平面概念插畫，以條款、風險與價值呈現研究主題", imageCaption: "研究概念示意", imageWidth: 1254, imageHeight: 1254,
     details: [
       { title: "擇券與進場", text: "在相同交易條件下，分開測試模型篩選與進場早晚。最新評估較支持篩選後等待資訊消化，但交易樣本仍少，尚不足以宣稱策略驗證完成。" },
       { title: "持有與退出", text: "將固定持有設為共同基準，另比較信評更新與模型預警退出。模型未觸發退出時，不能把持有期間的收益當作模型績效。" },
@@ -37,7 +38,8 @@ export const projects = [
     proof: "完成 178 檔標的的歷史驗證；從資料進來到預警產出，整段流程可以原樣重跑。",
     decision: "ANC 是期貨商的調整後淨資本額比率，屬主管機關監理指標。刻意用最保守的預測基線搭配明確的預警規則，不把回測結果講成即時訊號；最低分組裡實際出問題的標的目前約抓到一半，仍在改進。",
     boundary: "不宣稱即時性，公開頁不含公司、代號或內部連線。",
-    tags: ["資料驗證流程", "風險分級規則"]
+    tags: ["資料驗證流程", "風險分級規則"],
+    image: "assets/anc-alerts-flat.jpg", imageAlt: "ANC 預警與回測平台的平面概念插畫，以訊號、篩選與判斷呈現工作流程", imageCaption: "工作流程示意", imageWidth: 1774, imageHeight: 887
   },
   {
     id: "marketvault", title: "讓四個系統看到同一份市場資料", kicker: "MarketVault 市場資料管線", category: "taishin", featured: true, featureRank: 3,
@@ -47,7 +49,8 @@ export const projects = [
     proof: "四個下游應用改用同一份資料；有了來源時戳，數字兜不攏時查得出是哪一步的問題。",
     decision: "用 PostgreSQL 集中儲存、DuckDB 做分析查詢，下游只走唯讀介面，避免有人改到來源；實習期間延伸支援交易室市場資料需求。",
     boundary: "資料庫、檔案、憑證與執行紀錄都不公開。",
-    tags: ["PostgreSQL / DuckDB", "資料來源追溯"]
+    tags: ["PostgreSQL / DuckDB", "資料來源追溯"],
+    image: "assets/marketvault-flat.jpg", imageAlt: "MarketVault 市場資料管線的平面概念插畫，呈現資料彙整、結構化與查詢分析；圖中數值為示意資料", imageCaption: "工作流程示意 · 圖中數值為示意資料", imageWidth: 1672, imageHeight: 941
   },
   {
     id: "bln-pricing", title: "把商品條款拆成可核對的試算流程", kicker: "BLN 商品評價模型", category: "taishin", featured: true, featureRank: 4,
@@ -57,7 +60,8 @@ export const projects = [
     proof: "已有可操作的試算介面，能沿著輸入與中間值追查結果，並區分試算與正式評價。",
     decision: "以 C# 桌面介面整合商品試算與情境分析，將契約計算與模型估值分層處理。模型參數仍需校準與獨立驗證，不將試算結果視為正式評價或核准額度。",
     boundary: "僅展示工作方法，原始文件、公式與試算數值不公開。",
-    tags: ["C# / WinForms", "情境分析與計算核對"]
+    tags: ["C# / WinForms", "情境分析與計算核對"],
+    image: "assets/bln-pricing-flat.jpg", imageAlt: "BLN 商品評價模型的平面工作流程插畫，呈現條件輸入、商品試算與逐項核對", imageCaption: "工作流程示意", imageWidth: 1672, imageHeight: 941
   },
   {
     "id": "course-trading",
